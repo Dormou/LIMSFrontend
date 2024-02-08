@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom"
 import { SignInEmailRequest } from "../../connect/authApi/Requests"
 import logo from "../../source/images/LogoBig.png"
 import styles from './SignInPage.module.scss'
+import { UserInfo } from "../../connect/authApi/Types"
 
 export const SignInPage = () => {
     const [signIn] = useSignInMutation()
@@ -24,10 +25,24 @@ export const SignInPage = () => {
                         setSubmitting(false)
 
                         const data = await signIn(values).unwrap()
+                        
+                        console.log("data")
+                        console.log(data)
 
-                        localStorage.setItem(`library.token`, data.token)
+                        const user : UserInfo = {
+                            token: data.token,
+                            firstname: data.firstname,
+                            lastname: data.lastname,
+                            email: data.email
+                        }
 
-                        navigate("/")
+                        console.log("user")
+                        console.log(user)
+                       
+                        localStorage.setItem(`lims.user.token`, JSON.stringify(data.token))
+                        localStorage.setItem(`lims.user`, JSON.stringify(user))
+
+                        navigate("/personal-area")
                     }}
                     >{({ isSubmitting }) => (     
                         <Form className={styles.fields}>

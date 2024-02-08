@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router'
 import styles from './SignUpPage.module.scss'
 import { SignUpSchema } from './services/SignUpSchema'
 import { Link } from 'react-router-dom'
+import { UserInfo } from '../../connect/authApi/Types'
 
 
 export const SignUpPage = () => {
@@ -15,6 +16,8 @@ export const SignUpPage = () => {
     const [activate] = useActivationMutation()
 
     const navigate = useNavigate()
+
+    let user : UserInfo
     
     return (
         <div>
@@ -39,7 +42,16 @@ export const SignUpPage = () => {
 
                             const data = await signUp(values as SignUpEmailRequest).unwrap()
 
-                            if(data) SetWaitCode(true)
+                            if(data) {
+                                user = {
+                                    token: 's',
+                                    firstname: values.firstname,
+                                    lastname: values.lastname,
+                                    email: values.email
+                                }
+                                
+                                SetWaitCode(true)
+                            }
                         }}
 
                     >{({ isSubmitting, values }) => (     
@@ -74,9 +86,12 @@ export const SignUpPage = () => {
                             const data = await activate(values).unwrap()
 
                             if(data) {
-                                localStorage.setItem('library.token', data.token)
+                                user.token = data.token
 
-                                navigate('/')
+                                localStorage.setItem('lims.user.token', data.token)
+                                localStorage.setItem('lims.user', JSON.stringify(user))
+
+                                navigate('/personal-area')
                             } 
                             else alert("code is bad")
                         }}
