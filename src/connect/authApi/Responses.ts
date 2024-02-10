@@ -23,3 +23,10 @@ export type ActivateNewPasswordResponse = {
     token: string
     message: string
 }
+
+export type FetchAccountsResponse = {
+    id: string
+    fullname: string
+    accessRights: string //?
+    storyActions: string
+}

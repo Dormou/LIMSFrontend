@@ -16,11 +16,6 @@ function App() {
           <Route path='/signup' element={<SignUpPage/>}/>
         </Routes>
       </BrowserRouter> 
-      <div className='header'>
-        <div className="discriptionWhoDevelopment">
-                  Разработано департаментом цифровых систем управления и технологии АО "НТЦ ФСК ЕЭС"®
-        </div>    
-      </div>
     </div>
   );
 }

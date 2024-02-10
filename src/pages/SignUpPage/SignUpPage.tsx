@@ -105,6 +105,9 @@ export const SignUpPage = () => {
                     </Formik>
                 }
             </div>
+            <div className={styles.discriptionWhoDevelopment}>
+                  Разработано департаментом цифровых систем управления и технологии АО "НТЦ ФСК ЕЭС"®
+            </div>  
     </div> 
     )
 }

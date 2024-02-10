@@ -54,7 +54,10 @@ export const SignInPage = () => {
                             <button className={styles.signUpButton} onClick={() => navigate("/signup")}>Зарегистрироваться</button>
                         </Form>
                     )}
-                </Formik>  
+                </Formik> 
+                <div className={styles.discriptionWhoDevelopment}>
+                  Разработано департаментом цифровых систем управления и технологии АО "НТЦ ФСК ЕЭС"®
+                </div>  
             </div>
         </div>
     )

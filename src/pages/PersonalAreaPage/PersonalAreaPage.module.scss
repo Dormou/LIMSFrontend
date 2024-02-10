@@ -1,5 +1,19 @@
+$sceneWidth: 80%;
+
 .scene {
-    width: 70vw;
+    margin-left: 20%;
+    width: $sceneWidth;
+}
+
+
+.sceneHeader {
+    width: 100%;
+    position: sticky;
+    display: inline-flex;
+}
+
+.sceneBody {
+    width: 100%;
 }
 
 .menu {
@@ -16,4 +30,43 @@
 .logo {
     width: 80%;
     margin-inline: 10%;
+}
+
+.sceneSwitcher {
+    width: 80%;
+    height: 30%;
+    margin-top: 1%;
+    text-align: center;
+}
+
+.switchButtonsConteinerScene {
+    display: inline-flex;
+    width: 100%;
+    margin-inline: 5%;
+}
+
+.switchButtonScene {  
+    color: rgb(17, 67, 143);
+    padding-inline: 2%;
+    font-size: x-large;
+    font-weight: 600;
+    font-stretch: ultra-condensed;
+    font-style: impact;
+
+    &[id="select"] {
+        outline: none;
+        border-bottom: 2px solid;
+    }
+
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.goToMainPage {
+    position: sticky;
+    margin-top: 20px;
+    margin-right: 15px;
+    white-space: nowrap;
+    color: gray;
 }
