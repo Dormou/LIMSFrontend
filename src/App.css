@@ -1,7 +1,8 @@
-.discriptionWhoDevelopment{
-  font-weight: bold;
-  position:fixed;
-  bottom:0;
-  width: 100%;
-  text-align: center;
+.blockScrollX {
+  overflow-x: hidden;
 }
+
+.blockScrollY {
+  overflow-y: hidden;
+}
+

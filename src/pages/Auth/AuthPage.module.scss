@@ -1,0 +1,214 @@
+.main {
+    height: 100vh;
+    & > * {
+        display: inline-flex;
+
+    }
+}
+
+.blur {
+    display: inline-flex;
+    overflow-y: hidden;
+    filter: blur(8px);
+}
+
+.none {
+
+}
+
+.footer{
+    font-weight: bold;
+    position:fixed;
+    bottom:0;
+    width: 100%;
+    text-align: left;
+    font-weight: 500;
+    font-size: 14px;
+    margin: 1%;
+    margin-left: 4.5%;
+    color: rgb(0, 87, 168);
+}
+
+
+.fields {
+    display: inline-flex;
+    align-content: center;
+    flex-direction: column;
+    align-items: center;
+
+    & > input {
+        margin: 10px;
+        height: 50px;
+        width: 20vw;
+        border: solid 1px rgba(95, 95, 95, 0.281);
+        border-radius: 5px;
+        background-color: rgb(255, 255, 255);
+        text-indent: 10px;
+        text-align: left;
+    }
+}
+
+.formContainer {
+    width: 48vw;
+}
+
+.bannerText {
+   position: fixed;
+   left: 20%;
+   top: 2.3%;
+   font-weight: 650;
+   font-size: 30px;
+   font-stretch: 50% !important;
+   color: rgb(27, 87, 165);
+   z-index: 1;
+}
+
+.bannerLogo {
+    position: fixed;
+    left: 2%;
+    top: 3%;
+    z-index: 1;
+    width: 200px;
+}
+
+.signUp {
+    z-index: 2;
+}
+
+.emailSupport {
+    color: blue;
+}
+
+.acceptWindow {
+    position: fixed;
+    display: block;
+    top: 35%;
+    left: 25%;
+    z-index: 2;
+    width: 50%;
+    height: 30%;
+    background-color: white;
+    border: 1px solid;
+    border-radius: 3px;
+
+    & > :nth-child(2) {
+        margin-left: 10%;
+        width: 100%;
+        text-align: center;
+    }
+
+    & > :nth-child(3) {
+        color: gray;
+        text-align: center;
+    }
+}
+
+.closeButton {
+    background-color: transparent;
+    border-color: transparent;
+    float: right;
+    text-align: center;
+    color: black; 
+    width: 35px;
+    height: 35px;
+    margin: 10px;
+    font-weight: 100;
+    font-size: 15px;
+    font-stretch: extra-expanded;
+}
+
+.button {
+    text-align: center;
+    color: white;
+    background-color: rgb(19, 76, 151);
+    width: 50px;
+    height: 50px;
+    border-radius: 5px;
+    border: 1px solid;
+    margin-top: 10px;
+    font-weight: 700;
+    font-size: 15px;
+}
+
+.rejectWindow {
+    position: fixed;
+    display: block;
+    top: 40%;
+    left: 35%;
+    z-index: 2;
+    width: 30%;
+    height: 20%;
+    background-color: white;
+    border: 1px solid;
+    border-radius: 3px;
+
+    & > :first-child {
+        width: 100%;
+        text-align: center;
+    }
+
+    & > :nth-child(2) {
+        color: red;
+        text-align: center;
+        margin-left: 18%;
+    }
+}
+
+.banner {
+   width: 50vw;
+   height: 100vh;
+   background-color: white;
+   opacity: 35%;
+}
+
+.form {
+    margin-left: 27%;
+    margin-top: 37%;
+}
+
+.fogotPassword {
+    color: gray;
+    text-decoration: underline;
+    margin-right: 45%;
+}
+
+.signInButton {
+    margin-top: 25px;
+    color: white;
+    background-color: rgb(19, 66, 128);
+    height: 45px;
+    width: 20vw;
+    border-radius: 5px;
+    border-color: transparent;
+    font-size: 20px;
+    font-weight: 200;
+    font-stretch: 50%;
+}
+
+.signUpButton{
+    margin-top: 10px;
+    color: rgb(0, 65, 150);
+    background-color: rgb(255, 255, 255);
+    height: 45px;
+    width: 20vw;
+    border-radius: 5px;
+    border-color: rgb(0, 77, 178);
+    font-size: 20px;
+    font-weight: 300;
+    font-stretch: 60%;
+}
+
+.logo{
+    display: block;
+    margin-left: auto;
+    width: 25%;
+}
+
+.welcomeText {
+    text-align: center;
+    font-weight: 1800;
+    flex-direction: 1200;
+    margin-right: 40%;
+    color: rgb(34, 0, 185);
+    margin-bottom: 0;
+}
