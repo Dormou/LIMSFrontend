@@ -1,8 +1,8 @@
 import { fetchAccounts } from "../../../../mock/authApiMock"
 import styles from "./ListEmployersComponent.module.scss"
 import { EmployerListItemComponent } from "./components/EmployerListItemComponent/EmployerListItemComponent"
-import filterIconFilter from "../../../../source/icons/filter-icon-personal-area-filter.png"
-import filterIconCalendar from "../../../../source/icons/calendar-icon-personal-area-filter.png"
+import filterIconFilter from "../../../../source/images/icons/filter-icon-personal-area-filter.png"
+import filterIconCalendar from "../../../../source/images/icons/calendar-icon-personal-area-filter.png"
 import { useState } from "react"
 import Calendar from "react-calendar"
 import 'react-calendar/dist/Calendar.css'

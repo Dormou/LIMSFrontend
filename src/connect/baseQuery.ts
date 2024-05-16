@@ -4,7 +4,7 @@ import { getAccessToken } from './getAccessToken';
 
 
 export const baseQuery = fetchBaseQuery({
-    baseUrl: `${config.LIMS_API}`,
+    baseUrl: `${config.BOOK_API}`,
     prepareHeaders: (headers, { getState }) => {
         const token = getAccessToken()  
 

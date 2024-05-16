@@ -1,9 +1,21 @@
 export type SignInResponse = {
     token: string
+    message: string
+}
+
+export type SignInUserInfoResponse = {
+    token: string
     firstname: string
     lastname: string
+    additionalname: string
+    dolgnost: string
+    orgname: string
+    orgaddress: string
+    signUpDate: string
+    phone: string
     email: string
-    message: string
+    session: string
+    passwordUpdateAt: Date 
 }
 
 export type SignUpResponse = {
@@ -27,6 +39,6 @@ export type ActivateNewPasswordResponse = {
 export type FetchAccountsResponse = {
     id: string
     fullname: string
-    accessRights: string //?
+    accessRights: string
     storyActions: string
 }

@@ -6,8 +6,12 @@ export type SignInEmailRequest = {
 export type SignUpEmailRequest = {
     firstname: string
     lastname: string
+    additionalname: string
+    dolgnost: string
+    orgname: string
+    orgaddress: string
+    phone: string
     email: string
-    password: string
 }
 
 export type ActivationRequest = {

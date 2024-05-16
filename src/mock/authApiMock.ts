@@ -1,5 +1,5 @@
 import { randomUUID } from "crypto"
-import { FetchAccountsResponse } from "../connect/authApi/Responses"
+import { FetchAccountsResponse, SignInUserInfoResponse } from "../connect/authApi/Responses"
 
 export const fetchAccounts = () => {
     const response : FetchAccountsResponse[] = [
@@ -28,6 +28,25 @@ export const fetchAccounts = () => {
             storyActions: "story"
         }
     ]
+
+    return response
+}
+
+export const getUser = () => {
+    const response : SignInUserInfoResponse = {
+        token: "sfsdgdsgfdgdgfgdg",
+        firstname: "Ivan",
+        signUpDate: new Date(Date.now()).toString(),
+        lastname: "Vovanov",
+        additionalname: "Gervecevich",
+        dolgnost: "Pilot",
+        orgname: "HyperAirBus",
+        orgaddress: "air",
+        phone: "+79044308421",
+        email: "kravter7@gmail.com",
+        session: "Браузер Yandex, Россия, г. Москва (вход выполнен в 09:24:15 13.05.2024)",
+        passwordUpdateAt: new Date(Date.now() - 100)
+    }
 
     return response
 }

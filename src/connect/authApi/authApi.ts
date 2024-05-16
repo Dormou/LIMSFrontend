@@ -5,41 +5,41 @@ import { ActivateNewPasswordRequest, ActivationRequest, ForgotPasswordRequest, S
 import { ActivateNewPasswordResponse, ActivationResponse, SignInResponse, SignUpResponse } from "./Responses";
 
 export const authApi = createApi({
-    reducerPath: "access/control",
+    reducerPath: "passport",
     baseQuery: baseQuery,
     endpoints: builder => {
         return ({
             signIn: builder.mutation<SignInResponse, SignInEmailRequest>({
                 query: data => ({
-                    url: 'access/control/account/signin',
+                    url: 'passport/account/signin',
                     method: 'POST',
                     body: data
                 })
             }),
             signUp: builder.mutation<SignUpResponse, SignUpEmailRequest>({
                 query: data => ({
-                    url: 'access/control/account/signup',
+                    url: 'passport/account/signup',
                     method: 'POST',
                     body: data 
                 })
             }),
             activation: builder.mutation<ActivationResponse, ActivationRequest>({
                 query: data => ({
-                    url: 'access/control/account/activation',
+                    url: 'passport/account/activation',
                     method: 'POST',
                     body: data 
                 })
             }),
             activateNewPassword: builder.mutation<ActivateNewPasswordResponse, ActivateNewPasswordRequest>({
                 query: data => ({
-                    url: 'access/control/account/activate',
+                    url: 'passport/account/activate',
                     method: 'POST',
                     body: data 
                 })
             }),
             forgotPassword: builder.mutation<ForgotPasswordRequest, ForgotPasswordRequest>({
                 query: data => ({
-                    url: 'access/control/account/forgot',
+                    url: 'passport/account/forgot',
                     method: 'POST',
                     body: data 
                 })
