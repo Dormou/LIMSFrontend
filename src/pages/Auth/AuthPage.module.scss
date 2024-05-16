@@ -79,6 +79,69 @@
     color: blue;
 }
 
+.recoveryPasswordWindow {
+    position: fixed;
+    display: block;
+    top: 40%;
+    left: 35%;
+    z-index: 2;
+    width: 30%;
+    height: 25%;
+    background-color: white;
+    border: 1px solid;
+    border-radius: 3px;
+
+    input {
+        background-color: white;
+        border-radius: 5px;
+        border-color: gray;
+        color: gray;
+        border: 1px solid;
+        width: 90%;
+        height: 20%;
+        margin-inline: 20px;
+    }
+
+    .recEmail{
+        margin-left: 5%;
+        margin-bottom: 2px;
+    }
+
+    & > :nth-child(2) {
+        width: 100%;
+        margin-left: 7%;
+        text-align: center;
+    }
+
+    & > :nth-child(6) {
+        text-align: center;
+        margin-inline: 45%;
+    }
+}
+
+.recoveryPasswordWindowMessage {
+    position: fixed;
+    display: block;
+    top: 35%;
+    left: 25%;
+    z-index: 2;
+    width: 50%;
+    height: 30%;
+    background-color: white;
+    border: 1px solid;
+    border-radius: 3px;
+
+    & > :nth-child(2) {
+        margin-left: 10%;
+        width: 100%;
+        text-align: center;
+    }
+
+    & > :nth-child(3) {
+        color: gray;
+        text-align: center;
+    } 
+}
 .acceptWindow {
     position: fixed;
     display: block;
