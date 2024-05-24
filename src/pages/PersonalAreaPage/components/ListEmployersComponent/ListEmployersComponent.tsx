@@ -1,4 +1,4 @@
-import { fetchAccounts } from "../../../../mock/authApiMock"
+import { fetchAccounts } from "../../../../mock/accountApiMock"
 import styles from "./ListEmployersComponent.module.scss"
 import { EmployerListItemComponent } from "./components/EmployerListItemComponent/EmployerListItemComponent"
 import filterIconFilter from "../../../../source/images/icons/filter-icon-personal-area-filter.png"

@@ -1,9 +1,32 @@
 export type SignInResponse = {
+    id: string
     token: string
     message: string
 }
 
-export type SignInUserInfoResponse = {
+export type ChangePasswordResponse = {
+    
+}
+
+export type ChangeUserInfoResponse = {
+    firstname: string
+    lastname: string
+    additionalname: string
+    dolgnost: string
+    phone: string
+    email: string
+}
+
+export type UserPhotoResponse = {
+    photo: string
+}
+
+export type ChangeUserPhotoResponse = {
+    photo: string
+}
+
+export type UserInfoResponse = {
+    id: string
     token: string
     firstname: string
     lastname: string

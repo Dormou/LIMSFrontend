@@ -1,0 +1,176 @@
+$header-heights: calc(100vh - 92vh);
+$header-width: 100%;
+$def-blue: #005B9C;
+
+
+.dropdownMenuContent {
+    outline: 0;
+    background-color: #E3EEF4 !important;
+    color: #005B9C !important;
+    width: 100% !important;
+    height: 60% !important;
+    margin-left: -45% !important;
+    border: 0.5px #005B9C solid;
+    border-radius: 2px !important;
+
+}
+
+.menuItemExit {
+    text-align: end;
+    height: 40px;
+    border-top: 0.5px #005B9C solid;
+
+    &:hover {
+        outline: 0;
+        border-color: transparent !important;
+        color: red !important;
+    }
+
+    &:focus {
+        border-color: transparent !important;
+    }
+
+    & > * {
+        border-color: transparent !important;
+    }
+}
+
+.ddLabel {
+    display: inline-flex;
+    text-align: end;
+
+    & > :first-child {
+        float: left;
+        margin-left: 0;
+        left: 0;
+        right: auto;
+        margin-right: auto;
+        width: 32px;
+    }
+
+    & > :last-child {
+        text-align: end;
+        margin-left: 30px;
+    }
+
+    .settingsIcon {
+        margin-left: 0 !important;
+        margin-right: 63px;
+    }
+
+    .signoutIcon {
+        margin-left: 0 !important;
+
+        margin-right: 100px;
+    }
+
+    .profileIcon {
+        filter: invert(30%) sepia(73%) saturate(9252%) hue-rotate(187deg) brightness(69%) contrast(119%);
+        margin-left: 0 !important;
+
+        margin-right: 27px;
+    }
+}
+
+.menuItem {
+    text-align: end;
+    height: 40px;
+    margin-bottom: 5px;
+    padding: 0 !important;
+
+    &:hover {
+        outline: 0;
+        border-color: transparent !important;
+        border: 0px solid;
+        color: red !important;
+    }
+
+    &:focus {
+        border-color: transparent !important;
+    }
+}
+
+.header {
+    height: $header-heights;
+    width: $header-width;
+    background-color: $def-blue;
+    display: inline-flex;
+
+    .headerLogo {
+        height: calc($header-heights*0.94);
+        margin-left: 30px;
+        margin-bottom: 40px;
+        margin-top: 0;
+    }
+
+    .notifications {
+        margin-top: 4%;
+    }
+
+    .headerText{
+        color: white;
+        margin-left: 50px;
+        font-size: 20px;
+    }
+
+    .profileHeader {
+        display: inline-flex;
+        margin-top: 6px;
+        margin-left: 53%;
+
+        .profileIcon {
+            $size: 48px;
+
+            background-color: rgb(54, 113, 195);
+            border-radius: 50%;
+            border-color: transparent;
+            width: $size;
+            height: $size;
+
+            & > img {
+                width: $size*0.8;
+                height: $size*0.8;
+                margin-top: 10%;
+                margin-left: 10%;
+                margin-bottom: auto;
+                margin-right: auto;
+                border-radius: 50%;
+            }
+        }
+
+        .dropdownMenuTrigger {
+            display: inline-flex;
+            background-color: transparent;
+            width: 140px;
+            color: white;
+            border-color: transparent;
+            margin-top: 18px;
+            font-size: 12px;
+            font-weight: 600;
+
+            .dropdownMenuText {
+                margin-top: -3%;
+            }
+        }
+
+        .dropdownMenuIcon {
+            $size: 7px;
+
+            margin-bottom: 15px;
+            margin-left: 10px;
+            vertical-align: middle;
+            //margin: 0 5px;
+            display: inline-block;
+            width: 0;
+            height: 0;
+            border-top: $size solid white;
+            border-left: $size solid transparent;
+            border-right: $size solid transparent;
+        }
+
+        & > * {
+            height: 64px;
+            width: 64px;
+        }
+    }
+}

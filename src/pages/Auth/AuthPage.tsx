@@ -1,13 +1,13 @@
 import { ErrorMessage, Field, Formik, Form } from "formik"
 
-import { useSignInMutation } from "../../connect/authApi/authApi"
+import { useLazyGetUserInfoQuery, useSignInMutation } from "../../connect/authApi/accountApi"
 import { Link, useNavigate } from "react-router-dom"
 import { SignInEmailRequest } from "../../connect/authApi/Requests"
 
 import logoBanner from "../../source/images/logos/a1069ceebd4d50ad1dfc224ff5406fc4.png"
 import banner from "../../source/images/banners/authBanner.jpeg"
 
-import { useAppDispatch, setFooter, setScrollX, setScrollY } from '../../connect/store'
+import { useAppDispatch, setFooter, setScrollX, setScrollY, setShowHeader, setShowFooter } from '../../connect/store'
 import { useEffect, useRef, useState } from "react"
 
 import { Footer } from "../components/Footer/Footer"
@@ -17,7 +17,7 @@ import styles from './AuthPage.module.scss'
 import { useSelector } from "react-redux"
 
 
-const getFooter = () => {
+const GetFooter = () => {
 
     return (
         <div className={styles.footer}>"Разработано департаментом цифровых систем управления и технологии АО "НТЦ ФСК ЕЭС"®"</div>
@@ -29,41 +29,42 @@ export const AuthPage = () => {
 
     const dispatch = useAppDispatch()
 
-    const [signIn] = useSignInMutation()
+    const [signIn, signInResult] = useSignInMutation()
+    const [userInfoQuery, userInfo] = useLazyGetUserInfoQuery()
 
     const [isSignUp, setIsSignUp] = useState(false)
     const [rejectWindow, setRejectWindow] = useState(false)
     const [acceptWindow, setAcceptWindow] = useState(false)
 
-    const footer = useRef(useSelector((state: any) => state.footer))
     const email = useRef('')
     
-    useEffect(() => {dispatch(setFooter({show: true, value: <Footer slot={getFooter()}/>}))}, [])
+    useEffect(() => {dispatch(setShowHeader(false))}, [])
+    useEffect(() => {dispatch(setFooter(setShowFooter(true)))}, [])
     useEffect(() => {dispatch(setScrollX(false))}, [])
     useEffect(() => {dispatch(setScrollY(false))}, [])
 
     useEffect(() => { 
         if(rejectWindow) setTimeout(() => {
             setRejectWindow(false)
-            dispatch(setFooter({show: true, value: <Footer slot={getFooter()}/>}))
+            dispatch(setShowFooter(true))
         }, 5000)
     }, [rejectWindow])
 
     useEffect(() => {
         if(acceptWindow) setTimeout(() => {
             setAcceptWindow(false)
-            dispatch(setFooter({show: true, value: <Footer slot={getFooter()}/>}))
+            dispatch(setShowFooter(true))
         }, 15000)
     }, [acceptWindow])
 
     const closeAcceptWindow = () => {
         setAcceptWindow(false)
-        dispatch(setFooter({show: true, value: <Footer slot={getFooter()}/>}))
+        dispatch(setShowFooter(true))
     }
     
 
     const onClickToSignUp = () => {
-        dispatch(setFooter({...footer.current, ['show']: false}))
+        dispatch(setShowFooter(false))
 
         setIsSignUp(true)
     }
@@ -83,7 +84,7 @@ export const AuthPage = () => {
                 setRejectWindow(true) 
                 break   
             default: 
-                dispatch(setFooter({show: true, value: <Footer slot={getFooter()}/>}))
+                dispatch(setFooter({show: true, value: <Footer slot={<GetFooter/>}/>}))
                 break
         }       
     }
@@ -106,10 +107,14 @@ export const AuthPage = () => {
                                 setSubmitting(false)
 
                                 const data = await signIn(values).unwrap()
+                                
+                                console.log(data)
 
-                                localStorage.setItem(`library.token`, data.token)
+                                localStorage.setItem('lims.userinfo', JSON.stringify(await userInfoQuery(data.id).unwrap()))
+                                localStorage.setItem(`lims.token`, data.token)
+                                localStorage.setItem(`lims.id`, data.id)
 
-                                navigate("/")
+                                navigate("/personal-area")
                             }}
                             >{({ isSubmitting }) => (     
                                 <Form className={styles.fields}>
