@@ -1,5 +1,5 @@
 import { ErrorMessage, Field, Form, Formik } from 'formik'
-import { useActivationMutation, useSignUpMutation } from '../../../../connect/authApi/authApi'
+import { useActivationMutation, useSignUpMutation } from '../../../../connect/authApi/accountApi'
 import { ActivationRequest, SignUpEmailRequest } from '../../../../connect/authApi/Requests'
 
 import { useRef, useState } from 'react'

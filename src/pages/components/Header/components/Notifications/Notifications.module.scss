@@ -1,0 +1,18 @@
+.main {
+    & > .count {
+        position: absolute;
+        background-color: red;
+        border-radius: 100%;
+        color: white;
+        width: 16px;
+        height: 16px;
+        font-size: 12px;
+        text-align: center;
+        margin-left: 18px;
+        margin-top: 4px;
+    }
+    
+    & > .notifications {
+        margin-top: 12%;
+    }
+}

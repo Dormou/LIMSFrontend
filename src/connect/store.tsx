@@ -1,8 +1,9 @@
 import { configureStore, createSlice } from '@reduxjs/toolkit';
 import { setupListeners } from '@reduxjs/toolkit/query'
-import { authApi } from './authApi/authApi';
+import { accountApi } from './authApi/accountApi';
 import { useDispatch, useSelector } from 'react-redux';
 import { Footer } from '../pages/components/Footer/Footer';
+import { Header } from '../pages/components/Header/Header';
 
 export const viewAppStorage = createSlice({
     name: 'viewApp',
@@ -20,24 +21,41 @@ export const footerStorage = createSlice({
     name: 'footer',
     initialState: {
         show: true, 
-        value: Footer({})
+        value: <Footer/>
     },
 
     reducers: {
-        setFooter: (state, action) => state = action.payload
+        setFooter: (state, action) => state = action.payload,
+        setShowFooter: (state, action) => void(state.show = action.payload)
     },
 })
+
+export const headerStorage = createSlice({
+    name: 'header',
+    initialState: {
+        show: true, 
+        value: <Header/>
+    },
+
+    reducers: {
+        setHeader: (state, action) => state = action.payload,
+        setShowHeader: (state, action) => void(state.show = action.payload)
+    },
+
+})
+
 
 export const store = configureStore({
     reducer: {
         viewApp: viewAppStorage.reducer,
+        header: headerStorage.reducer,
         footer: footerStorage.reducer,
-        [authApi.reducerPath]: authApi.reducer,
+        [accountApi.reducerPath]: accountApi.reducer,
     },
     middleware: (getDefaultMiddleware) =>
-        getDefaultMiddleware()
+        getDefaultMiddleware({serializableCheck: false})
         .concat([
-            authApi.middleware,
+            accountApi.middleware,
     ])
 });
 
@@ -46,7 +64,8 @@ setupListeners(store.dispatch)
 type AppStore = typeof store
 type AppDispatch = AppStore['dispatch']
 
-export const { setFooter, } = footerStorage.actions 
+export const { setFooter, setShowFooter } = footerStorage.actions 
+export const { setHeader, setShowHeader } = headerStorage.actions
 export const { setScrollY, setScrollX } = viewAppStorage.actions
 
 export type RootState = ReturnType<AppStore['getState']>
