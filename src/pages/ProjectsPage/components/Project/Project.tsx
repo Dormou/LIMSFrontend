@@ -34,7 +34,7 @@ export const Project = (props: propsProject) => {
 
     const statusCounts = {acceptTestCount: 0, rejectTestCount: 0, undefinedTestCount: 0}
     
-    let _cards = useRef(props.cards)
+    const _cards = useRef(props.cards)
 
     const [{ canDrop: canDropPerProcess, isOver: isOverPerProcess }, dropPerProcess] = useDrop(() => ({
         accept: ItemTypes.Card,
@@ -109,11 +109,8 @@ export const Project = (props: propsProject) => {
                 props.changeCards(props.id, _cards.current)
                 break
         }
-
-        //setCards(_cards.current)
     }
     
-
     return (
         <div className={styles.main}>
             <div className={styles.header}>

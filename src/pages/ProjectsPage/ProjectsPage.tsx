@@ -11,7 +11,7 @@ import { setShowFooter } from "../../connect/store"
 import { ProjectArchive } from "./components/ProjectArchive/ProjectArchive"
 import { ItemTypes } from "./Types"
 import { useDrop } from "react-dnd"
-import { Card, Project as ProjectType} from "../../connect/projectsApi/Types"
+import { Card, CardArchive, ProjectArchive as ProjectArchiveType, Project as ProjectType} from "../../connect/projectsApi/Types"
 
 enum Scene {
     Applicataions = 'Заявки',
@@ -24,18 +24,19 @@ export const ProjectsPage = () => {
 
     const {isLoading, data} = useFetchProjectsQuery({offset: 0, size: 20})
     const {isLoading: archiveIsLoading, data: archiveData} = useFetchProjectsArchiveQuery({offset: 0, size: 20})
-
     
     const [projects, setProjects] = useState(data? data.projects: [])
     const [projectsArchive, setProjectsArchive] = useState(archiveData? archiveData.projects: [])
     
-
     const [scene, setScene] = useState(Scene.Applicataions)
 
-    useEffect(() => console.log(projects), [projects])
-    useEffect(() => setProjects(projects), [projects])
+    useEffect(() => {
+        //типа запрос на измение карточек
+    }, [projects])
 
-    const searchValue = useRef('')
+    useEffect(() => {
+        //типа запрос на измение карточек
+    }, [projectsArchive])
     
     useEffect(() => setProjects(data? data.projects: []), [isLoading])
     useEffect(() => setProjectsArchive(archiveData? archiveData.projects: []), [archiveIsLoading])
@@ -58,14 +59,21 @@ export const ProjectsPage = () => {
         : setProjectsArchive(archiveData? archiveData.projects: [])
 
     const changeCards = (projectId: string, cards: Card[]) => {
-        console.log(projectId)
-
         const project = {...projects.find(p => p.id === projectId)} as ProjectType
 
         if(project) project.cards = cards
         else return
 
         setProjects(projects.map(p => p.id !== project.id? p: project))
+    }
+
+    const changeCardsArchive = (projectId: string, cards: CardArchive[]) => {
+        const projectArchive = {...projectsArchive.find(p => p.id === projectId)} as ProjectArchiveType
+
+        if(projectArchive) projectArchive.cards = cards
+        else return
+
+        setProjectsArchive(projectsArchive.map(p => p.id !== projectArchive.id? p: projectArchive))
     }
   
 
@@ -142,7 +150,7 @@ export const ProjectsPage = () => {
                                     <div key={p.id} className={styles.project}>
                                         <ProjectArchive 
                                             id={p.id}
-                                            changeCards={changeCards}
+                                            changeCards={changeCardsArchive}
                                             name={p.name}                                         
                                             cards={p.cards} 
                                             deadline={p.deadline} 

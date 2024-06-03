@@ -1,4 +1,4 @@
-import { Card, CardArchive, Message, Producer, StatusTest, Tester } from '../../../../connect/projectsApi/Types'
+import { Card, CardArchive, CardStatus, Message, Producer, StatusTest, Tester } from '../../../../connect/projectsApi/Types'
 import styles from './ProjectArchive.module.scss'
 
 import actionsIcon from '../../../../source/images/icons/actions.svg'
@@ -10,7 +10,7 @@ import acceptIcon from '../../../../source/images/icons/accept.svg'
 import rejectIcon from '../../../../source/images/icons/reject.svg'
 import undefinedIcon from '../../../../source/images/icons/undefined.svg'
 import calenarIcon from '../../../../source/images/icons/calendar.svg'
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 
 interface propsProjectArchive {
     id: string
@@ -21,13 +21,15 @@ interface propsProjectArchive {
     release: Date
     TYC: string
     cards: CardArchive[]
-    changeCards: (id: string, cards: Card[]) => void
+    changeCards: (id: string, cards: CardArchive[]) => void
 }
 
 export const ProjectArchive = (props: propsProjectArchive) => {
     const [hide, setHide] = useState(false)
 
     const statusCounts = {acceptTestCount: 0, rejectTestCount: 0, undefinedTestCount: 0}
+
+    const _cards = useRef(props.cards)
 
     props.cards
     .forEach(c => c.mandatoryTests
@@ -44,6 +46,25 @@ export const ProjectArchive = (props: propsProjectArchive) => {
         : Date.now() + new Date(1970, 1, 5).getTime() > new Date(props.deadline).getTime()
             ? styles.deadlinePerLose
             : styles.deadline
+
+    const setChangeCards = async (id: string, type: string) => {
+        switch(type) {
+            case 'perProcess': 
+                _cards.current = props.cards.map(c => c.id !== id? c: {...c, status: CardStatus.perProcess})
+                props.changeCards(props.id, _cards.current)
+                break
+
+            case 'process':
+                _cards.current = props.cards.map(c => c.id !== id? c: {...c, status: CardStatus.process})
+                props.changeCards(props.id, _cards.current)
+                break
+
+            case 'release': 
+                _cards.current = props.cards.map(c => c.id !== id? c: {...c, status: CardStatus.release})
+                props.changeCards(props.id, _cards.current)
+                break
+        }
+    }
         
     return (
         <div className={styles.main}>
