@@ -1,0 +1,46 @@
+$body-height: 92vh;
+$body-width: 100vw;
+
+$header-height: calc(100vh - $body-height);
+$header-width: 100%;
+
+$menu-height: calc(100vh - $header-height);
+$menu-width: 52px;
+
+$scene-height: calc(100vh - $header-height);
+$scene-width: calc(100vw - $menu-width);
+
+.blockScrollX {
+  overflow-x: hidden;
+}
+
+.blockScrollY {
+  overflow-y: hidden;
+}
+
+.body {
+  display: inline-flex;
+  width: 100%;
+
+  &:has(.menuOpen) {
+    & > .scene {
+        width: calc(100vw - $menu-width*4.2);
+    }
+  }
+
+  & > .scene {
+    width: 100%;
+  }
+}
+
+// html {
+//   filter: invert(95%) hue-rotate(140deg);
+//   background-color: white;
+
+//   img{
+//     filter: invert(100%) hue-rotate(220deg);
+//   }
+// }
+
+
+

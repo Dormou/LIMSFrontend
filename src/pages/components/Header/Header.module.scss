@@ -4,6 +4,7 @@ $def-blue: #005B9C;
 
 
 .dropdownMenuContent {
+    z-index: 5;
     outline: 0;
     background-color: #E3EEF4 !important;
     color: #005B9C !important;
@@ -91,10 +92,18 @@ $def-blue: #005B9C;
 }
 
 .header {
+    z-index: 9999;
+    position: fixed;
     height: $header-heights;
     width: $header-width;
     background-color: $def-blue;
     display: inline-flex;
+    mar
+
+    &* {
+        position: sticky;
+
+    }
 
     .headerLogo {
         height: calc($header-heights*0.94);

@@ -7,7 +7,7 @@ import { SignInEmailRequest } from "../../connect/authApi/Requests"
 import logoBanner from "../../source/images/logos/a1069ceebd4d50ad1dfc224ff5406fc4.png"
 import banner from "../../source/images/banners/authBanner.jpeg"
 
-import { useAppDispatch, setFooter, setScrollX, setScrollY, setShowHeader, setShowFooter } from '../../connect/store'
+import { useAppDispatch, setFooter, setScrollX, setScrollY, setShowHeader, setShowFooter, setShowMenu } from '../../connect/store'
 import { useEffect, useRef, useState } from "react"
 
 import { Footer } from "../components/Footer/Footer"
@@ -38,6 +38,7 @@ export const AuthPage = () => {
 
     const email = useRef('')
     
+    useEffect(() => void(dispatch(setShowMenu(false))), [])
     useEffect(() => {dispatch(setShowHeader(false))}, [])
     useEffect(() => {dispatch(setFooter(setShowFooter(true)))}, [])
     useEffect(() => {dispatch(setScrollX(false))}, [])

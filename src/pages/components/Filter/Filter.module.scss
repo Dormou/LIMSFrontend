@@ -1,0 +1,42 @@
+$def-blue: #005B9C;
+
+.main {
+    z-index: 1;
+    margin-inline: 30px;
+    height: 32px;
+
+    & > .label {
+
+    }
+
+    & > .filters {
+        width: 100%;
+        background-color: white;
+        border: 0.5px solid gray;
+        border-radius: 5px;
+        border-top-left-radius: -5px; 
+        border-top-right-radius: -5px; 
+        border-bottom-left-radius: 5px; 
+        border-bottom-right-radius: 5px; 
+        padding-top: 7px;
+        padding-inline: 5px;
+        text-align: center;
+        font-size: 14px;
+    }
+
+    & > .title {
+        height: 100%;
+        width: 100%;
+        background-color: white;
+        border: 0.5px solid gray;
+        border-radius: 5px; 
+        padding-top: 7px;
+        padding-inline: 5px;
+        text-align: center;
+        font-size: 18px;
+
+        &:focus {
+            border-color: $def-blue;
+        }
+    }
+}

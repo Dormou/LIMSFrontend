@@ -1,0 +1,60 @@
+$body-height: 93vh;
+$body-width: 100vw;
+
+$header-height: calc(100vh - $body-height);
+$header-width: 100%;
+
+$menu-height: calc(99.5vh - $header-height);
+$menu-width: 52px;
+
+$scene-height: calc(100vh - $header-height);
+$scene-width: calc(100vw - $menu-width);
+
+$def-blue: #005B9C;
+
+.menu {
+    height: $menu-height;
+    width: $menu-width;
+    background-color: $def-blue;
+    margin-top: 4%;
+    
+    transition: 0.5s;
+
+    .buttons {
+        padding-top: 11.2vh;
+        margin-left: 20%;
+
+        transition: 0.5s;
+
+        > * {
+            transition: 0.5s;
+            margin-bottom: 3.6vh;
+        }
+    }
+
+    .tradeMark {
+        margin-top: 55vh;
+        margin-left: 28%;
+    }
+}
+
+.menuOpen {
+    @extend .menu;
+    width: $menu-width*4;
+    transition: 0.5s;
+
+    .buttons {
+        transition: 0.5s;
+        padding-top: 10vh;
+        margin-left: 7%;
+        margin-right: 100px;
+
+
+        > * {
+            transition: 0.5s;
+            color: white;
+            display: inline-flex;
+            margin-bottom: 1.6vh;
+        }
+    }
+}

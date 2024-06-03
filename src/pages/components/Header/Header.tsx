@@ -56,7 +56,6 @@ export const Header = () => {
           const original = storage[method].bind(storage);
 
           const newMethod = function (...args) {
-
             const result = original.apply(null, args)
 
             const item = collections.find(i => i.name === args[0])

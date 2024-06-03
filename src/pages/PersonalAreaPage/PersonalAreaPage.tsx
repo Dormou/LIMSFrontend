@@ -4,10 +4,6 @@ import { useDispatch } from 'react-redux'
 import { setShowHeader } from '../../connect/store'
 
 import profileIcon from '../../source/images/icons/ant-design_user-outlined.svg'
-import labIcon from '../../source/images/icons/ant-design_experiment-outlined.svg'
-import bookIcon from '../../source/images/icons/ant-design_book-outlined.svg'
-import empsIcon from '../../source/images/icons/ant-design_team-outlined.svg'
-import tradeMark from '../../source/images/icons/ant-design_trademark-circle-outlined.svg'
 import uploadIcon from '../../source/images/icons/upload-icon.svg'
 
 import { Input } from '../components/Input/Input'
@@ -29,7 +25,7 @@ export const PersonalAreaPage = () => {
     const [userPhoto, setUserPhoto] = useState(avatar?.photo)
     const [userInfo, setUserInfo] = useState(localUserInfo? JSON.parse(localUserInfo) as UserInfoResponse: null) 
 
-    const originUserinfo = useRef(userInfo?? userInfo)
+    const _userinfo = useRef(userInfo?? userInfo)
     const firstname = useRef(userInfo? userInfo.firstname: '')
     const lastname = useRef(userInfo? userInfo.lastname: '')
     const additionalname = useRef(userInfo? userInfo.additionalname: '')
@@ -43,7 +39,6 @@ export const PersonalAreaPage = () => {
     useEffect(() => {dispatch(setShowHeader(true))}, [])
 
     const [userInfoQuery, userInfoQueryResult] = useLazyGetUserInfoQuery()
-    const [userPhotoQuery, userPhotoQueryResult] = useLazyGetUserPhotoQuery()
     const [changeUserPhoto] = useChangeUserPhotoMutation()
     const [changeUserInfoMutatuion] = useChangeUserInfoMutation()
     const [changePasswordMutation] = useChangePasswordMutation()
@@ -114,13 +109,11 @@ export const PersonalAreaPage = () => {
             phone: phone.current
         }).unwrap()
 
-        originUserinfo.current = {...userinfo, ...res}
+        _userinfo.current = {...userinfo, ...res}
 
-        if(!originUserinfo.current) return
+        if(!_userinfo.current) return
 
-        //dispatch(setUserinfo({firstname: originUserinfo.current.firstname, lastname: originUserinfo.current.lastname}))
-
-        localStorage.setItem('lims.userinfo', JSON.stringify(originUserinfo.current))
+        localStorage.setItem('lims.userinfo', JSON.stringify(_userinfo.current))
 
         setIsChangingUserInfo(false)
     }
@@ -156,7 +149,6 @@ export const PersonalAreaPage = () => {
 
             fetch(photo.photo)
             .then(async (res) => {   
-
                 localStorage.setItem('lims.userPhoto', JSON.stringify(photo.photo))
 
                 setUserPhoto(base64data?.toString())
@@ -166,30 +158,9 @@ export const PersonalAreaPage = () => {
 
     return (
         <div className={styles.main}>
-            {userInfo && originUserinfo.current &&
+            {userInfo && _userinfo.current &&
                 <div>
                     <div className={styles.body}>
-                        <div onMouseEnter={() => setIsOpenMenu(true)} className={isOpenMenu? styles.menuOpen: styles.menu}>
-                            <div className={styles.buttons}>
-                                <div className={styles.labIcon}>
-                                    <img src={labIcon} alt={'labIcon'}/>
-                                    {isOpenMenu && <h3>Испытания</h3>}
-                                </div>
-                                <div className={styles.bookIcon}>
-                                    <img src={bookIcon} alt={'bookIcon'}/>
-                                    {isOpenMenu && <h3>Справочник</h3>}
-                                </div>
-                                <div className={styles.empsIcon}>
-                                    <img src={empsIcon} alt={'empsIcon'}/>
-                                    {isOpenMenu && <h3>Сотрудники</h3>}
-                                </div>
-                            </div>
-                            {!isOpenMenu &&
-                                <div className={styles.tradeMark}>
-                                    <img src={tradeMark} alt={'tradeMark'}/>
-                                </div>
-                            }
-                        </div>
                         <div onMouseEnter={() =>isOpenMenu? setIsOpenMenu(false): undefined} className={styles.scene}>
                             <div className={styles.UserPreview}>
                                 <div className={styles.profileIcon}>
@@ -201,7 +172,7 @@ export const PersonalAreaPage = () => {
                                     </div>
                                 </div>
                                 <div className={styles.userInfo}>
-                                    <div className={styles.name}>{originUserinfo.current.firstname}&nbsp;{originUserinfo.current.lastname}</div>
+                                    <div className={styles.name}>{_userinfo.current.firstname}&nbsp;{_userinfo.current.lastname}</div>
                                     <div className={styles.signUpDate}>Зарегистрирован:&nbsp;{userInfo.signUpDate}</div>
                                 </div>
                             </div>
@@ -209,23 +180,23 @@ export const PersonalAreaPage = () => {
                             <div className={styles.userInfo}>
                                 <div className={styles.userFIO}>
                                     <h4>Фамилия</h4>
-                                    <Input value={isChangingUserInfo? undefined: lastname.current === ''? '': originUserinfo.current.lastname} placeholder='Введите данные' onChange={(v) => onWriteUserInfo(() => lastname.current = v.target.value)}/>
+                                    <Input value={isChangingUserInfo? undefined: lastname.current === ''? '': _userinfo.current.lastname} placeholder='Введите данные' onChange={(v) => onWriteUserInfo(() => lastname.current = v.target.value)}/>
                                     <h4>Имя</h4>
-                                    <Input value={isChangingUserInfo? undefined: firstname.current === ''? '': originUserinfo.current.firstname} placeholder='Введите данные' onChange={(v) => onWriteUserInfo(() => firstname.current = v.target.value)}/>
+                                    <Input value={isChangingUserInfo? undefined: firstname.current === ''? '': _userinfo.current.firstname} placeholder='Введите данные' onChange={(v) => onWriteUserInfo(() => firstname.current = v.target.value)}/>
                                     <h4>Отчество</h4>
-                                    <Input value={isChangingUserInfo? undefined: additionalname.current === ''? '': originUserinfo.current.additionalname} placeholder='Введите данные' onChange={(v) => onWriteUserInfo(() => additionalname.current = v.target.value)}/>
+                                    <Input value={isChangingUserInfo? undefined: additionalname.current === ''? '': _userinfo.current.additionalname} placeholder='Введите данные' onChange={(v) => onWriteUserInfo(() => additionalname.current = v.target.value)}/>
                                 </div>
                                 <div className={styles.userSecondaryInfo}>
                                     <h4>Должность</h4>
-                                    <Input value={isChangingUserInfo? undefined: dolgnost.current === ''? '': originUserinfo.current.dolgnost} placeholder='Введите данные' onChange={(v) => onWriteUserInfo(() => dolgnost.current = v.target.value)}/>
+                                    <Input value={isChangingUserInfo? undefined: dolgnost.current === ''? '': _userinfo.current.dolgnost} placeholder='Введите данные' onChange={(v) => onWriteUserInfo(() => dolgnost.current = v.target.value)}/>
                                     <div className={styles.contacts}>
                                         <div className={styles.contact}>
                                             <h4>Email</h4>
-                                            <Input value={isChangingUserInfo? undefined: email.current === ''? '': originUserinfo.current.email} placeholder='Введите данные' onChange={(v) => onWriteUserInfo(() => email.current = v.target.value)}/>
+                                            <Input value={isChangingUserInfo? undefined: email.current === ''? '': _userinfo.current.email} placeholder='Введите данные' onChange={(v) => onWriteUserInfo(() => email.current = v.target.value)}/>
                                         </div>
                                         <div className={styles.contact}>
                                             <h4>Телефон</h4>
-                                            <Input value={isChangingUserInfo? undefined: phone.current === ''? '': originUserinfo.current.phone} placeholder='Введите данные' onChange={(v) => onWriteUserInfo(() => phone.current = v.target.value)}/>
+                                            <Input value={isChangingUserInfo? undefined: phone.current === ''? '': _userinfo.current.phone} placeholder='Введите данные' onChange={(v) => onWriteUserInfo(() => phone.current = v.target.value)}/>
                                         </div>
 
                                     </div>           

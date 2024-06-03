@@ -1,5 +1,5 @@
 $body-height: 92vh;
-$body-width: 100vw;
+$body-width: 100%;
 
 $header-height: calc(100vh - $body-height);
 $header-width: 100%;
@@ -8,7 +8,7 @@ $menu-height: calc(100vh - $header-height);
 $menu-width: 52px;
 
 $scene-height: calc(100vh - $header-height);
-$scene-width: calc(100vw - $menu-width);
+$scene-width: calc(95vw - $menu-width);
 
 $def-blue: #005B9C;
 
@@ -17,60 +17,13 @@ body {
 }
 
 .body {
-    &:has(.menuOpen) {
-        & > .scene {
-            width: calc(100vw - $menu-width*4.2);
-        }
-    }
+    margin-top: 4%;
     display: inline-flex;
-
-    .menu {
-        height: $menu-height;
-        width: $menu-width;
-        background-color: $def-blue;
-        margin-right: 5%;
-        transition: margin-right 0.5s;
-        transition: width 0.5s;
-    
-        .buttons {
-            transition: margin-left 0.5s;
-            transition: padding-top 0.5s;
-            padding-top: 11.2vh;
-            margin-left: 20%;
-
-            > * {
-                margin-bottom: 3.6vh;
-            }
-        }
-
-        .tradeMark {
-            margin-top: 55vh;
-            margin-left: 28%;
-        }
-    }
-
-    .menuOpen {
-        @extend .menu;
-
-        margin-right: 5%;
-        width: $menu-width*4;
-
-        .buttons {
-            transition: margin-left 0.5s;
-            transition: padding-top 0.5s;
-            padding-top: 10vh;
-            margin-left: 7%;
-
-            > * {
-                color: white;
-                display: inline-flex;
-                margin-bottom: 1.6vh;
-            }
-        }
-    }
+    transition: 0.5s;
     
     .scene {
-        transition: width 0.5s;
+
+        transition: 0.5s;
         height: $scene-height;
         width: $scene-width;
         background-color: white;
@@ -363,7 +316,7 @@ body {
             height: 30%;
             display: inline-flex;
             margin-top: 2%;
-            margin-left: calc($menu-width*1.2);            
+            margin-left: 4%;            
 
             .uploadTitle {
                 color: rgb(35, 92, 172);

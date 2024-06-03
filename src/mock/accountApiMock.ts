@@ -1,44 +1,8 @@
-import { randomUUID } from "crypto"
-import { ChangeUserInfoResponse, ChangeUserPhotoResponse, FetchAccountsResponse, GetNotificationsResponse, SignInResponse, UserInfoResponse, UserPhotoResponse } from "../connect/authApi/Responses"
+import { ChangeUserInfoResponse, ChangeUserPhotoResponse, GetNotificationsResponse, SignInResponse, UserInfoResponse, UserPhotoResponse } from "../connect/authApi/Responses"
 import { ChangePasswordRequest, ChangeUserInfoRequest, ChangeUserPhotoRequest, NotificationReadRequest, SignInEmailRequest } from '../connect/authApi/Requests'
 import { http, HttpResponse, PathParams } from 'msw'
-import { setupWorker } from "msw/lib/browser"
-import { request } from "http"
 
-import userIcon from '../source/images/test-avatar.png'
-
-export const fetchAccounts = () => {
-    const response : FetchAccountsResponse[] = [
-        {
-            id: "ds123213adsa",
-            fullname: "Игорь Светлый Викторович",
-            accessRights: "Full",
-            storyActions: "story"
-        },
-        {
-            id: "dsad3333sa",
-            fullname: "Владимир Темный Игорович",
-            accessRights: "NotFull",
-            storyActions: "story"
-        },
-        {
-            id: "dsa44343dsa",
-            fullname: "Оксана Серая Сергеевна",
-            accessRights: "Full",
-            storyActions: "story"
-        },
-        {
-            id: "dsad45345454535sa",
-            fullname: "Иван Черт Петрович",
-            accessRights: "Full",
-            storyActions: "story"
-        }
-    ]
-
-    return response
-}
-
-export const handlers = [
+export const handlersAccountApi = [
     http.get('https://mock.com/passport/account/userinfo', ({ request }) => {
         const id = new URL(request.url).searchParams.get('id')
 

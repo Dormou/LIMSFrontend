@@ -1,0 +1,300 @@
+$def-blue: #005B9C;
+
+.main {
+    width: 97%;
+    border: 0.5px solid transparent;
+    margin: 1.5%;
+    border-radius: 5px;
+    box-shadow: 0 0 7px rgba(0, 0, 0, 0.507);
+
+    & > .scene {
+        display: flex;
+        flex-wrap: wrap;
+        margin-inline: 5%;
+        overflow-y: overlay;
+        max-height: 58vh;
+
+        & > .card {
+            padding-inline: 2%;
+            width: 25%;
+            height: 24vh;
+            margin: 20px;
+            background-color: #e3eef43a;
+            border: 0.5px solid rgba(128, 128, 128, 0.603);
+            border-radius: 5px;
+
+            .title {
+                width: 100%;
+                display: inline-flex;
+                margin-top: 7px;
+                color: $def-blue;
+
+                & > .name {
+                    margin-right: auto;
+                    margin-bottom: 10px;
+                }
+
+                & > .actions {
+                    margin-left: auto;
+                    margin-right: 2px;
+                }
+            }
+        
+            .icons {
+                width: 100%;
+                display: inline-flex;
+                
+                & > .docIcon {
+                    margin-right: 2px;
+                }
+
+                & > .chatIcon {
+                    margin-left: 5px;
+                    margin-right: 2px;
+                }
+            }
+        
+            .mandatoryTests {
+                width: 100%;
+                display: inline-flex;
+
+                & > .title {
+                    margin-right: auto;
+                }
+
+                
+                & > .counts {
+                    margin-top: 2px;
+                    display: inline-flex;
+                    margin-right: 2px;
+
+                    & > img {
+                        height: 16px;
+                        width: 16px;
+                        margin-top: 5px;
+                        margin-right: 2px;
+                    }
+
+                    & > .count {
+                        margin-right: 2px;
+                    }
+                }
+            }
+        
+            .nonMandatoryTests {
+                width: 100%;
+                display: inline-flex;
+
+                & > .title {
+                    margin-right: auto;
+                }
+            }
+        
+            .expert {
+                margin-top: 10%;
+                //margin-bottom: 2%;
+                width: 100%;
+                padding-inline: 15px;
+                padding-top: 2px;
+                padding-bottom: 5px;
+                display: inline-flex;
+
+                & > .name {
+                    margin-right: auto;
+                }
+
+                & > .deadline {
+                    color: white;
+                    display: inline-flex;
+                    background-color: #198754d5;
+                    border-color: transparent;
+                    padding-top: 3px;
+                    padding-bottom: 6px;
+                    border-radius: 3px;
+                    padding-inline: 6px;
+
+                    & > img {
+                        filter: brightness(0) invert(1);
+                        height: 24px;
+                        width: 24px;
+                        margin-right: 3px;
+                    }
+                }
+
+                & > .deadlineLose {
+                    @extend .deadline;
+
+                    background-color: red;
+                }
+            }
+        }
+    }
+
+    & > .header {
+        margin-inline: 1%;
+
+        & > .title {
+            width: 100%;
+            display: inline-flex;
+            margin-top: 6px;
+
+            & > .hideButton {
+                transform: rotate(180deg);
+                margin-top: 1px;
+                margin-right: 2px;
+                background-color: transparent;
+                border-color: transparent;
+            }
+
+            & > .hideButtonActive {
+                @extend .hideButton;
+
+                transform: rotate(0);
+            }
+
+            & > .actionsButton {
+                margin-top: 4px;
+                margin-right: 2px;
+                margin-left: auto;
+                background-color: transparent;
+                border-color: transparent;
+            }
+
+            & > .projectBox {
+                margin: 2px;
+                margin-right: 65%;
+                height: 18px;
+                width: 18px;
+            }
+
+            & > .tests {
+                margin-right: 4.5%;
+                display: inline-flex; 
+                
+                $size-icon: 20px;
+                $margin-top: $size-icon/4;
+
+                & > .title {
+                    margin-right: auto;
+                    width: 180px;
+                }
+
+                & > .allTests {
+                    margin-right: 12%;
+                }
+                
+                & > .accept {
+                    height: $size-icon;
+                    width: $size-icon;
+                    margin-right: 7%;
+                    display: inline-flex;
+
+                    & > img {
+                        margin-top: $margin-top;
+                        margin-right: 0.3%;
+                    }
+                }
+
+                & > .reject {
+                    height: $size-icon;
+                    width: $size-icon;
+                    margin-right: 7%;
+                    display: inline-flex;
+
+                    & > img {
+                        margin-top: $margin-top*0.8;
+                        margin-right: 2px;
+                    }
+                }
+
+                & > .undefined {
+                    height: $size-icon;
+                    width: $size-icon;
+                    margin-right: 0%;
+                    display: inline-flex;
+
+                    & > img {
+                        margin-top: $margin-top*0.8;
+                        margin-right: 1%;
+                    }
+                }
+            }
+        }
+
+        & > .description {
+            width: 100%;
+            display: inline-flex;
+
+            vertical-align: middle;
+
+            & > .date {
+                margin-bottom: -15px;
+            }
+
+            & > .deadline {
+                margin-left: auto;
+                margin-right: 0.5%;
+                display: inline-flex;
+                color: green;
+
+                & > img {
+                    width: 24px;
+                    height: 24px;
+                    margin-right: 4px;
+                }
+            }
+
+            & > .deadlineLose {
+                @extend .deadline;
+
+                color: red;
+
+                & > img {
+                    filter: invert(100%) hue-rotate(23deg);
+                }
+            }
+
+            & > .deadlinePerLose {
+                @extend .deadline;
+
+                color: yellow;
+
+                & > img {
+                    filter: invert(1) hue-rotate(140deg);
+                }
+            }
+
+            & > .TYC {
+                display: inline-flex;
+                margin-right: 10%;
+
+                & > .title {
+                    font-weight: 600;
+                    margin-right: 10px;
+                }
+            }
+
+            & > .tester {
+                display: inline-flex;
+                margin-right: auto;
+
+                & > .title {
+                    font-weight: 600;
+                    margin-right: 10px;
+                }
+                
+            }
+
+            & >.producer {
+                display: inline-flex;
+                margin-right: 10%;
+
+                & > .title {
+                    font-weight: 600;
+                    margin-right: 10px;
+                }
+            }
+        }
+    }
+
+}

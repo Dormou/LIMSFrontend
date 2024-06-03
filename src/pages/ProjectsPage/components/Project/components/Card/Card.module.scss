@@ -1,0 +1,119 @@
+$def-blue: #005B9C;
+
+.main {
+    & > .card {
+        padding-inline: 2%;
+        width: 80%;
+        height: 28vh;
+        margin: 20px;
+        background-color: #e3eef43a;
+        border: 0.5px solid rgba(128, 128, 128, 0.603);
+        border-radius: 5px;
+
+        .title {
+            width: 100%;
+            display: inline-flex;
+            margin-top: 7px;
+            color: $def-blue;
+
+            & > .name {
+                margin-right: auto;
+                margin-bottom: 10px;
+            }
+
+            & > .actions {
+                margin-left: auto;
+                margin-right: 2px;
+            }
+        }
+    
+        .icons {
+            width: 100%;
+            display: inline-flex;
+            
+            & > .docIcon {
+                margin-right: 2px;
+            }
+
+            & > .chatIcon {
+                margin-left: 5px;
+                margin-right: 2px;
+            }
+        }
+    
+        .mandatoryTests {
+            width: 100%;
+            display: inline-flex;
+
+            & > .title {
+                margin-right: auto;
+            }
+
+            
+            & > .counts {
+                margin-top: 2px;
+                display: inline-flex;
+                margin-right: 2px;
+
+                & > img {
+                    height: 16px;
+                    width: 16px;
+                    margin-top: 5px;
+                    margin-right: 2px;
+                }
+
+                & > .count {
+                    margin-right: 2px;
+                }
+            }
+        }
+    
+        .nonMandatoryTests {
+            width: 100%;
+            display: inline-flex;
+
+            & > .title {
+                margin-right: auto;
+            }
+        }
+    
+        .expert {
+            margin-top: 10%;
+            //margin-bottom: 2%;
+            width: 100%;
+            padding-inline: 15px;
+            padding-top: 2px;
+            padding-bottom: 5px;
+            display: inline-flex;
+
+            & > .name {
+                margin-right: auto;
+            }
+
+            & > .deadline {
+                color: white;
+                display: inline-flex;
+                background-color: #198754d5;
+                border-color: transparent;
+                padding-top: 3px;
+                padding-bottom: 6px;
+                border-radius: 3px;
+                padding-inline: 6px;
+                margin-right: 5px;
+
+                & > img {
+                    filter: brightness(0) invert(1);
+                    height: 24px;
+                    width: 24px;
+                    margin-right: 3px;
+                }
+            }
+
+            & > .deadlineLose {
+                @extend .deadline;
+
+                background-color: red;
+            }
+        }
+    }
+}
