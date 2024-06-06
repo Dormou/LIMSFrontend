@@ -1,5 +1,11 @@
 $def-blue: #005B9C;
 
+.mainBlur {
+    @extend .main;
+
+    filter: blur(5px);
+}
+
 .main {
     background-color: white;
     width: 100%;
@@ -38,12 +44,12 @@ $def-blue: #005B9C;
     }
 
     & > .SearchAndFilter {
-        width: 100%;
+        width: 84%;
         padding-inline: 8%;
         display: inline-flex;
 
         & > .search {
-            width: 60%;
+            width: 69%;
         }
 
         & > .addProject {
@@ -57,12 +63,15 @@ $def-blue: #005B9C;
             font-weight: 500;
             font-size: 18px;
         }
+
+        & > .filters {
+
+        }
     }
 
     & > .sceneHeader {
         display: inline-flex;
         width: 100%;
-        padding-left: 36%;
         padding-top: 24px;
         border-bottom: 0.5px solid black;
 
@@ -73,20 +82,28 @@ $def-blue: #005B9C;
             margin-bottom: auto;
         }
 
-        & > .switchScene {
-            color: gray;
-            font-size: 24px;
-            margin-right: 32px;
-            padding-bottom: 10px;
-            font-weight: 500;
-            font-size: 24px;
-        }
+        & > .buttons {
+            display: inline-flex;
+            max-width: fit-content;
+            margin-left: auto;
+            margin-right: auto;
 
-        & > .switchSelectedScene {
-            @extend .switchScene;
+            & > .switchScene {
+                text-align: center;
+                color: gray;
+                font-size: 24px;
+                margin-inline: 32px;
+                padding-bottom: 10px;
+                font-weight: 500;
+                font-size: 24px;
+            }
 
-            color: $def-blue;
-            border-bottom: 0.7px solid $def-blue;
+            & > .switchSelectedScene {
+                @extend .switchScene;
+    
+                color: $def-blue;
+                border-bottom: 0.7px solid $def-blue;
+            }
         }
     }
 }

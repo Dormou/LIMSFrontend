@@ -1,7 +1,7 @@
 
 import { baseQuery } from "../baseQuery";
 import { createApi } from '@reduxjs/toolkit/query/react';
-import { FetchProjectsArchiveRequest, FetchProjectsRequest } from "./Request";
+import { AddProjectRequest, FetchProjectsArchiveRequest, FetchProjectsRequest } from "./Request";
 import { FetchProjectsArchiveResponse, FetchProjectsResponse, ProjectResponse } from "./Responses";
 
 
@@ -10,6 +10,13 @@ export const projectsApi = createApi({
     baseQuery: baseQuery,
     endpoints: builder => {
         return ({
+            addProject: builder.query<string, AddProjectRequest>({
+                query: data => ({
+                    url: 'projects/add',
+                    method: 'POST',
+                    body: data
+                })
+            }),
             getProject: builder.query<ProjectResponse, string>({
                 query: (id: string) => `projects?id=${id}`
             }),

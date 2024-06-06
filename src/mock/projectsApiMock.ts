@@ -1,7 +1,7 @@
 import { HttpResponse, PathParams, http } from "msw"
 import { FetchProjectsArchiveResponse, FetchProjectsResponse, ProjectResponse } from "../connect/projectsApi/Responses"
 import { create } from "domain"
-import { FetchProjectsRequest } from "../connect/projectsApi/Request"
+import { AddProjectRequest, FetchProjectsRequest } from "../connect/projectsApi/Request"
 import { CardStatus, StatusTest } from "../connect/projectsApi/Types"
 import { v4 as uuidV4 } from "uuid"
 
@@ -24,14 +24,24 @@ export const handlersProjectsApi = [
         })
     }),
 
+    http.post<PathParams, AddProjectRequest>('https://mock.com/projects/add', async ({request}) => {
+        const data = await request.json()
+
+        await new Promise((resolve) => setTimeout(resolve, 1000))
+
+        if(!data) return HttpResponse.error()
+
+        return HttpResponse.json<string>(uuidV4())
+    }),
+
     http.post<PathParams, FetchProjectsRequest>('https://mock.com/projects/fetch', async ({request}) => {
         const data = await request.json()
 
-        await new Promise((resolve) => setTimeout(resolve, 1000));
+        await new Promise((resolve) => setTimeout(resolve, 1000))
 
         return HttpResponse.json<FetchProjectsResponse>({projects: [
             {
-                id: 'asddas',
+                id: uuidV4(),
                 name: 'TEST',
                 isProcess: false,
                 tester: {

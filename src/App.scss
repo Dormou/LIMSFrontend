@@ -1,4 +1,4 @@
-$body-height: 92vh;
+$body-height: 100vh;
 $body-width: 100vw;
 
 $header-height: calc(100vh - $body-height);
@@ -21,6 +21,7 @@ $scene-width: calc(100vw - $menu-width);
 .body {
   display: inline-flex;
   width: 100%;
+  height: 100%;
 
   &:has(.menuOpen) {
     & > .scene {
@@ -33,14 +34,14 @@ $scene-width: calc(100vw - $menu-width);
   }
 }
 
-// html {
-//   filter: invert(95%) hue-rotate(140deg);
-//   background-color: white;
+html {
+  filter: invert(95%) hue-rotate(140deg);
+  background-color: white;
 
-//   img{
-//     filter: invert(100%) hue-rotate(220deg);
-//   }
-// }
+  img{
+    filter: invert(100%) hue-rotate(220deg);
+  }
+}
 
 
 

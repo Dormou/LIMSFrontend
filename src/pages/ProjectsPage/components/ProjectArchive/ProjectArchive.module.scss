@@ -1,6 +1,7 @@
 $def-blue: #005B9C;
 
 .main {
+    backdrop-filter: blur(5px);
     width: 97%;
     border: 0.5px solid transparent;
     margin: 1.5%;

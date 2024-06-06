@@ -9,6 +9,8 @@ $def-blue: #005B9C;
         background-color: #e3eef43a;
         border: 0.5px solid rgba(128, 128, 128, 0.603);
         border-radius: 5px;
+        position:relative;
+
 
         .title {
             width: 100%;
@@ -78,15 +80,17 @@ $def-blue: #005B9C;
         }
     
         .expert {
-            margin-top: 10%;
-            //margin-bottom: 2%;
+            position:absolute; 
+            bottom: 8px;
+            left: 4px;
+            margin-top: auto;
+            margin-bottom: 0px;
+            padding-inline: 5px;
             width: 100%;
-            padding-inline: 15px;
-            padding-top: 2px;
-            padding-bottom: 5px;
             display: inline-flex;
 
             & > .name {
+                white-space: nowrap;
                 margin-right: auto;
             }
 
@@ -99,13 +103,18 @@ $def-blue: #005B9C;
                 padding-bottom: 6px;
                 border-radius: 3px;
                 padding-inline: 6px;
-                margin-right: 5px;
+                margin-left: 35%;
+                margin-right: 25px;
+                width: 100%;
 
                 & > img {
+                    white-space: nowrap;
                     filter: brightness(0) invert(1);
                     height: 24px;
-                    width: 24px;
+                    width: 18px;
                     margin-right: 3px;
+                    text-align: center;
+                    padding-inline: 8%;
                 }
             }
 

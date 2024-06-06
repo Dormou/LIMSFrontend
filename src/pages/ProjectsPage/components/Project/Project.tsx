@@ -31,11 +31,12 @@ interface propsProject {
 
 export const Project = (props: propsProject) => {
     const [hide, setHide] = useState(false)
+    const [openMenu, setOpenMenu] = useState(false)
+
+    const _cards = useRef(props.cards)
 
     const statusCounts = {acceptTestCount: 0, rejectTestCount: 0, undefinedTestCount: 0}
     
-    const _cards = useRef(props.cards)
-
     const [{ canDrop: canDropPerProcess, isOver: isOverPerProcess }, dropPerProcess] = useDrop(() => ({
         accept: ItemTypes.Card,
         drop: () => ({ column: 'perProcess'}),
@@ -138,9 +139,17 @@ export const Project = (props: propsProject) => {
                     <button onClick={() => setHide(!hide)} className={hide? styles.hideButtonActive: styles.hideButton}>
                         <img src={hideButtonIcon} className={styles.hideButton} alt={'hideButton'}/>
                     </button>
-                    <button onClick={() => setHide(!hide)} className={styles.actionsButton}>
+                    <button onClick={() => setOpenMenu(!openMenu)} className={styles.actionsButton}>
                         <img src={actionsIcon} className={styles.actionsIcon} alt={'actionsIcon'}/>
                     </button>
+                    {openMenu &&
+                        <div className={styles.actions}>
+                            <div className={styles.action}>Редактировать</div>
+                            <div className={styles.action}>Открыть отчет</div>
+                            <div className={styles.action}>Архивировать</div>
+                            <div className={styles.action}>Удалить</div>
+                        </div>
+                    }
                 </div>
                 <div className={styles.description}>
                     <div className={styles.TYC}>

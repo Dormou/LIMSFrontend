@@ -1,10 +1,10 @@
-$body-height: 93vh;
+$body-height: 100vh;
 $body-width: 100vw;
 
-$header-height: calc(100vh - $body-height);
+$header-height: 8vh;
 $header-width: 100%;
 
-$menu-height: calc(99.5vh - $header-height);
+$menu-height: 100vh;
 $menu-width: 52px;
 
 $scene-height: calc(100vh - $header-height);
@@ -16,12 +16,11 @@ $def-blue: #005B9C;
     height: $menu-height;
     width: $menu-width;
     background-color: $def-blue;
-    margin-top: 4%;
     
     transition: 0.5s;
 
     .buttons {
-        padding-top: 11.2vh;
+        padding-top: 14.2vh;
         margin-left: 20%;
 
         transition: 0.5s;

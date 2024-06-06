@@ -27,8 +27,6 @@ export const Header = () => {
     const location = useLocation()
     const dispatch = useDispatch()
 
-    console.log(location)
-
     const {data: avatar} = useGetUserPhotoQuery('test')
 
     const userinfoLocal = localStorage.getItem('lims.userinfo')
