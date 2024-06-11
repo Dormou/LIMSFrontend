@@ -1,6 +1,11 @@
 $def-blue: #005B9C;
 
 .main {
+    & * {
+        transition: 0.5s;
+    }
+    transition: 0.5s;
+
     width: 97%;
     border: 0.5px solid transparent;
     margin: 1.5%;

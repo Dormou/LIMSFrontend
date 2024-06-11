@@ -38,51 +38,51 @@ export const NewProjectForm = (props: propsNewProjectForm) => {
                             <div className={styles.field}>
                                 <div className={styles.title}>Номер проекта</div>
                                 <Field type="text" name="name" placeholder="Номер проекта"/>
-                                <ErrorMessage name="email" component="div" />
+                                <ErrorMessage name="name" component="div" />
                             </div>
                             <div className={styles.field}>
                                 <div className={styles.title}>Тестирумое устройствоа ТУС</div>
                                 <Field type="text" name="TYC" placeholder="ТУС"/>
-                                <ErrorMessage name="email" component="div" />
+                                <ErrorMessage name="TYC" component="div" />
                             </div>
                             <div className={styles.field}>
                                 <div className={styles.title}>Производитель</div>
                                 <Field type="select" name="producer" placeholder="Производитель"/>
-                                <ErrorMessage name="email" component="div" />
+                                <ErrorMessage name="producer" component="div" />
                             </div>
                             <div className={styles.field}>
                                 <div className={styles.title}>Испытательный центр</div>
                                 <Field type="select" name="test-center" placeholder="Испытательный центр"/>
-                                <ErrorMessage name="email" component="div" />
+                                <ErrorMessage name="test-center" component="div" />
                             </div>
                         </div>
                         <div className={styles.right}>
                             <div className={styles.field}>
                                 <div className={styles.title}>Срок завершения</div>
                                 <Field type="date" name="date" placeholder="Срок завершения"/>
-                                <ErrorMessage name="email" component="div" />
+                                <ErrorMessage name="date" component="div" />
                             </div>
                             <div className={styles.field}>
                                 <div className={styles.title}>Краткое обозначение ТУС</div>
                                 <Field type="text" name="text" placeholder="Краткое обозначение ТУС"/>
-                                <ErrorMessage name="email" component="div" />
+                                <ErrorMessage name="text" component="div" />
                             </div>
                             <div className={styles.field}>
                                 <div className={styles.title}>Инициатор испытаний</div>
                                 <Field type="text" name="initer-tests" placeholder="Инициатор испытаний"/>
-                                <ErrorMessage name="email" component="div" />
+                                <ErrorMessage name="initer-tests" component="div" />
                             </div>
                             <div className={styles.field}>
                                 <div className={styles.checkbox}>
                                     <Field type="checkbox" name="initer-is-producer"/>
                                     <div className={styles.title}>Инициатор испытаний является производитель</div>
                                 </div>
-                                <ErrorMessage name="email" component="div" />
+                                <ErrorMessage name="initer-is-producer" component="div" />
                             </div>
                             <div className={styles.field}>
                                 <div className={styles.title}>Инженер по испытаниям </div>
                                 <Field type="select" name="tester" placeholder="Инженер по испытаниям"/>
-                                <ErrorMessage name="email" component="div" />
+                                <ErrorMessage name="tester" component="div" />
                             </div>
                         </div>
                     </div>

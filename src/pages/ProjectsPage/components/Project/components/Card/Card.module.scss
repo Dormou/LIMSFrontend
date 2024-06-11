@@ -1,8 +1,12 @@
 $def-blue: #005B9C;
 
 .main {
-    & > .card {
+    & * {
         transition: 0.5s;
+    }
+    transition: 0.5s;
+
+    & > .card {
         padding-inline: 2%;
         width: 80%;
         height: 28vh;
