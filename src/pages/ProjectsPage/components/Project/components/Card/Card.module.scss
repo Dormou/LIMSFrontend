@@ -2,6 +2,7 @@ $def-blue: #005B9C;
 
 .main {
     & > .card {
+        transition: 0.5s;
         padding-inline: 2%;
         width: 80%;
         height: 28vh;
@@ -102,19 +103,20 @@ $def-blue: #005B9C;
                 padding-top: 3px;
                 padding-bottom: 6px;
                 border-radius: 3px;
-                padding-inline: 6px;
                 margin-left: 35%;
                 margin-right: 25px;
                 width: 100%;
+                justify-content: center;
 
                 & > img {
                     white-space: nowrap;
                     filter: brightness(0) invert(1);
-                    height: 24px;
-                    width: 18px;
+                    height: 20px;
+                    width: 20px;
                     margin-right: 3px;
+                    margin-top: 2px;
                     text-align: center;
-                    padding-inline: 8%;
+
                 }
             }
 

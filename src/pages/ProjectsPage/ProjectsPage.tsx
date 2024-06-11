@@ -17,7 +17,7 @@ import { NewProjectForm } from "./components/NewProjectForm/NewProjectForm"
 enum Scene {
     Applicataions = 'Заявки',
     Active = 'Активные проекты',
-    Archive = 'Архив'
+    Archive = 'Архив',
 }
 
 export const ProjectsPage = () => {
