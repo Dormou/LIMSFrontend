@@ -1,16 +1,15 @@
 $def-blue: #005B9C;
 
 .main {
-    & * {
-        transition: 0.5s;
-    }
-    transition: 0.5s;
-
     width: 97%;
     border: 0.5px solid transparent;
     margin: 1.5%;
     border-radius: 5px;
     box-shadow: 0 0 7px rgba(0, 0, 0, 0.507);
+
+    & > .addCard {
+        z-index: 9999999999;
+    }
 
     & > .cards {
         margin-top: 15px;

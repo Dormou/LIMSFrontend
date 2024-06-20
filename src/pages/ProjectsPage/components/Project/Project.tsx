@@ -16,6 +16,7 @@ import calenarIcon from '../../../../source/images/icons/calendar.svg'
 import styles from './Project.module.scss'
 import { useDrop } from 'react-dnd'
 import { ItemTypes } from '../../Types'
+import { NewCardForm } from './components/NewCardForm/NewCardForm'
 
 interface propsProject {
     id: string
@@ -26,6 +27,7 @@ interface propsProject {
     TYC: string
     cards: CardType[]
     changeCards: (id: string, cards: CardType[]) => void
+    setAddingCard: (value: boolean) => void
 }
 
 
@@ -192,7 +194,7 @@ export const Project = (props: propsProject) => {
                                 />
                             )}
                         </div>
-                        <button className={styles.add}>
+                        <button onClick={() => props.setAddingCard(true)} className={styles.add}>
                             <img src={plusIcon} className={styles.plusIcon} alt={'+'}/>
                         </button>
                     </div>
@@ -215,7 +217,7 @@ export const Project = (props: propsProject) => {
                                 />
                             )}
                         </div>
-                        <button className={styles.add}>
+                        <button onClick={() => props.setAddingCard(true)} className={styles.add}>
                             <img src={plusIcon} className={styles.plusIcon} alt={'+'}/>
                         </button>
                     </div>
@@ -238,13 +240,12 @@ export const Project = (props: propsProject) => {
                                 />
                             )}
                         </div>
-                        <button className={styles.add}>
+                        <button onClick={() => props.setAddingCard(true)} className={styles.add}>
                             <img src={plusIcon} className={styles.plusIcon} alt={'+'}/>
                         </button>
                     </div>
                 </div>
             }
-
         </div>
     )
 }

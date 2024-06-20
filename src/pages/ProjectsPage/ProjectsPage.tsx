@@ -13,6 +13,7 @@ import { ItemTypes } from "./Types"
 import { useDrop } from "react-dnd"
 import { Card, CardArchive, ProjectArchive as ProjectArchiveType, Project as ProjectType} from "../../connect/projectsApi/Types"
 import { NewProjectForm } from "./components/NewProjectForm/NewProjectForm"
+import { NewCardForm } from "./components/Project/components/NewCardForm/NewCardForm"
 
 enum Scene {
     Applicataions = 'Заявки',
@@ -27,6 +28,7 @@ export const ProjectsPage = () => {
     const {isLoading: archiveIsLoading, data: archiveData} = useFetchProjectsArchiveQuery({offset: 0, size: 20})
     
     const [addingProject, setaAddingProject] = useState(false)
+    const [addingCard, setAddingCard] = useState(false)
     const [projects, setProjects] = useState(data? data.projects: [])
     const [projectsArchive, setProjectsArchive] = useState(archiveData? archiveData.projects: [])
     
@@ -83,10 +85,21 @@ export const ProjectsPage = () => {
   
     const changeAddingProject = () => setaAddingProject(!addingProject)
 
+    const addCard = (data: any) => {
+
+    }
+
+    const closeAddingCard = () => setAddingCard(false)
+
     return (
         <>
+            {addingCard &&
+                <div className={styles.addCard}>
+                    <NewCardForm close={closeAddingCard} addCard={addCard}/>
+                </div> 
+            }
             {addingProject && <NewProjectForm callback={changeAddingProject}/>} 
-            <div className={addingProject? styles.mainBlur: styles.main}>
+            <div className={addingProject || addingCard? styles.mainBlur: styles.main}>
                 <h1 className={styles.title}>Проведение испытании</h1>
                 {!isLoading && data &&
                     <>
@@ -132,6 +145,7 @@ export const ProjectsPage = () => {
                                             tester={p.tester}
                                             producer={p.producer}
                                             TYC={p.TYC}
+                                            setAddingCard={setAddingCard}
                                         />
                                     </div>
                                 )}
@@ -150,6 +164,7 @@ export const ProjectsPage = () => {
                                             tester={p.tester}
                                             producer={p.producer}
                                             TYC={p.TYC}
+                                            setAddingCard={setAddingCard}
                                         />
                                     </div>
                                 )}

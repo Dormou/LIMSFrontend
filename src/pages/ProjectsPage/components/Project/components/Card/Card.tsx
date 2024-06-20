@@ -9,6 +9,7 @@ import { useDrag } from 'react-dnd'
 import { DropResCard, ItemTypes } from '../../../../Types'
 import { Card as CardType } from '../../../../../../connect/projectsApi/Types'
 import { Dispatch, SetStateAction } from 'react'
+import { NewCardForm } from '../NewCardForm/NewCardForm'
 
 interface propsCard {
     id: string

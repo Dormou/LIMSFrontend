@@ -26,6 +26,7 @@ interface propsProjectArchive {
 
 export const ProjectArchive = (props: propsProjectArchive) => {
     const [hide, setHide] = useState(false)
+    const [openMenu, setOpenMenu] = useState(false)
 
     const statusCounts = {acceptTestCount: 0, rejectTestCount: 0, undefinedTestCount: 0}
 
@@ -68,7 +69,7 @@ export const ProjectArchive = (props: propsProjectArchive) => {
         
     return (
         <div className={styles.main}>
-                        <div className={styles.header}>
+            <div className={styles.header}>
                 <div className={styles.title}>
                     <div className={props.name}>{props.name}</div>
                     <img src={projectBoxIcon} className={styles.projectBox} alt={'projectBox'}/>
@@ -93,9 +94,15 @@ export const ProjectArchive = (props: propsProjectArchive) => {
                     <button onClick={() => setHide(!hide)} className={hide? styles.hideButtonActive: styles.hideButton}>
                         <img src={hideButtonIcon} className={styles.hideButton} alt={'hideButton'}/>
                     </button>
-                    <button onClick={() => setHide(!hide)} className={styles.actionsButton}>
+                    <button onClick={() => setOpenMenu(!openMenu)} className={styles.actionsButton}>
                         <img src={actionsIcon} className={styles.actionsIcon} alt={'actionsIcon'}/>
                     </button>
+                    {openMenu &&
+                        <div className={styles.actions}>
+                            <div className={styles.action}>Открыть отчет</div>
+                            <div className={styles.action}>Удалить</div>
+                        </div>
+                    }
                 </div>
                 <div className={styles.description}>
                     <div className={styles.TYC}>
@@ -118,7 +125,7 @@ export const ProjectArchive = (props: propsProjectArchive) => {
                 </div>
             </div>
             <div className={styles.scene}>
-                {props.cards.map(c => 
+                {!hide && props.cards.map(c => 
                     <div className={styles.card}>
                         <div className={styles.title}>
                             <div className={styles.name}>{c.name}</div>
