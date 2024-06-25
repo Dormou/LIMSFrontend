@@ -44,6 +44,12 @@ export type Test = {
     accept: StatusTest
 }
 
+export type Creator = {
+    id: string
+    firstname: string
+    lastname: string
+}
+
 export type Card = {
     id: string
     name: string
@@ -54,7 +60,10 @@ export type Card = {
     messages: Message[]
     deadline: Date
     release: Date
+    descryption: string
     status: CardStatus
+    creator: Creator
+    createAt: Date
 }
 
 export type CardArchive = {
@@ -67,6 +76,9 @@ export type CardArchive = {
     messages: Message[]
     deadline: Date
     release: Date
+    descryption: string
+    creator: Creator
+    createAt: Date
 }
 
 export enum CardStatus {

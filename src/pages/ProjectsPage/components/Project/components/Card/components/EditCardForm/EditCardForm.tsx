@@ -1,35 +1,35 @@
 import { ErrorMessage, Field, Formik, Form } from 'formik'
-import styles from './NewCardForm.module.scss'
+import styles from './EditCardForm.module.scss'
+import { Card } from '../../../../../../../../connect/projectsApi/Types'
 
-interface propsNewCardForm {
-    addCard: (data: any) => void
+interface propsEditCardForm {
+    editCard: (data: any) => void
     close: () => void
+    data: Card
 }
 
-export const NewCardForm = (props: propsNewCardForm) => {
+export const EditCardForm = (props: propsEditCardForm) => {
 
     return (
         <div className={styles.main}>
             <Formik
                 initialValues={{
                     testGroup: '',
-                    mandatoryTests: [{
-                        name: ''
-                    }],
-                    nonMandatoryTests: [{
-                        name: ''
-                    }],
-                    expert: {
-                        name: '',
-                    },
+                    mandatoryTests: props.data.mandatoryTests,
+                    nonMandatoryTests: props.data.nonMandatoryTests,
+                    expert: props.data.expert,
                     deadline: new Date(Date.now()),
-                    description: ''
+                    description: props.data.descryption
                 }}
-                onSubmit={(data) => props.addCard(data)}
+                onSubmit={(data) => props.editCard(data)}
             >
                 <Form>
                     <div className={styles.form}>
-                        <div className={styles.title}>Новое испытание</div>
+                        <div className={styles.title}>Редактировать испытание</div>
+                        <div className={styles.titles}>
+                            <div className={styles.creator}>Создатель:&nbsp;{props.data.creator.firstname}&nbsp;{props.data.creator.lastname}</div>
+                            <div className={styles.dateCreate}>Дата создания: {new Date(props.data.createAt).toLocaleString('ru-RU', {day: 'numeric', month: 'long', year: 'numeric'})}</div>
+                        </div>
                         <div className={styles.testingContainer}>
                             <div className={styles.selectContainer}>
                                 <div className={styles.title}>Группа тестов</div>

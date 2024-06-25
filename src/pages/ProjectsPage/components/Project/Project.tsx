@@ -13,10 +13,11 @@ import undefinedIcon from '../../../../source/images/icons/undefined.svg'
 import plusIcon from '../../../../source/images/icons/ant-design_plus-outlined.svg'
 import calenarIcon from '../../../../source/images/icons/calendar.svg'
 
-import styles from './Project.module.scss'
 import { useDrop } from 'react-dnd'
 import { ItemTypes } from '../../Types'
-import { NewCardForm } from './components/NewCardForm/NewCardForm'
+import { getFiles } from './services'
+
+import styles from './Project.module.scss'
 
 interface propsProject {
     id: string
@@ -28,6 +29,7 @@ interface propsProject {
     cards: CardType[]
     changeCards: (id: string, cards: CardType[]) => void
     setAddingCard: (value: boolean) => void
+    setEditingCard: (data: CardType) => void
 }
 
 
@@ -81,19 +83,6 @@ export const Project = (props: propsProject) => {
         : Date.now() + new Date(1970, 1, 5).getTime() > new Date(props.deadline).getTime()
             ? styles.deadlinePerLose
             : styles.deadline
-
-    
-    const getFiles = (documents: string[]) => {
-        const result: File[] = []
-
-        documents.map(async d => {
-            const blob =  (await (await fetch(d)).blob())
-
-            return result.push(new File([blob], 'doc.' + blob.type))
-        })
-
-        return result
-    }
 
     const setChangeCards = async (id: string, type: string) => {
         switch(type){
@@ -181,16 +170,9 @@ export const Project = (props: propsProject) => {
                             {_cards.current.filter(c => c.status === CardStatus.perProcess).map((c, i) => 
                                 <Card
                                     key={i}
-                                    id={c.id}
-                                    name={c.name}
-                                    documents={getFiles(c.documents)}
-                                    messages={c.messages}
-                                    mandatoryTests={c.mandatoryTests}
-                                    nonMandatoryTests={c.nonMandatoryTests}
-                                    expert={c.expert}
-                                    deadline={c.deadline}
-                                    release={c.release}
+                                    card={c}
                                     setCards={setChangeCards}
+                                    setEditingCard={props.setEditingCard}
                                 />
                             )}
                         </div>
@@ -204,16 +186,9 @@ export const Project = (props: propsProject) => {
                             {_cards.current.filter(c => c.status === CardStatus.process).map((c, i) => 
                                 <Card
                                     key={i}
-                                    id={c.id}   
-                                    name={c.name}
-                                    documents={getFiles(c.documents)}
-                                    messages={c.messages}
-                                    mandatoryTests={c.mandatoryTests}
-                                    nonMandatoryTests={c.nonMandatoryTests}
-                                    expert={c.expert}
-                                    deadline={c.deadline}
-                                    release={c.release}
+                                    card={c}
                                     setCards={setChangeCards}
+                                    setEditingCard={props.setEditingCard}
                                 />
                             )}
                         </div>
@@ -227,16 +202,9 @@ export const Project = (props: propsProject) => {
                             {_cards.current.filter(c => c.status === CardStatus.release).map((c, i) => 
                                 <Card
                                     key={i}
-                                    id={c.id}
-                                    name={c.name}
-                                    documents={getFiles(c.documents)}
-                                    messages={c.messages}
-                                    mandatoryTests={c.mandatoryTests}
-                                    nonMandatoryTests={c.nonMandatoryTests}
-                                    expert={c.expert}
-                                    deadline={c.deadline}
-                                    release={c.release}
+                                    card={c}
                                     setCards={setChangeCards}
+                                    setEditingCard={props.setEditingCard}
                                 />
                             )}
                         </div>

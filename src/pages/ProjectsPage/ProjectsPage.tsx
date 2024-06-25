@@ -14,6 +14,7 @@ import { useDrop } from "react-dnd"
 import { Card, CardArchive, ProjectArchive as ProjectArchiveType, Project as ProjectType} from "../../connect/projectsApi/Types"
 import { NewProjectForm } from "./components/NewProjectForm/NewProjectForm"
 import { NewCardForm } from "./components/Project/components/NewCardForm/NewCardForm"
+import { EditCardForm } from "./components/Project/components/Card/components/EditCardForm/EditCardForm"
 
 enum Scene {
     Applicataions = 'Заявки',
@@ -29,6 +30,7 @@ export const ProjectsPage = () => {
     
     const [addingProject, setaAddingProject] = useState(false)
     const [addingCard, setAddingCard] = useState(false)
+    const [editingCard, setEditingCard] = useState({} as Card)
     const [projects, setProjects] = useState(data? data.projects: [])
     const [projectsArchive, setProjectsArchive] = useState(archiveData? archiveData.projects: [])
     
@@ -89,7 +91,13 @@ export const ProjectsPage = () => {
 
     }
 
+    const editCard = (data: Card) => {
+
+    }
+
     const closeAddingCard = () => setAddingCard(false)
+
+    const closeEditngCard = () => setEditingCard({} as Card)
 
     return (
         <>
@@ -98,8 +106,13 @@ export const ProjectsPage = () => {
                     <NewCardForm close={closeAddingCard} addCard={addCard}/>
                 </div> 
             }
+            {editingCard.id &&
+                <div className={styles.editCard}>
+                    <EditCardForm close={closeEditngCard} editCard={editCard} data={editingCard}/>
+                </div> 
+            }
             {addingProject && <NewProjectForm callback={changeAddingProject}/>} 
-            <div className={addingProject || addingCard? styles.mainBlur: styles.main}>
+            <div className={addingProject || addingCard || editingCard.id? styles.mainBlur: styles.main}>
                 <h1 className={styles.title}>Проведение испытании</h1>
                 {!isLoading && data &&
                     <>
@@ -146,6 +159,7 @@ export const ProjectsPage = () => {
                                             producer={p.producer}
                                             TYC={p.TYC}
                                             setAddingCard={setAddingCard}
+                                            setEditingCard={setEditingCard}
                                         />
                                     </div>
                                 )}
@@ -165,6 +179,7 @@ export const ProjectsPage = () => {
                                             producer={p.producer}
                                             TYC={p.TYC}
                                             setAddingCard={setAddingCard}
+                                            setEditingCard={setEditingCard}
                                         />
                                     </div>
                                 )}

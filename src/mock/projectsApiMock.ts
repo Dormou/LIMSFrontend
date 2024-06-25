@@ -87,7 +87,14 @@ export const handlersProjectsApi = [
                             datePinnded: new Date(Date.now() - Date.now()/10000)
                         },
                         deadline: new Date(Date.now() - Date.now()/5000),
-                        release: new Date(Date.now() - Date.now()/4000)
+                        release: new Date(Date.now() - Date.now()/4000),
+                        createAt: new Date(Date.now() - Date.now()/4000),
+                        descryption: 'описание',
+                        creator: {
+                            id: uuidV4(),
+                            firstname: "Billy",
+                            lastname: "Herrington"
+                        }
                     },
                     {
                         id: uuidV4(),
@@ -121,7 +128,15 @@ export const handlersProjectsApi = [
                             datePinnded: new Date(Date.now() - Date.now()/10000)
                         },
                         deadline: new Date(Date.now() - Date.now()/5000),
-                        release: new Date(Date.now() - Date.now()/4000)
+                        release: new Date(Date.now() - Date.now()/4000),
+                        createAt: new Date(Date.now() - Date.now()/4000),
+                        descryption: 'описание',
+
+                        creator: {
+                            id: uuidV4(),
+                            firstname: "Billy",
+                            lastname: "Herrington"
+                        }
                     },
                     {
                         id: uuidV4(),
@@ -155,7 +170,15 @@ export const handlersProjectsApi = [
                             datePinnded: new Date(Date.now() - Date.now()/10000)
                         },
                         deadline: new Date(Date.now() - Date.now()/5000),
-                        release: new Date(Date.now() - Date.now()/4000)
+                        release: new Date(Date.now() - Date.now()/4000),
+                        createAt: new Date(Date.now() - Date.now()/4000),
+                        descryption: 'описание',
+
+                        creator: {
+                            id: uuidV4(),
+                            firstname: "Billy",
+                            lastname: "Herrington"
+                        }
                     },
                     {
                         id: uuidV4(),
@@ -189,7 +212,15 @@ export const handlersProjectsApi = [
                             datePinnded: new Date(Date.now() - Date.now()/10000)
                         },
                         deadline: new Date(Date.now() - Date.now()/5000),
-                        release: new Date(Date.now() - Date.now()/4000)
+                        release: new Date(Date.now() - Date.now()/4000),
+                        createAt: new Date(Date.now() - Date.now()/4000),
+                        descryption: 'описание',
+
+                        creator: {
+                            id: uuidV4(),
+                            firstname: "Billy",
+                            lastname: "Herrington"
+                        }
                     },
                     {
                         id: uuidV4(),
@@ -223,11 +254,20 @@ export const handlersProjectsApi = [
                             datePinnded: new Date(Date.now() - Date.now()/10000)
                         },
                         deadline: new Date(Date.now() - Date.now()/5000),
-                        release: new Date(Date.now() - Date.now()/4000)
+                        release: new Date(Date.now() - Date.now()/4000),
+                        createAt: new Date(Date.now() - Date.now()/4000),
+                        descryption: 'описание',
+
+                        creator: {
+                            id: uuidV4(),
+                            firstname: "Billy",
+                            lastname: "Herrington"
+                        }
                     },
                     {
                         id: uuidV4(),
                         status: CardStatus.perProcess,
+                        createAt: new Date(Date.now() + Date.now()/5000),
                         messages: [],
                         documents: [],
                         name: "TEST_CARD",
@@ -257,7 +297,14 @@ export const handlersProjectsApi = [
                             datePinnded: new Date(Date.now() - Date.now()/10000)
                         },
                         deadline: new Date(Date.now() - Date.now()/5000),
-                        release: new Date(Date.now() - Date.now()/4000)
+                        release: new Date(Date.now() - Date.now()/4000),
+                        descryption: 'описание',
+
+                        creator: {
+                            id: uuidV4(),
+                            firstname: "Billy",
+                            lastname: "Herrington"
+                        }
                     }
                 ],
                 TYC: "GR-567",
@@ -468,7 +515,14 @@ export const handlersProjectsApi = [
                             datePinnded: new Date(Date.now() - Date.now()/10000)
                         },
                         deadline: new Date(Date.now() - Date.now()/5000),
-                        release: new Date(Date.now() - Date.now()/4000)
+                        release: new Date(Date.now() - Date.now()/4000),
+                        createAt: new Date(Date.now() - Date.now()/4000),
+                        descryption: 'описание',
+                        creator: {
+                            id: uuidV4(),
+                            firstname: "Billy",
+                            lastname: "Herrington"
+                        }
                     },
 {id: uuidV4(),
                         messages: [],
@@ -500,7 +554,14 @@ export const handlersProjectsApi = [
                             datePinnded: new Date(Date.now() - Date.now()/10000)
                         },
                         deadline: new Date(Date.now() - Date.now()/5000),
-                        release: new Date(Date.now() - Date.now()/6000)
+                        release: new Date(Date.now() - Date.now()/6000),
+                        createAt: new Date(Date.now() - Date.now()/6000),
+                        descryption: 'описание',
+                        creator: {
+                            id: uuidV4(),
+                            firstname: "Billy",
+                            lastname: "Herrington"
+                        }
                     },
 {id: uuidV4(),
                         messages: [],
@@ -532,7 +593,15 @@ export const handlersProjectsApi = [
                             datePinnded: new Date(Date.now() - Date.now()/10000)
                         },
                         deadline: new Date(Date.now() - Date.now()/5000),
-                        release: new Date(Date.now() - Date.now()/4000)
+                        release: new Date(Date.now() - Date.now()/4000),
+                        createAt: new Date(Date.now() - Date.now()/4000),
+                        descryption: 'описание',
+
+                        creator: {
+                            id: uuidV4(),
+                            firstname: "Billy",
+                            lastname: "Herrington"
+                        }
                     },
 {id: uuidV4(),
                         messages: [],
@@ -564,7 +633,14 @@ export const handlersProjectsApi = [
                             datePinnded: new Date(Date.now() - Date.now()/10000)
                         },
                         deadline: new Date(Date.now() - Date.now()/5000),
-                        release: new Date(Date.now() - Date.now()/4000)
+                        release: new Date(Date.now() - Date.now()/4000),
+                        createAt: new Date(Date.now() - Date.now()/4000),
+                        descryption: 'описание',
+                        creator: {
+                            id: uuidV4(),
+                            firstname: "Billy",
+                            lastname: "Herrington"
+                        }
                     },
 {id: uuidV4(),
                         messages: [],
@@ -596,7 +672,14 @@ export const handlersProjectsApi = [
                             datePinnded: new Date(Date.now() - Date.now()/10000)
                         },
                         deadline: new Date(Date.now() - Date.now()/5000),
-                        release: new Date(Date.now() - Date.now()/4000)
+                        release: new Date(Date.now() - Date.now()/4000),
+                        createAt: new Date(Date.now() - Date.now()/4000),
+                        descryption: 'описание',
+                        creator: {
+                            id: uuidV4(),
+                            firstname: "Billy",
+                            lastname: "Herrington"
+                        }
                     },
 {id: uuidV4(),
                         messages: [],
@@ -628,7 +711,15 @@ export const handlersProjectsApi = [
                             datePinnded: new Date(Date.now() - Date.now()/10000)
                         },
                         deadline: new Date(Date.now() - Date.now()/5000),
-                        release: new Date(Date.now() - Date.now()/4000)
+                        release: new Date(Date.now() - Date.now()/4000),
+                        createAt: new Date(Date.now() - Date.now()/4000),
+                        descryption: 'описание',
+
+                        creator: {
+                            id: uuidV4(),
+                            firstname: "Billy",
+                            lastname: "Herrington"
+                        }
                     },
                 ],
                 TYC: "GR-567",
@@ -677,7 +768,15 @@ export const handlersProjectsApi = [
                             datePinnded: new Date(Date.now() - Date.now()/10000)
                         },
                         deadline: new Date(Date.now() - Date.now()/5000),
-                        release: new Date(Date.now() - Date.now()/4000)
+                        release: new Date(Date.now() - Date.now()/4000),
+                        createAt: new Date(Date.now() - Date.now()/4000),
+                        descryption: 'описание',
+
+                        creator: {
+                            id: uuidV4(),
+                            firstname: "Billy",
+                            lastname: "Herrington"
+                        }
                     },
 {id: uuidV4(),
                         messages: [],
@@ -709,7 +808,15 @@ export const handlersProjectsApi = [
                             datePinnded: new Date(Date.now() - Date.now()/10000)
                         },
                         deadline: new Date(Date.now() - Date.now()/5000),
-                        release: new Date(Date.now() - Date.now()/4000)
+                        release: new Date(Date.now() - Date.now()/4000),
+                        createAt: new Date(Date.now() - Date.now()/4000),
+                        descryption: 'описание',
+
+                        creator: {
+                            id: uuidV4(),
+                            firstname: "Billy",
+                            lastname: "Herrington"
+                        }
                     },
 {id: uuidV4(),
                         messages: [],
@@ -741,7 +848,15 @@ export const handlersProjectsApi = [
                             datePinnded: new Date(Date.now() - Date.now()/10000)
                         },
                         deadline: new Date(Date.now() - Date.now()/5000),
-                        release: new Date(Date.now() - Date.now()/4000)
+                        release: new Date(Date.now() - Date.now()/4000),
+                        createAt: new Date(Date.now() - Date.now()/4000),
+                        descryption: 'описание',
+
+                        creator: {
+                            id: uuidV4(),
+                            firstname: "Billy",
+                            lastname: "Herrington"
+                        }
                     },
 {id: uuidV4(),
                         messages: [],
@@ -773,7 +888,15 @@ export const handlersProjectsApi = [
                             datePinnded: new Date(Date.now() - Date.now()/10000)
                         },
                         deadline: new Date(Date.now() - Date.now()/5000),
-                        release: new Date(Date.now() - Date.now()/4000)
+                        release: new Date(Date.now() - Date.now()/4000),
+                        createAt: new Date(Date.now() - Date.now()/4000),
+                        descryption: 'описание',
+
+                        creator: {
+                            id: uuidV4(),
+                            firstname: "Billy",
+                            lastname: "Herrington"
+                        }
                     },
 {id: uuidV4(),
                         messages: [],
@@ -805,7 +928,15 @@ export const handlersProjectsApi = [
                             datePinnded: new Date(Date.now() - Date.now()/10000)
                         },
                         deadline: new Date(Date.now() - Date.now()/5000),
-                        release: new Date(Date.now() - Date.now()/4000)
+                        release: new Date(Date.now() - Date.now()/4000),
+                        createAt: new Date(Date.now() - Date.now()/4000),
+                        descryption: 'описание',
+
+                        creator: {
+                            id: uuidV4(),
+                            firstname: "Billy",
+                            lastname: "Herrington"
+                        }
                     },
 {id: uuidV4(),
                         messages: [],
@@ -837,7 +968,15 @@ export const handlersProjectsApi = [
                             datePinnded: new Date(Date.now() - Date.now()/10000)
                         },
                         deadline: new Date(Date.now() - Date.now()/5000),
-                        release: new Date(Date.now() - Date.now()/4000)
+                        release: new Date(Date.now() - Date.now()/4000),
+                        createAt: new Date(Date.now() - Date.now()/4000),
+                        descryption: 'описание',
+
+                        creator: {
+                            id: uuidV4(),
+                            firstname: "Billy",
+                            lastname: "Herrington"
+                        }
                     }
                 ],
                 TYC: "GR-567",
