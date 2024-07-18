@@ -27,8 +27,6 @@ export const Header = () => {
     const location = useLocation()
     const dispatch = useDispatch()
 
-    console.log(location)
-
     const {data: avatar} = useGetUserPhotoQuery('test')
 
     const userinfoLocal = localStorage.getItem('lims.userinfo')
@@ -56,7 +54,6 @@ export const Header = () => {
           const original = storage[method].bind(storage);
 
           const newMethod = function (...args) {
-
             const result = original.apply(null, args)
 
             const item = collections.find(i => i.name === args[0])

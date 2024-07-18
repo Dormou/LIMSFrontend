@@ -1,0 +1,258 @@
+$def-blue: #005B9C;
+
+.main {
+    width: 97%;
+    border: 0.5px solid transparent;
+    margin: 1.5%;
+    border-radius: 5px;
+    box-shadow: 0 0 7px rgba(0, 0, 0, 0.507);
+
+    & > .addCard {
+        z-index: 9999999999;
+    }
+
+    & > .cards {
+        margin-top: 15px;
+        display: inline-flex;
+        width: 100%;
+        margin-bottom: 10px;
+        justify-self: start;
+
+        & > * {
+            height: 100%;
+        }
+        
+        & > .perProcess {
+            width: 30%;
+            height: 100%;
+            margin-left: 2%;
+
+            & > .title {
+                margin-bottom: 25px;
+            }
+        }
+
+        & > .process {
+            width: 30%;
+            height: auto;
+            margin-left: 2%;
+            padding-left: 2%;
+            border-inline: 0.5px solid;
+
+            & > .title {
+                margin-bottom: 25px;
+            }
+        }
+
+        & > .release {
+            width: 30%;
+            height: 100%;
+            margin-left: 2%;
+
+            & > .title {
+                margin-bottom: 25px;
+            }
+
+            & > .cards {
+
+                & > * {
+                    margin-bottom: 5px;
+                }
+            }
+        }
+    }
+
+    & > .header {
+        margin-inline: 1%;
+
+        & > .title {
+            width: 100%;
+            display: inline-flex;
+            margin-top: 6px;
+
+            & > .hideButton {
+                transform: rotate(180deg);
+                margin-top: 1px;
+                margin-right: 6px;
+                background-color: transparent;
+                border-color: transparent;
+            }
+
+            & > .hideButtonActive {
+                @extend .hideButton;
+
+                transform: rotate(0);
+            }
+
+            & > .actions {
+                z-index: 1;
+                position: absolute;
+                width: 120px;
+                height: 120px;
+                background-color: white;
+                border: 0.5px solid gray;
+                border-radius: 5px;
+                margin-left: auto;
+                margin-right: 0;
+                right: 2%;
+                margin-top: 2%;
+                padding-right: 15px;
+
+                & > :last-child {
+                    color: red;
+                }
+
+                & > .action {
+                    margin-bottom: 5%;
+                    text-align: right;
+                    width: 100%;
+                    height: 20%;
+                }
+            }
+
+            & > .actionsButton {
+                margin-top: 4px;
+                margin-right: 2px;
+                margin-left: auto;
+                background-color: transparent;
+                border-color: transparent;
+            }
+
+            & > .projectBox {
+                margin: 2px;
+                margin-right: 70%;
+                height: 18px;
+                width: 18px;
+            }
+
+            & > .tests {
+                margin-right: 1.5%;
+                display: inline-flex; 
+                
+                $size-icon: 20px;
+                $margin-top: $size-icon/4;
+
+                & > .title {
+                    margin-right: auto;
+                    width: 180px;
+                }
+
+                & > .allTests {
+                    margin-right: 12%;
+                }
+                
+                & > .accept {
+                    height: $size-icon;
+                    width: $size-icon;
+                    margin-right: 7%;
+                    display: inline-flex;
+
+                    & > img {
+                        margin-top: $margin-top;
+                        margin-right: 0.3%;
+                    }
+                }
+
+                & > .reject {
+                    height: $size-icon;
+                    width: $size-icon;
+                    margin-right: 7%;
+                    display: inline-flex;
+
+                    & > img {
+                        margin-top: $margin-top*0.8;
+                        margin-right: 2px;
+                    }
+                }
+
+                & > .undefined {
+                    height: $size-icon;
+                    width: $size-icon;
+                    margin-right: 0%;
+                    display: inline-flex;
+
+                    & > img {
+                        margin-top: $margin-top*0.8;
+                        margin-right: 1%;
+                    }
+                }
+            }
+        }
+
+        & > .description {
+            width: 100%;
+            display: inline-flex;
+
+            vertical-align: middle;
+
+            & > .date {
+                margin-bottom: -15px;
+            }
+
+            & > .deadline {
+                margin-left: auto;
+                margin-right: 0.5%;
+                display: inline-flex;
+                color: green;
+
+                & > img {
+                    width: 24px;
+                    height: 24px;
+                    margin-right: 4px;
+                }
+            }
+
+            & > .deadlineLose {
+                @extend .deadline;
+
+                color: red;
+
+                & > img {
+                    filter: invert(100%) hue-rotate(23deg);
+                }
+            }
+
+            & > .deadlinePerLose {
+                @extend .deadline;
+
+                color: yellow;
+
+                & > img {
+                    filter: invert(1) hue-rotate(140deg);
+                }
+            }
+
+            & > .TYC {
+                display: inline-flex;
+                margin-right: 10%;
+
+                & > .title {
+                    font-weight: 600;
+                    margin-right: 10px;
+                }
+            }
+
+            & > .tester {
+                display: inline-flex;
+                margin-right: auto;
+
+                & > .title {
+                    font-weight: 600;
+                    margin-right: 10px;
+                }
+                
+            }
+
+            & >.producer {
+                display: inline-flex;
+                margin-right: 10%;
+
+                & > .title {
+                    font-weight: 600;
+                    margin-right: 10px;
+                }
+            }
+        }
+    }
+
+}

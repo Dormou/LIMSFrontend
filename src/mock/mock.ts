@@ -1,4 +1,7 @@
 import { setupWorker } from "msw/browser";
-import { handlers } from "./accountApiMock";
+import { handlersAccountApi } from "./accountApiMock";
+import { handlersProjectsApi } from "./projectsApiMock";
 
-export const worker = setupWorker(...handlers)
+export const worker = setupWorker(...handlersAccountApi
+    .concat(handlersProjectsApi)
+)

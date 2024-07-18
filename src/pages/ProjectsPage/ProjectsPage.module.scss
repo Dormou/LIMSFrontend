@@ -1,0 +1,109 @@
+$def-blue: #005B9C;
+
+.mainBlur {
+    @extend .main;
+
+    filter: blur(5px);
+}
+
+.main {
+    background-color: white;
+    width: 100%;
+    margin-top: 5%;
+
+    & > .scene {
+        overflow-y:scroll;
+        width: 100%;
+        height: 70vh;
+        max-height: 60%;
+        background-color: rgb(255, 255, 255);
+
+        & > .loading {
+            margin-left: 42%;
+            margin-right: auto;
+            margin-top: 10%;
+            margin-bottom: auto;
+        }
+
+        & > .archive {
+
+            & > .projects {
+
+                & > .project {
+                    width:  100%;
+                    
+                    margin-bottom: 1%;
+                }
+            }
+        }
+    }
+
+    & > h1 {
+        width: 100%;
+        text-align: center;
+    }
+
+    & > .SearchAndFilter {
+        width: 84%;
+        padding-inline: 8%;
+        display: inline-flex;
+
+        & > .search {
+            width: 69%;
+        }
+
+        & > .addProject {
+            height: 44px;
+            width: 10%;
+            margin-right: 20px;
+            background-color: $def-blue;
+            color: white;
+            border-radius: 5px;
+            border: none;
+            font-weight: 500;
+            font-size: 18px;
+        }
+
+        & > .filters {
+
+        }
+    }
+
+    & > .sceneHeader {
+        display: inline-flex;
+        width: 100%;
+        padding-top: 24px;
+        border-bottom: 0.5px solid black;
+
+        & > .loading {
+            margin-left: 45%;
+            margin-right: auto;
+            margin-top: 10%;
+            margin-bottom: auto;
+        }
+
+        & > .buttons {
+            display: inline-flex;
+            max-width: fit-content;
+            margin-left: auto;
+            margin-right: auto;
+
+            & > .switchScene {
+                text-align: center;
+                color: gray;
+                font-size: 24px;
+                margin-inline: 32px;
+                padding-bottom: 10px;
+                font-weight: 500;
+                font-size: 24px;
+            }
+
+            & > .switchSelectedScene {
+                @extend .switchScene;
+    
+                color: $def-blue;
+                border-bottom: 0.7px solid $def-blue;
+            }
+        }
+    }
+}
