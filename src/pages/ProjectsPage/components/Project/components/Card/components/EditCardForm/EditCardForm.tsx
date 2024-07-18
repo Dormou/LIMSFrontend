@@ -15,8 +15,6 @@ export const EditCardForm = (props: propsEditCardForm) => {
             <Formik
                 initialValues={{
                     testGroup: '',
-                    mandatoryTests: props.data.mandatoryTests,
-                    nonMandatoryTests: props.data.nonMandatoryTests,
                     expert: props.data.expert,
                     deadline: new Date(Date.now()),
                     description: props.data.descryption
@@ -36,16 +34,6 @@ export const EditCardForm = (props: propsEditCardForm) => {
                                 <div className={styles.select}>
                                     <Field type="select" name="testGroup" placeholder="Выберете группу"/>
                                     <ErrorMessage name="testGroup" component="div" />
-                                </div>
-                            </div>
-                            <div className={styles.testsContainer}>
-                                <div className={styles.mandatoryTests}>
-                                    <div className={styles.title}>Обязательные тесты</div>
-                                    <div className={styles.tests}></div>
-                                </div>
-                                <div className={styles.nonMandatoryTests}>
-                                    <div className={styles.title}>Необязательные тесты</div>
-                                    <div className={styles.tests}></div>
                                 </div>
                             </div>
                         </div>

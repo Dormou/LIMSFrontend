@@ -4,7 +4,7 @@ import chatIcon from '../../../../../../source/images/icons/chat.svg'
 import docIcon from '../../../../../../source/images/icons/doc.svg'
 import actionsIcon from '../../../../../../source/images/icons/actions.svg'
 import calenarIcon from '../../../../../../source/images/icons/calendar.svg'
-import { CardStatus, Creator, Expert, Message, StatusTest, Test } from '../../../../../../connect/projectsApi/Types'
+import { CardStatus, Creator, Expert, Message, Result, StatusTest, Test } from '../../../../../../connect/projectsApi/Types'
 import { useDrag } from 'react-dnd'
 import { DropResCard, ItemTypes } from '../../../../Types'
 import { Card as CardType } from '../../../../../../connect/projectsApi/Types'
@@ -35,6 +35,14 @@ export const Card = (props: propsCard) => {
         }),
     }), [props])
 
+    const getTitleResult = (value: Result) => value === Result.accept
+        ? "Пройдено"
+        : value === Result.reject
+            ? "Провалено"
+            : value === Result.none
+                ? ""
+                : "Неизвестно"
+
     return (
         <div ref={drag} className={styles.main}>
             {openMenu &&
@@ -50,20 +58,14 @@ export const Card = (props: propsCard) => {
                         <img src={actionsIcon} className={styles.actionsIcon} alt={'actionsIcon'}/>
                     </div>
                 </div>
+                <div className={styles.device}>{props.card.equipment.name}</div>
                 <div className={styles.icons}>
                     <img src={docIcon} className={styles.docIcon} alt=''/>
                     <div>{props.card.documents.length}</div>
                     <img src={chatIcon} className={styles.chatIcon} alt=''/>
                     <div>{props.card.messages.length}</div>
                 </div>
-                <div className={styles.mandatoryTests}>
-                    <div className={styles.title}>Обзательные тесты:</div>
-                    <div className={styles.count}>{props.card.mandatoryTests.filter(t => t.accept === StatusTest.accept).length}/{props.card.mandatoryTests.filter(t => t.accept !== StatusTest.accept).length}</div>
-                </div>
-                <div className={styles.nonMandatoryTests}>
-                    <div className={styles.title}>Условные тесты:</div>
-                    <div className={styles.count}>{props.card.nonMandatoryTests.filter(t => t.accept === StatusTest.accept).length}/{props.card.nonMandatoryTests.filter(t => t.accept !== StatusTest.accept).length}</div>
-                </div>
+                <div className={styles.result}>Результат: {getTitleResult(props.card.result)}</div>
                 <div className={styles.expert}>
                     <div className={styles.name}>{props.card.expert.firstname + ' ' + props.card.expert.lastname}</div>
                     <div className={props.card.deadline >= props.card.release? styles.deadline: styles.deadlineLose}>

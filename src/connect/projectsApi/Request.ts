@@ -1,4 +1,4 @@
-import { Producer, Project, Tester } from "./Types"
+import { Application, Project, Tester } from "./Types"
 
 export type FetchProjectsRequest = {
     offset: number
@@ -14,7 +14,7 @@ export type AddProjectRequest = {
     name: string
     isProcess: boolean
     tester: Tester
-    producer: Producer
+    producer: Application
     deadline: Date
     TYC: string
 }

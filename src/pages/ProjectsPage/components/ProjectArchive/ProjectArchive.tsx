@@ -1,4 +1,4 @@
-import { Card, CardArchive, CardStatus, Message, Producer, StatusTest, Tester } from '../../../../connect/projectsApi/Types'
+import { Card, CardArchive, CardStatus, Message, Application, StatusTest, Tester, StatusProject } from '../../../../connect/projectsApi/Types'
 import styles from './ProjectArchive.module.scss'
 
 import actionsIcon from '../../../../source/images/icons/actions.svg'
@@ -15,11 +15,11 @@ import { useRef, useState } from 'react'
 interface propsProjectArchive {
     id: string
     name: string
-    producer: Producer
+    producer: Application
     tester: Tester
     deadline: Date
+    status: StatusProject
     release: Date
-    TYC: string
     cards: CardArchive[]
     changeCards: (id: string, cards: CardArchive[]) => void
 }
@@ -28,19 +28,7 @@ export const ProjectArchive = (props: propsProjectArchive) => {
     const [hide, setHide] = useState(false)
     const [openMenu, setOpenMenu] = useState(false)
 
-    const statusCounts = {acceptTestCount: 0, rejectTestCount: 0, undefinedTestCount: 0}
-
     const _cards = useRef(props.cards)
-
-    props.cards
-    .forEach(c => c.mandatoryTests
-        .forEach(mt => mt.accept === StatusTest.accept
-            ? ++statusCounts.acceptTestCount
-            : mt.accept === StatusTest.undefined
-                ? ++statusCounts.undefinedTestCount
-                : ++statusCounts.rejectTestCount
-        )
-    )
 
     const getStyleDeadline = () => Date.now() + new Date(1970, 1, 3).getTime() > new Date(props.deadline).getTime()
         ? styles.deadlineLose
@@ -73,24 +61,6 @@ export const ProjectArchive = (props: propsProjectArchive) => {
                 <div className={styles.title}>
                     <div className={props.name}>{props.name}</div>
                     <img src={projectBoxIcon} className={styles.projectBox} alt={'projectBox'}/>
-                    <div className={styles.tests}>
-                        <div className={styles.title}>Всего тестов:</div>
-                        <div className={styles.allTests}>
-                            {statusCounts.acceptTestCount + statusCounts.rejectTestCount + statusCounts.undefinedTestCount}
-                        </div>
-                        <div className={styles.accept}>
-                            <img src={acceptIcon} className={styles.acceptIcon} alt={'acceptIcon'}/>
-                            {statusCounts.acceptTestCount}
-                        </div>
-                        <div className={styles.reject}>
-                            <img src={rejectIcon} className={styles.rejectIcon} alt={'rejectIcon'}/>
-                            {statusCounts.rejectTestCount}
-                        </div>
-                        <div className={styles.undefined}>
-                            <img src={undefinedIcon} className={styles.undefinedIcon} alt={'undefinedIcon'}/>
-                            {statusCounts.undefinedTestCount}
-                        </div>
-                    </div>
                     <button onClick={() => setHide(!hide)} className={hide? styles.hideButtonActive: styles.hideButton}>
                         <img src={hideButtonIcon} className={styles.hideButton} alt={'hideButton'}/>
                     </button>
@@ -105,10 +75,6 @@ export const ProjectArchive = (props: propsProjectArchive) => {
                     }
                 </div>
                 <div className={styles.description}>
-                    <div className={styles.TYC}>
-                        <div className={styles.title}>ТУС:</div>
-                        <div className={styles.name}>{props.TYC}</div>     
-                    </div>
                     <div className={styles.tester}>
                         <div className={styles.title}>Инженер по Испытаниям:</div>
                         <div className={styles.firstname}>{props.tester.firstname}</div>
@@ -138,21 +104,6 @@ export const ProjectArchive = (props: propsProjectArchive) => {
                             <div>{c.documents.length}</div>
                             <img src={chatIcon} className={styles.chatIcon} alt=''/>
                             <div>{c.messages.length}</div>
-                        </div>
-                        <div className={styles.mandatoryTests}>
-                            <div className={styles.title}>Обзательные тесты:</div>
-                            <div className={styles.counts}>
-                                <img src={acceptIcon} className={styles.acceptIcon} alt={'accept: '}/>
-                                <div className={styles.count}>{c.mandatoryTests.filter(t => t.accept === StatusTest.accept).length}</div>
-                                <img src={rejectIcon} className={styles.acceptIcon} alt={'reject: '}/>
-                                <div className={styles.count}>{c.mandatoryTests.filter(t => t.accept === StatusTest.reject).length}</div>
-                                <img src={undefinedIcon} className={styles.acceptIcon} alt={'undefined: '}/>
-                                <div className={styles.count}>{c.mandatoryTests.filter(t => t.accept === StatusTest.undefined).length}</div>
-                            </div>
-                        </div>
-                        <div className={styles.nonMandatoryTests}>
-                            <div className={styles.title}>Условные тесты:</div>
-                            <div className={styles.count}>{c.nonMandatoryTests.filter(t => t.accept === StatusTest.accept).length}/{c.nonMandatoryTests.filter(t => t.accept !== StatusTest.accept).length}</div>
                         </div>
                         <div className={styles.expert}>
                             <div className={styles.name}>{c.expert.firstname + ' ' + c.expert.lastname}</div>

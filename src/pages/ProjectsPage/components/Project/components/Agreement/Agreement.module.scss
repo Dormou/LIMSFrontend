@@ -1,0 +1,19 @@
+.main {
+    width: 100%;
+
+    & > .equipments {
+        display: inline-flex;
+        width: 100%;
+
+        & > .equipment {
+            border: 2px solid gray;
+
+            & > .cards {
+
+                & > .card {
+                    display: inline-flex;
+                }
+            }
+        }
+    }
+}

@@ -73,7 +73,8 @@ $def-blue: #005B9C;
             & > .hideButton {
                 transform: rotate(180deg);
                 margin-top: 1px;
-                margin-right: 6px;
+                margin-right: -65%;
+                margin-left: auto;
                 background-color: transparent;
                 border-color: transparent;
             }
@@ -116,66 +117,6 @@ $def-blue: #005B9C;
                 margin-left: auto;
                 background-color: transparent;
                 border-color: transparent;
-            }
-
-            & > .projectBox {
-                margin: 2px;
-                margin-right: 70%;
-                height: 18px;
-                width: 18px;
-            }
-
-            & > .tests {
-                margin-right: 1.5%;
-                display: inline-flex; 
-                
-                $size-icon: 20px;
-                $margin-top: $size-icon/4;
-
-                & > .title {
-                    margin-right: auto;
-                    width: 180px;
-                }
-
-                & > .allTests {
-                    margin-right: 12%;
-                }
-                
-                & > .accept {
-                    height: $size-icon;
-                    width: $size-icon;
-                    margin-right: 7%;
-                    display: inline-flex;
-
-                    & > img {
-                        margin-top: $margin-top;
-                        margin-right: 0.3%;
-                    }
-                }
-
-                & > .reject {
-                    height: $size-icon;
-                    width: $size-icon;
-                    margin-right: 7%;
-                    display: inline-flex;
-
-                    & > img {
-                        margin-top: $margin-top*0.8;
-                        margin-right: 2px;
-                    }
-                }
-
-                & > .undefined {
-                    height: $size-icon;
-                    width: $size-icon;
-                    margin-right: 0%;
-                    display: inline-flex;
-
-                    & > img {
-                        margin-top: $margin-top*0.8;
-                        margin-right: 1%;
-                    }
-                }
             }
         }
 

@@ -1,26 +1,36 @@
 export type Project = {
     id: string
-    name: string
+    typeName: string
+    modelName: string
     isProcess: boolean
     tester: Tester
-    producer: Producer
+    application: Application
     cards: Card[]
     createAt: Date
     updateAt: Date
     deadline: Date
-    TYC: string
+    status: StatusProject
+}
+
+export enum StatusProject {
+    agreement,
+    agreementSetup,
+    awaitDevice,
+    inWork,
+    release
 }
 
 export type ProjectArchive = {
     id: string
-    name: string
+    typeName: string
+    modelName: string
     isProcess: boolean
     tester: Tester
-    producer: Producer
+    application: Application
     cards: CardArchive[]
     deadline: Date
     release: Date
-    TYC: string
+    status: StatusProject
 }
 
 export type Message = {
@@ -29,7 +39,7 @@ export type Message = {
     value: string
 }
 
-export type Producer = {
+export type Application = {
     name: string
 }
 
@@ -37,11 +47,6 @@ export type Expert = {
     firstname: string
     lastname: string
     datePinnded: Date
-}
-
-export type Test = {
-    name: string
-    accept: StatusTest
 }
 
 export type Creator = {
@@ -53,8 +58,6 @@ export type Creator = {
 export type Card = {
     id: string
     name: string
-    mandatoryTests: Test[]
-    nonMandatoryTests: Test[]
     expert: Expert
     documents: string[]
     messages: Message[]
@@ -64,13 +67,13 @@ export type Card = {
     status: CardStatus
     creator: Creator
     createAt: Date
+    result: Result
+    equipment: Equipment
 }
 
 export type CardArchive = {
     id: string
     name: string
-    mandatoryTests: Test[]
-    nonMandatoryTests: Test[]
     expert: Expert
     documents: string[]
     messages: Message[]
@@ -79,6 +82,23 @@ export type CardArchive = {
     descryption: string
     creator: Creator
     createAt: Date
+    result: Result
+    equipment: Equipment
+}
+
+export type Equipment = {
+    id: string
+    name: string
+}
+
+export type Test = {
+    id: string
+}
+
+export enum Result {
+    none,
+    accept,
+    reject
 }
 
 export enum CardStatus {
@@ -96,10 +116,5 @@ export enum StatusTest {
     accept,
     reject,
     undefined
-}
-
-export enum StatusProject {
-    application,
-    inProccess
 }
 

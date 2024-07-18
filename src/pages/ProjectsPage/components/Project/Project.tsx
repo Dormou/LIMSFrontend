@@ -2,14 +2,10 @@ import { useEffect, useRef, useState } from 'react'
 
 import { Card } from './components/Card/Card'
 
-import { Tester, Producer, StatusTest, Card as CardType, CardStatus } from '../../../../connect/projectsApi/Types'
+import { Tester, Application, StatusTest, Card as CardType, CardStatus, StatusProject } from '../../../../connect/projectsApi/Types'
 
 import actionsIcon from '../../../../source/images/icons/actions.svg'
-import projectBoxIcon from '../../../../source/images/icons/project-box.svg'
 import hideButtonIcon from '../../../../source/images/icons/hide-button.svg'
-import acceptIcon from '../../../../source/images/icons/accept.svg'
-import rejectIcon from '../../../../source/images/icons/reject.svg'
-import undefinedIcon from '../../../../source/images/icons/undefined.svg'
 import plusIcon from '../../../../source/images/icons/ant-design_plus-outlined.svg'
 import calenarIcon from '../../../../source/images/icons/calendar.svg'
 
@@ -18,14 +14,17 @@ import { ItemTypes } from '../../Types'
 import { getFiles } from './services'
 
 import styles from './Project.module.scss'
+import { InWork } from './components/InWork/InWork'
+import { Agreement } from './components/Agreement/Agreement'
 
 interface propsProject {
     id: string
-    name: string
+    typeName: string
+    modelName: string
     tester: Tester
-    producer: Producer
+    producer: Application
     deadline: Date
-    TYC: string
+    status: StatusProject
     cards: CardType[]
     changeCards: (id: string, cards: CardType[]) => void
     setAddingCard: (value: boolean) => void
@@ -39,7 +38,7 @@ export const Project = (props: propsProject) => {
 
     const _cards = useRef(props.cards)
 
-    const statusCounts = {acceptTestCount: 0, rejectTestCount: 0, undefinedTestCount: 0}
+    //const statusCounts = {acceptTestCount: 0, rejectTestCount: 0, undefinedTestCount: 0}
     
     const [{ canDrop: canDropPerProcess, isOver: isOverPerProcess }, dropPerProcess] = useDrop(() => ({
         accept: ItemTypes.Card,
@@ -68,16 +67,6 @@ export const Project = (props: propsProject) => {
         }),
     }))
 
-    _cards.current
-        .forEach(c => c.mandatoryTests
-            .forEach(mt => mt.accept === StatusTest.accept
-                ? ++statusCounts.acceptTestCount
-                : mt.accept === StatusTest.undefined
-                    ? ++statusCounts.undefinedTestCount
-                    : ++statusCounts.rejectTestCount
-            )
-        )
-
     const getStyleDeadline = () => Date.now() + new Date(1970, 1, 3).getTime() > new Date(props.deadline).getTime()
         ? styles.deadlineLose
         : Date.now() + new Date(1970, 1, 5).getTime() > new Date(props.deadline).getTime()
@@ -102,31 +91,26 @@ export const Project = (props: propsProject) => {
                 break
         }
     }
+
+    const getTitleStatusProject = (value: StatusProject) => value === StatusProject.agreement
+        ? "Согласование"
+        : value === StatusProject.agreementSetup
+            ? "Отправлено на согласование"
+            : value === StatusProject.awaitDevice
+                ? "Ожидание обородывания"
+                : value === StatusProject.inWork
+                    ? "В работе"
+                    : value === StatusProject.release
+                        ? "Завершено"
+                        : "Неизвестно"
     
     return (
         <div className={styles.main}>
             <div className={styles.header}>
                 <div className={styles.title}>
-                    <div className={props.name}>{props.name}</div>
-                    <img src={projectBoxIcon} className={styles.projectBox} alt={'projectBox'}/>
-                    <div className={styles.tests}>
-                        <div className={styles.title}>Всего тестов:</div>
-                        <div className={styles.allTests}>
-                            {statusCounts.acceptTestCount + statusCounts.rejectTestCount + statusCounts.undefinedTestCount}
-                        </div>
-                        <div className={styles.accept}>
-                            <img src={acceptIcon} className={styles.acceptIcon} alt={'acceptIcon'}/>
-                            {statusCounts.acceptTestCount}
-                        </div>
-                        <div className={styles.reject}>
-                            <img src={rejectIcon} className={styles.rejectIcon} alt={'rejectIcon'}/>
-                            {statusCounts.rejectTestCount}
-                        </div>
-                        <div className={styles.undefined}>
-                            <img src={undefinedIcon} className={styles.undefinedIcon} alt={'undefinedIcon'}/>
-                            {statusCounts.undefinedTestCount}
-                        </div>
-                    </div>
+                    <div className={styles.typeName}>Устройство: {props.typeName}&nbsp;</div>
+                    <div className={styles.modelName}>Модель: {props.modelName}</div>
+                    <div className={styles.status}>Статус: {getTitleStatusProject(props.status)}</div>
                     <button onClick={() => setHide(!hide)} className={hide? styles.hideButtonActive: styles.hideButton}>
                         <img src={hideButtonIcon} className={styles.hideButton} alt={'hideButton'}/>
                     </button>
@@ -143,17 +127,13 @@ export const Project = (props: propsProject) => {
                     }
                 </div>
                 <div className={styles.description}>
-                    <div className={styles.TYC}>
-                        <div className={styles.title}>ТУС:</div>
-                        <div className={styles.name}>{props.TYC}</div>     
-                    </div>
                     <div className={styles.tester}>
-                        <div className={styles.title}>Инженер по Испытаниям:</div>
+                        <div className={styles.title}>Ответственный исполнитель:</div>
                         <div className={styles.firstname}>{props.tester.firstname}&nbsp;</div>
                         <div className={styles.lastname}>{props.tester.lastname}</div>
                     </div>
                     <div className={styles.producer}>
-                        <div className={styles.title}>Производитель:</div>
+                        <div className={styles.title}>Заявитель:</div>
                         <div className={styles.name}>{props.producer.name}</div>
                     </div>
                     <div className={getStyleDeadline()}>
@@ -163,56 +143,28 @@ export const Project = (props: propsProject) => {
                 </div>
             </div>
             {!hide && 
-                <div className={styles.cards}>
-                    <div className={styles.perProcess} ref={dropPerProcess}>
-                        <div className={styles.title}>Очередь</div>
-                        <div className={styles.cards}>
-                            {_cards.current.filter(c => c.status === CardStatus.perProcess).map((c, i) => 
-                                <Card
-                                    key={i}
-                                    card={c}
-                                    setCards={setChangeCards}
-                                    setEditingCard={props.setEditingCard}
-                                />
-                            )}
-                        </div>
-                        <button onClick={() => props.setAddingCard(true)} className={styles.add}>
-                            <img src={plusIcon} className={styles.plusIcon} alt={'+'}/>
-                        </button>
-                    </div>
-                    <div className={styles.process} ref={dropProcess}>
-                        <div className={styles.title}>В работе</div>
-                        <div className={styles.cards}>
-                            {_cards.current.filter(c => c.status === CardStatus.process).map((c, i) => 
-                                <Card
-                                    key={i}
-                                    card={c}
-                                    setCards={setChangeCards}
-                                    setEditingCard={props.setEditingCard}
-                                />
-                            )}
-                        </div>
-                        <button onClick={() => props.setAddingCard(true)} className={styles.add}>
-                            <img src={plusIcon} className={styles.plusIcon} alt={'+'}/>
-                        </button>
-                    </div>
-                    <div className={styles.release} ref={dropRelease}>
-                        <div className={styles.title}>Готово</div>
-                        <div className={styles.cards}>
-                            {_cards.current.filter(c => c.status === CardStatus.release).map((c, i) => 
-                                <Card
-                                    key={i}
-                                    card={c}
-                                    setCards={setChangeCards}
-                                    setEditingCard={props.setEditingCard}
-                                />
-                            )}
-                        </div>
-                        <button onClick={() => props.setAddingCard(true)} className={styles.add}>
-                            <img src={plusIcon} className={styles.plusIcon} alt={'+'}/>
-                        </button>
-                    </div>
-                </div>
+                <>
+                    {props.status === StatusProject.inWork &&
+                        <InWork 
+                            id={props.id}
+                            typeName={props.typeName}
+                            modelName={props.modelName}
+                            tester={props.tester}
+                            deadline={props.deadline}
+                            status={props.status}
+                            cards={props.cards}
+                            producer={props.producer}
+                            changeCards={props.changeCards}
+                            setAddingCard={props.setAddingCard}
+                            setEditingCard={props.setEditingCard}
+                        />
+                    }
+                    {props.status === StatusProject.agreement && 
+                        <Agreement
+                            cards={props.cards}
+                        />
+                    }
+                </>
             }
         </div>
     )

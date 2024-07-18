@@ -49,7 +49,7 @@ export const ProjectsPage = () => {
     
     dispatch(setShowFooter(false))
 
-    const filterByCountLetters5 = () => setProjects(projects.filter(v => v.name.length <= 5))
+    const filterByCountLetters5 = () => setProjects(projects.filter(v => v.typeName.length <= 5))
 
     const filterByZeroCards  = () => setProjects(projects.filter(v => v.cards.length < 1))
     
@@ -57,13 +57,13 @@ export const ProjectsPage = () => {
 
     const search = (v: string) => data
         ? v.length > 0
-            ? setProjects(data.projects.filter(p => p.name.includes('2')))
+            ? setProjects(data.projects.filter(p => p.typeName.includes('2')))
             : setProjects(data.projects)
         : undefined
     
     const searchArchive = (v: string) => archiveData
         ? v.length > 0
-            ? setProjectsArchive(archiveData.projects.filter(p => p.name.includes(v)))
+            ? setProjectsArchive(archiveData.projects.filter(p => p.typeName.includes(v)))
             : setProjectsArchive(archiveData.projects)
         : undefined
 
@@ -152,12 +152,13 @@ export const ProjectsPage = () => {
                                         <Project 
                                             id={p.id}
                                             changeCards={changeCards}
-                                            name={p.name}                                         
+                                            status={p.status}
+                                            typeName={p.typeName}      
+                                            modelName={p.modelName}                                   
                                             cards={p.cards} 
                                             deadline={p.deadline} 
                                             tester={p.tester}
-                                            producer={p.producer}
-                                            TYC={p.TYC}
+                                            producer={p.application}
                                             setAddingCard={setAddingCard}
                                             setEditingCard={setEditingCard}
                                         />
@@ -171,13 +172,14 @@ export const ProjectsPage = () => {
                                     <div key={p.id} className={styles.project}>
                                         <Project 
                                             id={p.id}
+                                            status={p.status}
+                                            modelName={p.modelName}
                                             changeCards={changeCards}
-                                            name={p.name}                                         
+                                            typeName={p.typeName}                                         
                                             cards={p.cards} 
                                             deadline={p.deadline} 
                                             tester={p.tester}
-                                            producer={p.producer}
-                                            TYC={p.TYC}
+                                            producer={p.application}
                                             setAddingCard={setAddingCard}
                                             setEditingCard={setEditingCard}
                                         />
@@ -193,13 +195,13 @@ export const ProjectsPage = () => {
                                             <ProjectArchive 
                                                 id={p.id}
                                                 changeCards={changeCardsArchive}
-                                                name={p.name}                                         
+                                                status={p.status}
+                                                name={p.typeName}                                         
                                                 cards={p.cards} 
                                                 deadline={p.deadline} 
-                                                producer={p.producer}
+                                                producer={p.application}
                                                 release={p.release}
                                                 tester={p.tester}
-                                                TYC={p.TYC}
                                             />
                                         </div>
                                     )}
