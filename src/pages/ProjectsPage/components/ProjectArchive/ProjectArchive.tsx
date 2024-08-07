@@ -1,4 +1,4 @@
-import { Card, CardArchive, CardStatus, Message, Application, StatusTest, Tester, StatusProject } from '../../../../connect/projectsApi/Types'
+import { Card_, CardArchive, CardStatus, Message, Application, StatusTest, Tester, StatusProject, ApplicationArchive } from '../../../../connect/projectsApi/Types'
 import styles from './ProjectArchive.module.scss'
 
 import actionsIcon from '../../../../source/images/icons/actions.svg'
@@ -15,7 +15,7 @@ import { useRef, useState } from 'react'
 interface propsProjectArchive {
     id: string
     name: string
-    producer: Application
+    producer: ApplicationArchive
     tester: Tester
     deadline: Date
     status: StatusProject
@@ -105,7 +105,16 @@ export const ProjectArchive = (props: propsProjectArchive) => {
                             <img src={chatIcon} className={styles.chatIcon} alt=''/>
                             <div>{c.messages.length}</div>
                         </div>
+                        <div className={styles.equipment}>
+                            <div className={styles.title}>Устройство:&nbsp;</div>
+                            <div className={styles.value}>{c.equipment.name}</div>
+                        </div>
+                        <div className={styles.creator}>
+                            <div className={styles.title}>Создатель:&nbsp;</div>
+                            <div className={styles.value}>{c.creator.firstname}&nbsp;{c.creator.lastname}</div>
+                        </div>
                         <div className={styles.expert}>
+                            <div className={styles.title}>Исполнитель:&nbsp;</div>
                             <div className={styles.name}>{c.expert.firstname + ' ' + c.expert.lastname}</div>
                             <div className={c.deadline >= c.release? styles.deadline: styles.deadlineLose}>
                                 <img src={calenarIcon} className={styles.calenarIcon} alt=''/>

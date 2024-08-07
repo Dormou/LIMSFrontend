@@ -1,8 +1,7 @@
-import { Card, Project, ProjectArchive } from "./Types"
+import { TestGroup, Project, ProjectArchive } from "./Types"
 
-export type FetchProjectsResponse = {
-    projects: Project[]
-}
+export type FetchProjectsResponse = Project[]
+
 
 export type FetchProjectsArchiveResponse = {
     projects: ProjectArchive[]
@@ -15,7 +14,7 @@ export type ProjectResponse = {
     updateAt: Date
     deadline: Date
     isProcess: boolean
-    perProcessCards: Card[]
-    processCards: Card[]
-    acceptCards: Card[]
+    perProcessCards: TestGroup[]
+    processCards: TestGroup[]
+    acceptCards: TestGroup[]
 }

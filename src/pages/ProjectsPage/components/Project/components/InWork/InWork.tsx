@@ -1,35 +1,64 @@
-import { useRef } from "react"
+import { useRef, useState } from "react"
 import { useDrop } from "react-dnd"
 
-import { Application, StatusProject, Tester, Card as CardType, CardStatus } from "../../../../../../connect/projectsApi/Types"
+import { Application, StatusProject, Tester, TestGroup, CardStatus, Test, Executor } from "../../../../../../connect/projectsApi/Types"
 import { ItemTypes } from "../../../../Types"
 
 import { Card } from "../Card/Card"
 
-import plusIcon from '../../../../../../source/images/icons/ant-design_plus-outlined.svg'
+import uploadIcon from '../../../../../../source/images/icons/upload-icon.svg'
 
 import styles from "./InWork.module.scss"
+import { useChangeCurrentStatusMutation } from "../../../../../../connect/projectsApi/projectsApi"
+
+export type CardView = {
+    equipmentGuid: string
+    equipmentName: string
+    test: Test
+}
 
 interface propsInWork {
     id: string
     typeName: string
     modelName: string
-    tester: Tester
+    executor: Executor
     producer: Application
     deadline: Date
-    status: StatusProject
-    cards: CardType[]
-    changeCards: (id: string, cards: CardType[]) => void
-    setAddingCard: (value: boolean) => void
-    setEditingCard: (data: CardType) => void
+    status: string
+    dutRegistrationData: string
+    testGroups: TestGroup[]
+    changeCards: (id: string, cards: TestGroup[]) => void
+    setEditingCard: (data: Test) => void
 }
 
 export const InWork = (props: propsInWork) => {
-    const _cards = useRef(props.cards)
+    const [changeStatus] = useChangeCurrentStatusMutation()
+    
+    const [openDoneProjectWindow, setOpenDoneProjectWindow] = useState(false)
+
+    const _comment = useRef("")
+
+    const createCardViews = (cards: TestGroup[]) => {
+        const result: CardView[] = []
+
+        cards.forEach(c => {
+            c.tests?.map(t => {
+                result.push({
+                    equipmentGuid: c.equipmentGuid,
+                    equipmentName: c.equipmentName,
+                    test: t
+                } as CardView)
+            })
+        })
+
+        return result
+    }
+
+    const _testGroups = useRef(props.testGroups)
     
     const [{ canDrop: canDropPerProcess, isOver: isOverPerProcess }, dropPerProcess] = useDrop(() => ({
         accept: ItemTypes.Card,
-        drop: () => ({ column: 'perProcess'}),
+        drop: () => ({ column: 'InQueue'}),
         collect: (monitor) => ({
           isOver: monitor.isOver(),
           canDrop: monitor.canDrop(),
@@ -38,7 +67,7 @@ export const InWork = (props: propsInWork) => {
 
     const [{ canDrop: canDropProcess, isOver: isOverProcess }, dropProcess] = useDrop(() => ({
         accept: ItemTypes.Card,
-        drop: () => ({ column: 'process'}),
+        drop: () => ({ column: 'InProgress'}),
         collect: (monitor) => ({
           isOver: monitor.isOver(),
           canDrop: monitor.canDrop(),
@@ -47,102 +76,149 @@ export const InWork = (props: propsInWork) => {
 
     const [{ canDrop: canDropRelease, isOver: isOverRelease }, dropRelease] = useDrop(() => ({
         accept: ItemTypes.Card,
-        drop: () => ({ column: 'release'}),
+        drop: () => ({ column: 'Done'}),
         collect: (monitor) => ({
           isOver: monitor.isOver(),
           canDrop: monitor.canDrop(),
         }),
     }))
 
-    const getStyleDeadline = () => Date.now() + new Date(1970, 1, 3).getTime() > new Date(props.deadline).getTime()
-        ? styles.deadlineLose
-        : Date.now() + new Date(1970, 1, 5).getTime() > new Date(props.deadline).getTime()
-            ? styles.deadlinePerLose
-            : styles.deadline
-
     const setChangeCards = async (id: string, type: string) => {
         switch(type){
-            case 'perProcess': 
-                _cards.current = props.cards.map(c => c.id !== id? c: {...c, status: CardStatus.perProcess})
-                props.changeCards(props.id, _cards.current)
+            case 'InQueue': 
+                _testGroups.current = props.testGroups.map(tg => { 
+                    return {
+                        ...tg,
+                        tests: tg.tests?.map(t => t.guid !== id? t: {...t, testStatus: 0})   
+                    } as TestGroup
+                })
+
+                props.changeCards(props.id, _testGroups.current)
+                
                 break
 
-            case 'process':
-                _cards.current = props.cards.map(c => c.id !== id? c: {...c, status: CardStatus.process})
-                props.changeCards(props.id, _cards.current)
+            case 'InProgress':
+                _testGroups.current = props.testGroups.map(tg => { 
+                    return {
+                        ...tg,
+                        tests: tg.tests?.map(t => t.guid !== id? t: {...t, testStatus: 1})   
+                    } as TestGroup
+                })
+
+                props.changeCards(props.id, _testGroups.current)
+
                 break
 
-            case 'release': 
-                _cards.current = props.cards.map(c => c.id !== id? c: {...c, status: CardStatus.release})
-                props.changeCards(props.id, _cards.current)
+            case 'Done': 
+                _testGroups.current = props.testGroups.map(tg => { 
+                    return {
+                        ...tg,
+                        tests: tg.tests?.map(t => t.guid !== id? t: {...t, testStatus: 2})   
+                    } as TestGroup
+                })
+
+                props.changeCards(props.id, _testGroups.current)
+
                 break
         }
     }
 
-    const getTitleStatusProject = (value: StatusProject) => value === StatusProject.agreement
-        ? "Согласование"
-        : value === StatusProject.agreementSetup
-            ? "Отправлено на согласование"
-            : value === StatusProject.awaitDevice
-                ? "Ожидание обородывания"
-                : value === StatusProject.inWork
-                    ? "В работе"
-                    : value === StatusProject.release
-                        ? "Завершено"
-                        : "Неизвестно"
+    const updateStatus = async () => {
+        const res = await changeStatus({    
+            projectGuid: props.id,
+            StatusDescriptionName: "Done",
+            message: _comment.current
+        })
+
+        if(res['error']) alert("status not changed")
+    }
 
     return (
-        <div className={styles.main}>
-            <div className={styles.cards}>
-                <div className={styles.perProcess} ref={dropPerProcess}>
-                    <div className={styles.title}>Очередь</div>
-                    <div className={styles.cards}>
-                        {_cards.current.filter(c => c.status === CardStatus.perProcess).map((c, i) => 
-                            <Card
-                                key={i}
-                                card={c}
-                                setCards={setChangeCards}
-                                setEditingCard={props.setEditingCard}
-                            />
-                        )}
+        <>
+            {openDoneProjectWindow &&
+                <div className={styles.doneWindow}>
+                    <div className={styles.title}>Завершение выполнения</div>
+                    <div className={styles.description}>
+                        Прикреплённые документы будут отправлены заявителю, проведений испытаний будет завершено. 
+                        Вы можете добавить комментарий, который будет виден заявителю.
                     </div>
-                    <button onClick={() => props.setAddingCard(true)} className={styles.add}>
-                        <img src={plusIcon} className={styles.plusIcon} alt={'+'}/>
-                    </button>
-                </div>
-                <div className={styles.process} ref={dropProcess}>
-                    <div className={styles.title}>В работе</div>
-                    <div className={styles.cards}>
-                        {_cards.current.filter(c => c.status === CardStatus.process).map((c, i) => 
-                            <Card
-                                key={i}
-                                card={c}
-                                setCards={setChangeCards}
-                                setEditingCard={props.setEditingCard}
-                            />
-                        )}
+                    <input onChange={e => _comment.current = e.target.value} className={styles.comment}></input>
+                    <div className={styles.buttons}>
+                        <div onClick={() => setOpenDoneProjectWindow(false)} className={styles.reject}>Отменить</div>
+                        <div onClick={updateStatus} className={styles.accept}>Завершить выполнение</div>
                     </div>
-                    <button onClick={() => props.setAddingCard(true)} className={styles.add}>
-                        <img src={plusIcon} className={styles.plusIcon} alt={'+'}/>
-                    </button>
                 </div>
-                <div className={styles.release} ref={dropRelease}>
-                    <div className={styles.title}>Готово</div>
-                    <div className={styles.cards}>
-                        {_cards.current.filter(c => c.status === CardStatus.release).map((c, i) => 
-                            <Card
-                                key={i}
-                                card={c}
-                                setCards={setChangeCards}
-                                setEditingCard={props.setEditingCard}
-                            />
-                        )}
+            }
+            <div className={styles.main}>
+                <div className={styles.cards}>
+                    <div className={styles.perProcess} ref={dropPerProcess}>
+                        <div className={styles.title}>Очередь</div>
+                        <div className={styles.cards}>
+                            {createCardViews(props.testGroups).filter(c => c.test.testStatus === 0).map((c, i) => 
+                                <Card
+                                    key={c.test.guid}
+                                    type={"InQueue"}
+                                    deadline={props.deadline}
+                                    card={c}
+                                    setCards={setChangeCards}
+                                    setEditingCard={props.setEditingCard}
+                                />
+                            )}
+                        </div>
+                        {/* <button onClick={() => props.setAddingCard(true)} className={styles.add}>
+                            <img src={plusIcon} className={styles.plusIcon} alt={'+'}/>
+                        </button> */}
                     </div>
-                    <button onClick={() => props.setAddingCard(true)} className={styles.add}>
-                        <img src={plusIcon} className={styles.plusIcon} alt={'+'}/>
-                    </button>
+                    <div className={styles.process} ref={dropProcess}>
+                        <div className={styles.title}>В работе</div>
+                        <div className={styles.cards}>
+                            {createCardViews(props.testGroups).filter(c => c.test.testStatus === 1).map((c, i) => 
+                                <Card
+                                    key={c.test.guid}
+                                    type={"InProgress"}
+                                    card={c}
+                                    deadline={props.deadline}
+                                    setCards={setChangeCards}
+                                    setEditingCard={props.setEditingCard}
+                                />
+                            )}
+                        </div>
+                        {/* <button onClick={() => props.setAddingCard(true)} className={styles.add}>
+                            <img src={plusIcon} className={styles.plusIcon} alt={'+'}/>
+                        </button> */}
+                    </div>
+                    <div className={styles.release} ref={dropRelease}>
+                        <div className={styles.title}>Готово</div>
+                        <div className={styles.cards}>
+                            {createCardViews(props.testGroups).filter(c => c.test.testStatus === 2).map((c, i) => 
+                                <Card
+                                    key={c.test.guid}
+                                    type="Done"
+                                    card={c}
+                                    deadline={props.deadline}
+                                    setCards={setChangeCards}
+                                    setEditingCard={props.setEditingCard}
+                                />
+                            )}
+                        </div>
+                        {/* <button onClick={() => props.setAddingCard(true)} className={styles.add}>
+                            <img src={plusIcon} className={styles.plusIcon} alt={'+'}/>
+                        </button> */}
+                    </div>
                 </div>
+                {createCardViews(props.testGroups).filter(c => c.test.testStatus === 2).length === createCardViews(props.testGroups).length &&
+                    <div className={styles.footer}>
+                        <div className={styles.filesContainer}>
+                            <div className={styles.title}>Итоговые документы:&nbsp;</div>
+                            <button className={styles.addfile}>
+                                <img className={styles.icon} src={uploadIcon} alt='+'/>
+                                <div className={styles.title}>Прекрепить фаил</div>
+                            </button>
+                        </div>
+                        <button onClick={() => setOpenDoneProjectWindow(true)} className={styles.done}>Завершить выполнение</button>
+                    </div>
+                }
             </div>
-        </div>
+        </>
     )
 }

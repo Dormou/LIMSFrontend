@@ -1,5 +1,7 @@
 import styles from './Search.module.scss'
 
+import SearchIcon from '../../../source/images/icons/search.svg'
+
 interface propsSearch {
     callback: (v: string) => void
 }

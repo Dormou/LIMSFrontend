@@ -1,5 +1,25 @@
 $def-blue: #005B9C;
 
+.inWorkBorder {
+    box-shadow: 0 0 7px rgb(222, 178, 0) !important;
+}
+
+.awaitObjectDevice {
+    box-shadow: 0 0 7px rgb(183, 0, 255) !important;
+}
+
+.agreement {
+    box-shadow: 0 0 7px $def-blue !important;
+}
+
+.sendCustomerAgreement {
+    box-shadow: 0 0 7px rgb(0, 255, 234) !important;
+}
+
+.done {
+    box-shadow: 0 0 7px rgb(35, 255, 35) !important;
+}
+
 .main {
     width: 97%;
     border: 0.5px solid transparent;
@@ -69,12 +89,18 @@ $def-blue: #005B9C;
             width: 100%;
             display: inline-flex;
             margin-top: 6px;
+            border-bottom: solid 1px gray;
+
+            & > .status {
+                margin-left: auto;
+                margin-right: 0;
+            }
 
             & > .hideButton {
                 transform: rotate(180deg);
                 margin-top: 1px;
-                margin-right: -65%;
-                margin-left: auto;
+                margin-right: 0;
+                margin-left: 10px;
                 background-color: transparent;
                 border-color: transparent;
             }
@@ -114,7 +140,7 @@ $def-blue: #005B9C;
             & > .actionsButton {
                 margin-top: 4px;
                 margin-right: 2px;
-                margin-left: auto;
+                margin-left: 0;
                 background-color: transparent;
                 border-color: transparent;
             }
@@ -123,8 +149,8 @@ $def-blue: #005B9C;
         & > .description {
             width: 100%;
             display: inline-flex;
-
             vertical-align: middle;
+            margin-bottom: 1%;
 
             & > .date {
                 margin-bottom: -15px;
@@ -185,12 +211,59 @@ $def-blue: #005B9C;
             }
 
             & >.producer {
-                display: inline-flex;
                 margin-right: 10%;
 
-                & > .title {
-                    font-weight: 600;
-                    margin-right: 10px;
+                & > .element {
+                    display: inline-flex;
+                    width: 100%;
+
+                    & > .title {
+                        font-weight: 600;
+                        color: gray;
+                        margin-right: 10px;
+                    }
+
+                    & > .borndotTitle {
+                        color: gray;
+                        font-weight: 600;
+                        margin-right: 0;
+                        margin-left: auto;
+                    }
+
+                    & > .fio {
+                        font-weight: 600;
+                    }
+
+                    & > .urInfo {
+                        font-weight: 600;
+                    }
+
+                    & > .deadlineTitle {
+                        color: gray;
+                        font-weight: 600;
+                        margin-right: 0;
+                        margin-left: auto;
+                    }
+
+                    & > .deadline {
+                        font-weight: 600;
+                        margin-right: -10%;
+                        margin-left: 0;
+                    }
+
+                    & > .dutRegistrationData {
+                        font-weight: 600;
+                    }
+
+                    & > .contact {
+                        font-weight: 600;
+                    }
+
+                    & > .borndot {
+                        font-weight: 600;
+                        margin-right: -10%;
+                        margin-left: 0;
+                    }
                 }
             }
         }

@@ -10,10 +10,13 @@ import { HTML5Backend } from 'react-dnd-html5-backend'
 import { useEffect, useState } from 'react';
 import { setShowMenu } from './connect/store';
 import { DndProvider } from 'react-dnd';
+import { Directory } from './pages/Directory/Directory';
 
 export const personalAreaPath = '/personal-area'
 export const projectsPath = '/projects'
 export const signinPath = '/signin'
+export const DirectoryPath = '/directory'
+
 
 function App() {
   const dispatch = useDispatch()
@@ -39,6 +42,7 @@ function App() {
                   <Route path={personalAreaPath} element={<PersonalAreaPage/>}/>
                   <Route path={projectsPath} element={<ProjectsPage/>}/>
                   <Route path={signinPath} element={<AuthPage/>}/>
+                  <Route path={DirectoryPath} element={<Directory/>}/>
                 </Routes>
                 {footer.show && footer.value} 
               </div>

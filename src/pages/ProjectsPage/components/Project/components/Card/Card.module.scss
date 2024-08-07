@@ -36,7 +36,7 @@ $def-blue: #005B9C;
         height: 24vh;
         margin: 20px;
         background-color: #e3eef43a;
-        border: 0.5px solid rgba(128, 128, 128, 0.603);
+        border: 0.5px solid $def-blue;
         border-radius: 5px;
         position:relative;
 
@@ -60,11 +60,13 @@ $def-blue: #005B9C;
 
         .result {
             margin-top: 5px;
+            color: gray;
         }
 
         .device {
             margin-top: 5px;
             margin-bottom: 5px;
+            color: $def-blue;
         }
     
         .icons {
