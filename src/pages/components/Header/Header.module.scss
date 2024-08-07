@@ -1,0 +1,183 @@
+$header-height: 8vh;
+$header-width: 100%;
+$def-blue: #005B9C;
+
+
+.dropdownMenuContent {
+    z-index: 9999999;
+    outline: 0;
+    background-color: #E3EEF4 !important;
+    color: #005B9C !important;
+    width: 100% !important;
+    height: 60% !important;
+    margin-left: -45% !important;
+    border: 0.5px #005B9C solid;
+    border-radius: 2px !important;
+
+}
+
+.menuItemExit {
+    text-align: end;
+    height: 40px;
+    border-top: 0.5px #005B9C solid;
+
+    &:hover {
+        outline: 0;
+        border-color: transparent !important;
+        color: red !important;
+    }
+
+    &:focus {
+        border-color: transparent !important;
+    }
+
+    & > * {
+        border-color: transparent !important;
+    }
+}
+
+.ddLabel {
+    display: inline-flex;
+    text-align: end;
+
+    & > :first-child {
+        float: left;
+        margin-left: 0;
+        left: 0;
+        right: auto;
+        margin-right: auto;
+        width: 32px;
+    }
+
+    & > :last-child {
+        text-align: end;
+        margin-left: 30px;
+    }
+
+    .settingsIcon {
+        margin-left: 0 !important;
+        margin-right: 63px;
+    }
+
+    .signoutIcon {
+        margin-left: 0 !important;
+
+        margin-right: 100px;
+    }
+
+    .profileIcon {
+        filter: invert(30%) sepia(73%) saturate(9252%) hue-rotate(187deg) brightness(69%) contrast(119%);
+        margin-left: 0 !important;
+
+        margin-right: 27px;
+    }
+}
+
+.menuItem {
+    text-align: end;
+    height: 40px;
+    margin-bottom: 5px;
+    padding: 0 !important;
+
+    &:hover {
+        outline: 0;
+        border-color: transparent !important;
+        border: 0px solid;
+        color: red !important;
+    }
+
+    &:focus {
+        border-color: transparent !important;
+    }
+}
+
+.header {
+    z-index: 9999;
+    position: fixed;
+    height: $header-height;
+    width: $header-width;
+    background-color: $def-blue;
+    display: inline-flex;
+
+    &* {
+        position: sticky;
+
+    }
+
+    .headerLogo {
+        height: 100%;
+        margin-left: 30px;
+        margin-bottom: 40px;
+        margin-top: 0;
+    }
+
+    .headerText{
+        color: white;
+        margin-left: 50px;
+        font-size: 150%;
+        margin-top: 1%;
+        margin-bottom: auto;
+    }
+
+    .profileHeader {
+        display: inline-flex;
+        margin-top: 6px;
+        margin-left: auto;
+        margin-right: 0;
+        width: 20%;
+
+        .profileIcon {
+            $size: 6vh;
+
+            background-color: transparent;
+            border-radius: 50%;
+            border-color: transparent;
+            width: $size;
+            height: $size;
+
+            & > img {
+                border: 2px solid  rgb(54, 113, 195);
+                width: $size;
+                height:  $size;
+                margin-bottom: auto;
+                margin-right: auto;
+                border-radius: 50%;
+            }
+        }
+
+        .dropdownMenuTrigger {
+            display: inline-flex;
+            background-color: transparent;
+            width: 50%;
+            color: white;
+            border-color: transparent;
+            margin-top: 2vh;
+            font-size: 2vh;
+            font-weight: 600;
+
+            .dropdownMenuText {
+                margin-top: -3%;
+            }
+        }
+
+        .dropdownMenuIcon {
+            $size: 1vh;
+
+            margin-bottom: 15px;
+            margin-left: 10px;
+            vertical-align: middle;
+            //margin: 0 5px;
+            display: inline-block;
+            width: 0;
+            height: 0;
+            border-top: $size solid white;
+            border-left: $size solid transparent;
+            border-right: $size solid transparent;
+        }
+
+        & > * {
+            height: 64px;
+            width: 64px;
+        }
+    }
+}
