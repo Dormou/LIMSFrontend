@@ -1,8 +1,8 @@
-import { Producer, Project, Tester } from "./Types"
+import { Application, Tester } from "./Types"
 
 export type FetchProjectsRequest = {
-    offset: number
-    size: number
+    limit: number
+    numberSkip: number
 }
 
 export type FetchProjectsArchiveRequest = {
@@ -14,7 +14,21 @@ export type AddProjectRequest = {
     name: string
     isProcess: boolean
     tester: Tester
-    producer: Producer
+    producer: Application
     deadline: Date
     TYC: string
+}
+
+export type UpdateProjectRequest = {
+    guid: string,
+    executorGuid: string,
+    deadline: Date,
+    dutRegistrationData: string,
+    testDescriptionsIds: string[]
+}
+
+export type ProjectStatusChangeRequest = {
+    projectGuid: string,
+    StatusDescriptionName: string,
+    message: string
 }

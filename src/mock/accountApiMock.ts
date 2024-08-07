@@ -3,7 +3,7 @@ import { ChangePasswordRequest, ChangeUserInfoRequest, ChangeUserPhotoRequest, N
 import { http, HttpResponse, PathParams } from 'msw'
 
 export const handlersAccountApi = [
-    http.get('https://mock.com/passport/account/userinfo', ({ request }) => {
+    http.get('http://localhost:5075/passport/account/userinfo', ({ request }) => {
         const id = new URL(request.url).searchParams.get('id')
 
         if(!id) return
@@ -25,7 +25,7 @@ export const handlersAccountApi = [
         })
     }),
 
-    http.get('https://mock.com/passport/account/photo', async ({request}) => {
+    http.get('http://localhost:5075/passport/account/photo', async ({request}) => {
         const id = new URL(request.url).searchParams.get('id')
 
         if(!id) return HttpResponse.error()
@@ -38,7 +38,7 @@ export const handlersAccountApi = [
         })
     }),
 
-    http.get('https://mock.com/passport/account/notifications', ({request}) => {
+    http.get('http://localhost:5075/passport/account/notifications', ({request}) => {
         const id = new URL(request.url).searchParams.get('id')
 
         if(!id) return HttpResponse.error()
@@ -53,7 +53,7 @@ export const handlersAccountApi = [
         })
     }),
 
-    http.post<PathParams, NotificationReadRequest>('https://mock.com/passport/account/notification/read', async ({request}) => {
+    http.post<PathParams, NotificationReadRequest>('http://localhost:5075/passport/account/notification/read', async ({request}) => {
         const data = request.json()
 
         if((await data).id) return
@@ -61,7 +61,7 @@ export const handlersAccountApi = [
         return new Response()
     }),
 
-    http.post<PathParams, SignInEmailRequest>('https://mock.com/passport/account/signin', async ({request}) => {
+    http.post<PathParams, SignInEmailRequest>('http://localhost:5075/passport/account/signin', async ({request}) => {
         const data = await request.json()
 
         if(data.email !== 'kravter7@gmail.com' && data.password !== '12345') return
@@ -73,7 +73,7 @@ export const handlersAccountApi = [
         })
     }),
     
-    http.post<PathParams, ChangeUserPhotoRequest>('https://mock.com/passport/account/photo/change', async ({request}) => {
+    http.post<PathParams, ChangeUserPhotoRequest>('http://localhost:5075/passport/account/photo/change', async ({request}) => {
         const data = await request.json()
 
         if(data.id !== 'test' && data.photo) return
@@ -83,7 +83,7 @@ export const handlersAccountApi = [
         })
     }),
 
-    http.post<PathParams, ChangeUserInfoRequest>('https://mock.com/passport/account/user/change', async ({request}) => {
+    http.post<PathParams, ChangeUserInfoRequest>('http://localhost:5075/passport/account/user/change', async ({request}) => {
         const data = await request.json()
 
         if(data.id !== 'test') return
@@ -100,7 +100,7 @@ export const handlersAccountApi = [
         })
     }),
 
-    http.post<PathParams, ChangePasswordRequest>('https://mock.com/passport/account/password/change', async ({request}) => {
+    http.post<PathParams, ChangePasswordRequest>('http://localhost:5075/passport/account/password/change', async ({request}) => {
         const data = await request.json()
 
         if(data.id !== 'test' && data.lastPaswword !== '12345') return HttpResponse.error()

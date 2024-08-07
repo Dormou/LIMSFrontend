@@ -6,6 +6,9 @@ import { Footer } from '../pages/components/Footer/Footer';
 import { Header } from '../pages/components/Header/Header';
 import { projectsApi } from './projectsApi/projectsApi';
 import { Menu } from '../pages/components/Menu/Menu';
+import { applicationsApi } from './applicationsApi/applicationsApi';
+import { usersApi } from './userApi/userApi';
+import { testsApi } from './testsApi/testsApi';
 
 export const viewAppStorage = createSlice({
     name: 'viewApp',
@@ -67,12 +70,18 @@ export const store = configureStore({
         footer: footerStorage.reducer,
         [accountApi.reducerPath]: accountApi.reducer,
         [projectsApi.reducerPath]: projectsApi.reducer,
+        [applicationsApi.reducerPath]: applicationsApi.reducer,
+        [usersApi.reducerPath]: usersApi.reducer,
+        [testsApi.reducerPath]: testsApi.reducer,
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({serializableCheck: false})
         .concat([
             accountApi.middleware,
             projectsApi.middleware,
+            applicationsApi.middleware,
+            usersApi.middleware,
+            testsApi.middleware,
     ])
 });
 

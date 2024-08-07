@@ -1,0 +1,84 @@
+$def-blue: #005B9C;
+
+.main {
+    width: 100%;
+
+    & > .testGroupsContainer {
+        width: 100%;
+        margin-left: 1%;
+
+        & > .title {
+            width: 100%;
+        }
+
+        & > .testGroups {
+            width: 100%;
+            display: inline-flex;
+
+            & > .testGroup {
+                margin-right: 4%;
+
+                & > .name {
+                    width: 100%;
+                    font-weight: 600;
+                }
+
+                & > .tests {
+                    margin-top: 1%;
+                    width: 100%;
+
+                    & > .test {
+                        width: 100%;
+                    }
+                }
+            }
+        }
+    }
+
+    & > .inline {
+        width: 97%;
+        height: 32px;
+        margin: 1%;
+        display: inline-flex;
+
+        & > .tester {
+            height: 100%;
+            width: 80%;
+            display: inline-flex;
+
+            & > .title {
+                white-space: nowrap;
+                color: gray;
+            }
+
+            & > .executor {
+                font-weight: 600;
+            }
+        }
+        
+        & > .deadline {
+            width: 20%;
+            display: inline-flex;
+
+            & > .title {
+                white-space: nowrap;
+                color: gray;
+            }
+
+            & > .date {
+                white-space: nowrap;
+                font-weight: 600;
+            }
+        }
+    }
+
+    & > .docs {
+        margin-left: 1%;
+        margin-bottom: 1%;
+
+        & > .title {
+            white-space: nowrap;
+            color: gray;
+        }
+    }
+}

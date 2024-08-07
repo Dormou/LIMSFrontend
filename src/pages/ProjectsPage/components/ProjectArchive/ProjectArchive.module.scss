@@ -17,9 +17,9 @@ $def-blue: #005B9C;
 
         & > .card {
             padding-inline: 2%;
-            width: 25%;
+            width: 26%;
             height: 24vh;
-            margin: 20px;
+            margin: 10px;
             background-color: #e3eef43a;
             border: 0.5px solid rgba(128, 128, 128, 0.603);
             border-radius: 5px;
@@ -52,6 +52,39 @@ $def-blue: #005B9C;
                 & > .chatIcon {
                     margin-left: 5px;
                     margin-right: 2px;
+                }
+            }
+
+            & > .equipment {
+                width: 100%;
+                display: inline-flex;
+
+                & > .title {
+                    color: gray;
+                    margin-right: 0;
+                    width: 30%;
+                }
+
+                & > .value {
+                    margin-top: 8px;
+                    font-weight: 600;
+                }
+            }
+
+            
+            & > .creator {
+                width: 100%;
+                display: inline-flex;
+
+                & > .title {
+                    color: gray;
+                    margin-right: 0;
+                    width: 30%;
+                }
+
+                & > .value {
+                    margin-top: 8px;
+                    font-weight: 600;
                 }
             }
         
@@ -93,15 +126,18 @@ $def-blue: #005B9C;
         
             .expert {
                 margin-top: 10%;
-                //margin-bottom: 2%;
                 width: 100%;
-                padding-inline: 15px;
                 padding-top: 2px;
                 padding-bottom: 5px;
                 display: inline-flex;
-
+                
+                & > .title {
+                    margin-right: 0;
+                }
+                
                 & > .name {
-                    margin-right: auto;
+                    white-space: nowrap;
+                    margin-top: 7px;
                 }
 
                 & > .deadline {
@@ -111,8 +147,11 @@ $def-blue: #005B9C;
                     border-color: transparent;
                     padding-top: 3px;
                     padding-bottom: 6px;
+                    padding-inline: 5px;
                     border-radius: 3px;
-                    padding-inline: 6px;
+                    margin-left: 10px;
+                    min-width: 100px;
+
 
                     & > img {
                         filter: brightness(0) invert(1);
@@ -138,24 +177,38 @@ $def-blue: #005B9C;
             width: 100%;
             display: inline-flex;
             margin-top: 6px;
+  
+            & > .projectBox {
+                margin: 2px;
+                margin-right: auto;
+                height: 18px;
+                width: 18px;
+            }
 
             & > .hideButton {
                 transform: rotate(180deg);
                 margin-top: 1px;
-                margin-right: 2px;
+                margin-right: -45%;
+                margin-left: auto;
                 background-color: transparent;
                 border-color: transparent;
+            }
+
+            & > .hideButtonActive {
+                @extend .hideButton;
+
+                transform: rotate(0);
             }
 
             & > .actions {
                 z-index: 1;
                 position: absolute;
-                width: 120px;
+                width: 50px;
                 height: 50px;
                 background-color: white;
                 border: 0.5px solid gray;
                 border-radius: 5px;
-                margin-left: auto;
+                margin-left: 0;
                 margin-right: 0;
                 right: 2%;
                 margin-top: 2%;
@@ -173,25 +226,12 @@ $def-blue: #005B9C;
                 }
             }
 
-            & > .hideButtonActive {
-                @extend .hideButton;
-
-                transform: rotate(0);
-            }
-
             & > .actionsButton {
                 margin-top: 4px;
                 margin-right: 2px;
                 margin-left: auto;
                 background-color: transparent;
                 border-color: transparent;
-            }
-
-            & > .projectBox {
-                margin: 2px;
-                margin-right: 65%;
-                height: 18px;
-                width: 18px;
             }
 
             & > .tests {
