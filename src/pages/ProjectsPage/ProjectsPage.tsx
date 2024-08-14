@@ -3,109 +3,78 @@ import { useEffect, useRef, useState } from "react"
 import styles from './ProjectsPage.module.scss'
 import { Search } from "../components/Search/Search"
 import { Filter } from "../components/Filter/Filter"
-import { useFetchProjectsArchiveQuery, useFetchProjectsQuery, useGetStatusProjectQuery, useLazyFetchProjectsQuery, useLazyGetStatusProjectQuery } from "../../connect/projectsApi/projectsApi"
+import { useFetchProjectsArchiveQuery } from "../../connect/projectsApi/projectsApi"
 import ReactLoading from "react-loading"
-import { Project } from "./components/Project/Project"
 import { useDispatch, useSelector } from "react-redux"
 import { setShowFooter } from "../../connect/store"
 import { ProjectArchive } from "./components/ProjectArchive/ProjectArchive"
-import { ItemTypes } from "./Types"
-import { useDrop } from "react-dnd"
-import { TestGroup, CardArchive, ProjectArchive as ProjectArchiveType, Project as ProjectType, Test, CurrentStatus, Executor, Applicant, DeviceType} from "../../connect/projectsApi/Types"
-import { TestGroup as ApplicataionTestGroup, Application as ApplicationType} from "../../connect/applicationsApi/Types"
-import { EditCardForm } from "./components/Project/components/Card/components/EditCardForm/EditCardForm"
+import { CardArchive, ProjectArchive as ProjectArchiveType, Test, CurrentStatus } from "../../connect/projectsApi/Types"
+import { Application as ApplicationType, TestGroup} from "../../connect/applicationsApi/Types"
 import { Application } from "./components/Application/Application"
-import { useFetchApplicationsQuery, useLazyFetchApplicationsQuery } from "../../connect/applicationsApi/applicationsApi"
+import { useLazyFetchApplicationsQuery } from "../../connect/applicationsApi/applicationsApi"
 import { ApplicationStatusResponse } from "../../connect/applicationsApi/Responses"
+import { AddApplicationForm } from "./components/Application/components/AddApplicationForm/AddApplicationForm"
+import { useFetchTestDescriptionsQuery, useFetchTestGroupDescriptionsQuery } from "../../connect/testDescriptionApi/testDescriptionApi"
 
 enum Scene {
     Applicataions = 'Заявки',
-    Active = 'Активные проекты',
     Archive = 'Архив',
-}
-
-type ProjectView = {
-    guid: string;
-    dateOfCreation: string;
-    dateOfLastUpdate: string;
-    executor: Executor;
-    application: ApplicationProjectType;
-    deadline: Date;
-    dutRegistrationData: string;
-    tests: Test
-}
-
-type ApplicationProjectType = {
-    guid: string;
-    dateOfCreation: string;
-    dateOfLastUpdate: string;
-    currentStatus: CurrentStatus;
-    applicant: Applicant;
-    deviceModel: string;
-    deviceType: DeviceType;
-    comment: string;
 }
 
 export const ProjectsPage = () => {
     const dispatch = useDispatch()
 
-    const [getProjects, projectsData] = useLazyFetchProjectsQuery()
     const [applicationsGet, applicationsData] = useLazyFetchApplicationsQuery()
 
+    const {isLoading: isLoadingTestDescs, data: dataTestsDescs} = useFetchTestGroupDescriptionsQuery({numberSkip: 0, limit: 300})
     const {isLoading: archiveIsLoading, data: archiveData} = useFetchProjectsArchiveQuery({offset: 0, size: 20})
     
     const [editingCard, setEditingCard] = useState({} as Test)
-    const [projects, setProjects] = useState([] as ProjectType[])
     const [applications, setApplications] = useState([] as ApplicationType[])
     const [projectsArchive, setProjectsArchive] = useState(archiveData? archiveData.projects: [])
+    const [openAddApplication, setOpenAddApplication] = useState(false)
     
     const [scene, setScene] = useState(Scene.Applicataions)
 
     useEffect(() => {
         switch (scene) {
-            case Scene.Active: 
-                getProjects({limit: 20, numberSkip: 0})
-                break
             case Scene.Applicataions: 
                 applicationsGet({limit: 20, numberSkip: 0})
         }
     }, [scene])
 
     const applicationsQuries = useSelector((state: any) => state.applications.queries)
-
-    useEffect(() => {
-        //типа запрос на измение карточек
-    }, [applications])
-
-    useEffect(() => {
-        //типа запрос на измение карточек
-        console.log(projects)
-    }, [projects])
-
-    useEffect(() => {
-        //типа запрос на измение карточек
-    }, [projectsArchive])
     
     useEffect(() => setApplications(applicationsData.data? applicationsData.data: []), [applicationsData])
-    useEffect(() => setProjects(projectsData.data? projectsData.data: []), [projectsData])
     useEffect(() => setProjectsArchive(archiveData? archiveData.projects: []), [archiveData])
     
     dispatch(setShowFooter(false))
 
-    const filterByCountLetters5 = () => setProjects(projects.filter(v => v.application.deviceType.name.length <= 5))
+    const filterByCountLetters5 = () => setApplications(applications.filter(v => v.deviceType.name.length <= 5))
 
-    const filterByZeroCards  = () => setProjects(projects.filter(v => 
-        v.application.tests
-            ? v.application.tests.length < 1
+    const filterByZeroCards  = () => setApplications(applications.filter(v => 
+        v.tests
+            ? v.tests.length < 1
             : true
     ))
     
-    const withoutFilters = () => setProjects(projectsData.data? projectsData.data: [])
+    const withoutFilters = () => setApplications(applicationsData.data? applicationsData.data: [])
 
-    const search = (v: string) => projects
-        ? v.length > 0
-            ? setProjects(projects.filter(p => p.application.deviceType.name.includes('2')))
-            : setProjects(projects)
+    const search = (v: string) => applications
+        ? v.length > 0 && applicationsData.data
+            ? setApplications(applicationsData.data.filter(a => 
+                a.deviceType.name.includes(v) ||
+                a.applicant.company.includes(v) ||
+                a.deviceModel.includes(v) ||
+                a.applicant.address.includes(v) ||
+                a.applicant.email.includes(v) ||
+                a.applicant.firstName.includes(v) ||
+                a.applicant.lastName.includes(v) ||
+                //a.comment? a.comment.includes(v): true ||
+                a.tests.find(t => t.equipmentName.includes(v)) ||
+                a.applicant.position.includes(v)
+            ))
+            : setApplications(applicationsData.data? applicationsData.data: [])
         : undefined
     
     const searchArchive = (v: string) => archiveData
@@ -113,16 +82,6 @@ export const ProjectsPage = () => {
             ? setProjectsArchive(archiveData.projects.filter(p => p.typeName.includes(v)))
             : setProjectsArchive(archiveData.projects)
         : undefined
-
-    const changeCards = (projectId: string, cards: TestGroup[]) => {        
-        setProjects(ps => [...ps].map(p => p.guid !== projectId? p: {
-            ...p,
-            application: {
-                ...p.application,
-                tests: cards
-            }
-        }))
-    }
 
     const changeCardsArchive = (projectId: string, cards: CardArchive[]) => {
         const projectArchive = {...projectsArchive.find(p => p.id === projectId)} as ProjectArchiveType
@@ -132,16 +91,6 @@ export const ProjectsPage = () => {
 
         setProjectsArchive(projectsArchive.map(p => p.id !== projectArchive.id? p: projectArchive))
     }
-  
-    const addCard = (data: any) => {
-
-    }
-
-    const editCard = (data: TestGroup) => {
-
-    }
-
-    const closeEditngCard = () => setEditingCard({} as Test)
 
     const onChangeStatusApplication = (status: ApplicationStatusResponse, id: string) => {
         if(status.name === "Preparation") setApplications(applications.filter(a => a.guid !== id))
@@ -160,19 +109,44 @@ export const ProjectsPage = () => {
         ))
     }
 
+    const saveAppliction = (application: ApplicationType) => {
+        setOpenAddApplication(false)
+
+        const lApplications = [...applications]
+
+        lApplications.filter(p => p.guid !== application.guid).unshift(application)
+
+        setApplications(lApplications)
+    }
+
     return (
         <>
+            {openAddApplication && !isLoadingTestDescs && dataTestsDescs &&
+                <AddApplicationForm 
+                    testsGroups={dataTestsDescs}
+                    // testsGroups={applications.map(a => a.tests).flat().reduce((o: TestGroup[], i) => {
+                    //     if (!o.find(v => v.equipmentGuid === i.equipmentGuid)) {
+                    //         o.push(i)
+                    //     }
+                    //     return o
+                    // }, [])}
+                    applicantGuid={"eea88f9f-b570-49d3-9765-062401391cb1"}//FIX
+                    close={() => setOpenAddApplication(false)}
+                    save={saveAppliction}
+                />
+            }
             <div className={editingCard.guid? styles.mainBlur: styles.main}>
                 <h1 className={styles.title}>Проведение испытании</h1>
                 <>
                     <div className={styles.SearchAndFilter}>
+                        <button disabled={isLoadingTestDescs} onClick={() => setOpenAddApplication(true)} className={styles.openAddApplication}>Добавить заявку</button>
                         <div className={styles.search}>
                             <Search callback={scene === Scene.Archive? searchArchive: search}/>
                         </div>
                         <div className={styles.filters}>
                             <Filter 
                                 filterAfterSelected={true}
-                                items={projects}
+                                items={applications}
                                 filters={[
                                     {name: 'без фильтров', filter: withoutFilters},
                                     {name: 'название до 5 букв', filter: filterByCountLetters5},
@@ -204,27 +178,7 @@ export const ProjectsPage = () => {
                                             testGroups={a.tests} 
                                             application={a}
                                             onChangeStatus={onChangeStatusApplication}
-                                        />
-                                    </div>
-                                )}
-                            </div>
-                        }
-                        {projectsData.data && scene === Scene.Active && projects &&
-                            <div className={styles.projects}>
-                                {projects.map(p => 
-                                    <div key={p.guid} className={styles.project}>
-                                        <Project 
-                                            id={p.guid}
-                                            dutRegistrationData={p.dutRegistrationData}
-                                            status={p.application.currentStatus}
-                                            modelName={p.application.deviceModel}
-                                            changeCards={changeCards}
-                                            typeName={p.application.deviceType.name}                                         
-                                            testGroups={p.application.tests} 
-                                            deadline={p.deadline} 
-                                            executor={p.executor}
-                                            application={p.application}
-                                            setEditingCard={setEditingCard}
+                                            save={saveAppliction}
                                         />
                                     </div>
                                 )}
@@ -254,17 +208,11 @@ export const ProjectsPage = () => {
                         {applicationsData.isLoading && scene === Scene.Applicataions &&
                             <ReactLoading className={styles.loading} type={'spinningBubbles'} color={'#005B9C'} height={256} width={256} />
                         }
-                        {projectsData.isLoading && scene === Scene.Active &&
-                            <ReactLoading className={styles.loading} type={'spinningBubbles'} color={'#005B9C'} height={256} width={256} />
-                        }
                         {archiveIsLoading && scene === Scene.Archive &&
                             <ReactLoading className={styles.loading} type={'spinningBubbles'} color={'#005B9C'} height={256} width={256} />
                         }
                         {!applications && !applicationsData.isLoading && scene === Scene.Applicataions &&
                             <div className={styles.loading}>НЕТ ЗАЯВОК</div>
-                        }
-                        {!projects && !applicationsData.isLoading && scene === Scene.Active &&
-                            <div className={styles.loading}>НЕТ АКТИВНЫХ ПРОЕКТОВ</div>
                         }
                         {!projectsArchive && !archiveIsLoading && scene === Scene.Archive &&
                             <div className={styles.loading}>НЕТ АРХИВНЫХ ДАННЫХ</div>

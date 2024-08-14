@@ -11,9 +11,9 @@ export const handlersAccountApi = [
         return HttpResponse.json<UserInfoResponse>({
             id: id,
             token: "sfsdgdsgfdgdgfgdg",
-            firstname: "Billy",
+            firstname: "Олег",
             signUpDate: new Date(Date.now()).toString(),
-            lastname: "Herrington",
+            lastname: "Тиньков",
             additionalname: "Gervecevich",
             dolgnost: "Danger Master",
             orgname: "HyperAirBus",

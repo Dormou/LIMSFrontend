@@ -2,83 +2,311 @@ $def-blue: #005B9C;
 
 .main {
     width: 100%;
+    height: 100%;
 
-    & > .testGroupsContainer {
+    & > .application {
+        margin-top: 2%;
+        margin-bottom: 2%;
         width: 100%;
+        display: inline-flex;
         margin-left: 1%;
+    
+        & > .testGroupsContainer {
+            width: 78%;
 
-        & > .title {
-            width: 100%;
-        }
+            & > .title {
+                width: 100%;
+            }
 
-        & > .testGroups {
-            width: 100%;
-            display: inline-flex;
+            & > .testGroups {
+                width: 100%;
+                display: inline-flex;
 
-            & > .testGroup {
-                margin-right: 4%;
+                & > .testGroup {
+                    margin-right: 4%;
 
-                & > .name {
-                    width: 100%;
-                    font-weight: 600;
-                }
-
-                & > .tests {
-                    margin-top: 1%;
-                    width: 100%;
-
-                    & > .test {
+                    & > .name {
                         width: 100%;
+                        font-weight: 600;
+                    }
+
+                    & > .tests {
+                        margin-top: 1%;
+                        width: 100%;
+
+                        & > .test {
+                            width: 100%;
+                        }
                     }
                 }
             }
         }
-    }
 
-    & > .inline {
-        width: 97%;
-        height: 32px;
-        margin: 1%;
-        display: inline-flex;
-
-        & > .tester {
-            height: 100%;
-            width: 80%;
-            display: inline-flex;
-
-            & > .title {
-                white-space: nowrap;
-                color: gray;
-            }
-
-            & > .executor {
-                font-weight: 600;
-            }
-        }
-        
-        & > .deadline {
+        & > .comment {
             width: 20%;
-            display: inline-flex;
 
             & > .title {
-                white-space: nowrap;
-                color: gray;
-            }
-
-            & > .date {
-                white-space: nowrap;
-                font-weight: 600;
+                margin-bottom: 1%;
+                width: 100%;
             }
         }
     }
 
-    & > .docs {
-        margin-left: 1%;
-        margin-bottom: 1%;
+    & > .buttonsConteiner {
+        width: 100%;
+
+        & > .buttons {
+            display: inline-flex;
+            margin-left: 70%;
+            margin-right: 0;
+
+            & > * {
+                padding: 3%;
+                margin-inline: 3%;
+                margin-top: 3%;
+                margin-bottom: 3%;
+                text-align: center;
+                white-space: nowrap;
+            }
+    
+            & > .reject {
+                color: white;
+                background-color: red;
+                border-radius: 5px;
+            }
+    
+            & > .fix {
+                color: $def-blue;
+                background-color: white;
+                border-radius: 5px;
+                border: 1px solid;
+                border-color: $def-blue !important;            
+            }
+    
+            & > .accept {
+                color: white;
+                background-color: blue;
+                border-radius: 5px;
+            }
+        }
+    }
+
+    & > .reject {
+        position: fixed;
+        width: 45%;
+        height: 30%;
+        left: 28%;
+        top: 35%;
+        background-color: white;
+        border: 1px solid gray;
 
         & > .title {
-            white-space: nowrap;
+            font-weight: 600;
+            width: 100%;
+            text-align: center;
+            margin-bottom: 2%;
+        }
+
+        & > .description {
+            width: 100%;
+            text-align: center;
             color: gray;
+            margin-bottom: 3%;
+        }
+
+        & > .subtitle {
+            width: 100%;
+            text-align: left;
+            font-weight: 600;
+            margin-left: 3%;
+        }
+
+        & > .comment {
+            width: 95%;
+            height: 10%;
+            margin-inline: 2.5%;
+        }
+
+        & > .buttons {
+            display: inline-flex;
+            margin-top: 3%;
+            width: 100%;
+
+            & > .reject {
+                color: $def-blue;
+                background-color: white;
+                border-radius: 5px;
+                border: 1px solid $def-blue;
+                width: 15%;
+                height: 35px;
+                margin-left: 30%;
+                margin-right: 3%;
+                text-align: center;
+                font-size: 18px;
+                font-weight: 400;
+                padding-top: 1%;
+            }
+
+            & > .accept {
+                white-space: nowrap;
+                color: white;
+                width: 45%;
+                height: 35px;
+                border-radius: 5px;
+                background-color: red;
+                margin-left: auto;
+                margin-right: 20%;
+                text-align: center;
+                font-size: 18px;
+                font-weight: 400;
+                padding-top: 1%;
+            }
+        }
+    }
+
+    & > .fix {
+        position: fixed;
+        width: 45%;
+        height: 30%;
+        left: 28%;
+        top: 35%;
+        background-color: white;
+        border: 1px solid gray;
+
+        & > .title {
+            font-weight: 600;
+            width: 100%;
+            text-align: center;
+            margin-bottom: 2%;
+        }
+
+        & > .description {
+            width: 100%;
+            text-align: center;
+            color: gray;
+            margin-bottom: 3%;
+        }
+
+        & > .subtitle {
+            width: 100%;
+            text-align: left;
+            font-weight: 600;
+            margin-left: 3%;
+        }
+
+        & > .comment {
+            width: 95%;
+            height: 10%;
+            margin-inline: 2.5%;
+        }
+
+        & > .buttons {
+            display: inline-flex;
+            margin-top: 3%;
+            width: 100%;
+
+            & > .reject {
+                color: $def-blue;
+                background-color: white;
+                border-radius: 5px;
+                border: 1px solid $def-blue;
+                width: 15%;
+                height: 35px;
+                margin-left: 30%;
+                margin-right: 3%;
+                text-align: center;
+                font-size: 18px;
+                font-weight: 400;
+                padding-top: 1%;
+            }
+
+            & > .accept {
+                white-space: nowrap;
+                color: white;
+                width: 45%;
+                height: 35px;
+                border-radius: 5px;
+                background-color: $def-blue;
+                margin-left: auto;
+                margin-right: 20%;
+                text-align: center;
+                font-size: 18px;
+                font-weight: 400;
+                padding-top: 1%;
+            }
+        }
+    }
+
+    & > .accept {
+        position: fixed;
+        width: 45%;
+        height: 30%;
+        left: 28%;
+        top: 35%;
+        background-color: white;
+        border: 1px solid gray;
+
+        & > .title {
+            font-weight: 600;
+            width: 100%;
+            text-align: center;
+            margin-bottom: 2%;
+        }
+
+        & > .description {
+            width: 100%;
+            text-align: center;
+            color: gray;
+            margin-bottom: 3%;
+        }
+
+        & > .subtitle {
+            width: 100%;
+            text-align: left;
+            font-weight: 600;
+            margin-left: 3%;
+        }
+
+        & > .comment {
+            width: 95%;
+            height: 10%;
+            margin-inline: 2.5%;
+        }
+
+        & > .buttons {
+            display: inline-flex;
+            margin-top: 3%;
+            width: 100%;
+
+            & > .reject {
+                color: $def-blue;
+                background-color: white;
+                border-radius: 5px;
+                border: 1px solid $def-blue;
+                width: 15%;
+                height: 35px;
+                margin-left: 30%;
+                margin-right: 3%;
+                text-align: center;
+                font-size: 18px;
+                font-weight: 400;
+                padding-top: 1%;
+            }
+
+            & > .accept {
+                white-space: nowrap;
+                color: white;
+                width: 45%;
+                height: 35px;
+                border-radius: 5px;
+                background-color: $def-blue;
+                margin-left: auto;
+                margin-right: 20%;
+                text-align: center;
+                font-size: 18px;
+                font-weight: 400;
+                padding-top: 1%;
+            }
         }
     }
 }

@@ -9,6 +9,8 @@ import { Menu } from '../pages/components/Menu/Menu';
 import { applicationsApi } from './applicationsApi/applicationsApi';
 import { usersApi } from './userApi/userApi';
 import { testsApi } from './testsApi/testsApi';
+import { deviceTypeApi } from './deviceTypeApi/deviceTypeApi';
+import { testDescriptionApi } from './testDescriptionApi/testDescriptionApi';
 
 export const viewAppStorage = createSlice({
     name: 'viewApp',
@@ -73,6 +75,8 @@ export const store = configureStore({
         [applicationsApi.reducerPath]: applicationsApi.reducer,
         [usersApi.reducerPath]: usersApi.reducer,
         [testsApi.reducerPath]: testsApi.reducer,
+        [deviceTypeApi.reducerPath]: deviceTypeApi.reducer,
+        [testDescriptionApi.reducerPath]: testDescriptionApi.reducer,
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({serializableCheck: false})
@@ -82,13 +86,15 @@ export const store = configureStore({
             applicationsApi.middleware,
             usersApi.middleware,
             testsApi.middleware,
+            deviceTypeApi.middleware,
+            testDescriptionApi.middleware,
     ])
 });
 
 setupListeners(store.dispatch)
 
-type AppStore = typeof store
-type AppDispatch = AppStore['dispatch']
+export type AppStore = typeof store
+export type AppDispatch = AppStore['dispatch']
 
 export const { setShowMenu } = menuStorage.actions 
 export const { setFooter, setShowFooter } = footerStorage.actions 

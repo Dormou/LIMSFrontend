@@ -55,13 +55,13 @@ export const New = (props: propsNew) => {
                     <div className={styles.files}>Файлов нет</div>
                 </div>
             </div>
-            <div className={styles.buttonsConteiner}>
+            {/* <div className={styles.buttonsConteiner}>
                 <div className={styles.buttons}>
                     <div onClick={() => setIsOpenReject(true)} className={styles.reject}>Отклонить</div>
                     <div onClick={() => setIsOpenFix(true)} className={styles.fix}>Отправить на доработку</div>
                     <div onClick={() => setIsOpenAccept(true)} className={styles.accept}>Принять в работу</div>
                 </div>
-            </div>
+            </div> */}
             {isOpenAccept &&
                 <div className={styles.accept}>
                     <div className={styles.title}>Принятие заявки</div>

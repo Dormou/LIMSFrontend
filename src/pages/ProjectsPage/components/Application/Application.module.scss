@@ -8,6 +8,10 @@ $def-blue: #005B9C;
     box-shadow: 0 0 7px $def-blue !important;
 }
 
+.awaitAgreement {
+    box-shadow: 0 0 7px rgb(255, 145, 0) !important;
+}
+
 .agreement {
     box-shadow: 0 0 7px rgb(0, 255, 247) !important;
 }
@@ -21,7 +25,7 @@ $def-blue: #005B9C;
 }
 
 .inWorkBorder {
-    box-shadow: 0 0 7px rgb(222, 178, 0) !important;
+    box-shadow: 0 0 7px rgb(0, 255, 153) !important;
 }
 
 .reject {

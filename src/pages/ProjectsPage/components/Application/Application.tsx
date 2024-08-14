@@ -25,6 +25,7 @@ interface propsApplication {
     status: CurrentStatus
     testGroups: CardType[]
     onChangeStatus: (status: ApplicationStatusResponse, id: string) => void
+    save: (application: ApplicationType) => void
 }
 
 
@@ -55,33 +56,35 @@ export const Application = (props: propsApplication) => {
         }
     }
 
-    const getStyleBorder = (internalLabel: string) => {
-        switch(internalLabel) {
+    const getStyleBorder = (externalLabel: string) => {
+        switch(externalLabel) {
             case "Новая": return styles.newBorder
 
             case "В работе": return styles.inWorkBorder
 
-            case "Отказано": return styles.reject
+            case "Отклонена": return styles.reject
 
-            case "Отправлена на доработку": return styles.awaitFix
+            case "Требуется доработка": return styles.awaitFix
             
             case "Ожидание образца устройства": return styles.awaitObjectDevice
+            
+            case "Требуется согласование": return styles.awaitAgreement
 
             case "Согласование": return styles.agreement
             
             case "Завершено": return styles.done
-            
+                    
             default: return ''
         }
     }
     
     return (
-        <div className={`${styles.main} ${getStyleBorder(props.application.currentStatus.internalLabel)}`}>
+        <div className={`${styles.main} ${getStyleBorder(props.application.currentStatus.externalLabel)}`}>
             <div className={styles.header}>
                 <div className={styles.title}>
                     <div className={styles.typeName}>Устройство: {props.typeName}&nbsp;</div>
                     <div className={styles.modelName}>Модель: {props.modelName}</div>
-                    <div className={styles.status}>Статус: {props.status.internalLabel}</div>
+                    <div className={styles.status}>Статус: {props.status.externalLabel}</div>
                     <button onClick={() => setHide(!hide)} className={hide? styles.hideButtonActive: styles.hideButton}>
                         <img src={hideButtonIcon} className={styles.hideButton} alt={'hideButton'}/>
                     </button>
@@ -126,8 +129,47 @@ export const Application = (props: propsApplication) => {
             </div>
             {!hide && 
                 <>
-                    {props.status.internalLabel === "Новая" &&
+                    {props.status.externalLabel === "На рассмотрении" &&
                         <New 
+                            id={props.id}
+                            typeName={props.typeName}
+                            modelName={props.modelName}
+                            status={props.status.externalLabel}
+                            testGroups={props.testGroups}
+                            application={props.application}
+                            onChangeStatus={onChangeStatus}
+                        />
+                    }
+
+                    {props.status.externalLabel === "Требуется доработка" && 
+                        <AwaitFix
+                            id={props.id}
+                            deviceTypeId={props.application.deviceType.guid}
+                            statusMessage={props.status.message}
+                            typeName={props.typeName}
+                            modelName={props.modelName}
+                            status={props.status.internalLabel}
+                            testGroups={props.testGroups}
+                            application={props.application}
+                            onChangeStatus={onChangeStatus}
+                            save={props.save}
+                        />
+                    }
+
+                    {props.status.externalLabel === "В работе" && 
+                        <InWork
+                            id={props.id}
+                            statusMessage={props.status.message}
+                            typeName={props.typeName}
+                            modelName={props.modelName}
+                            status={props.status.externalLabel}
+                            testGroups={props.testGroups}
+                            application={props.application}
+                        />
+                    }
+
+                    {props.status.externalLabel === "Требуется согласование" && 
+                        <AwaitAgreementCustomer
                             id={props.id}
                             typeName={props.typeName}
                             modelName={props.modelName}
@@ -138,62 +180,19 @@ export const Application = (props: propsApplication) => {
                         />
                     }
 
-                    {props.status.internalLabel === "Отправлена на доработку" && 
-                        <AwaitFix
-                            id={props.id}
-                            statusMessage={props.status.message}
-                            typeName={props.typeName}
-                            modelName={props.modelName}
-                            status={props.status.internalLabel}
-                            testGroups={props.testGroups}
-                            application={props.application}
-                        />
-                    }
-
-                    {props.status.internalLabel === "В работе" && 
-                        <InWork
-                            id={props.id}
-                            statusMessage={props.status.message}
-                            typeName={props.typeName}
-                            modelName={props.modelName}
-                            status={props.status.internalLabel}
-                            testGroups={props.testGroups}
-                            application={props.application}
-                        />
-                    }
-
-                    {props.status.internalLabel === "Отправлено на согласование" && 
-                        <AwaitAgreementCustomer
-                            projectId={props.id}
-                            testGroups={props.testGroups}
-                        />
-                    }
-
-                    {props.status.internalLabel === "Отказано" &&
+                    {props.status.externalLabel === "Отклонена" &&
                         <Reject
                             id={props.id}
                             statusMessage={props.status.message}
                             typeName={props.typeName}
                             modelName={props.modelName}
-                            status={props.status.internalLabel}
+                            status={props.status.externalLabel}
                             testGroups={props.testGroups}
                             application={props.application}
                         />
                     }
 
-                    {props.status.internalLabel === "Согласование" &&
-                        <Agreement
-                            id={props.id}
-                            statusMessage={props.status.message}
-                            typeName={props.typeName}
-                            modelName={props.modelName}
-                            status={props.status.internalLabel}
-                            testGroups={props.testGroups}
-                            application={props.application}
-                        />
-                    }
-
-                    {props.status.internalLabel === "Завершено" && 
+                    {props.status.externalLabel === "Завершено" && 
                         <Done
                             projectId={props.id}
                             testGroups={props.testGroups}
