@@ -11,16 +11,23 @@ export type FetchApplicationsArchiveRequest = {
 }
 
 export type AddApplicationRequest = {
-    name: string
-    isProcess: boolean
-    //tester: Tester
-    producer: Application
-    deadline: Date
-    TYC: string
+    applicantGuid: string
+    deviceModel: string
+    deviceTypeGuid: string
+    comment: string
+    testGuids: string[]
+}
+
+export type UpdateApplicationRequest = {
+    guid: string;
+    deviceModel: string;
+    deviceTypeGuid: string;
+    comment: string;
+    TestGuids: string[];
 }
 
 export type ApplicationStatusChangeRequest = {
-    applicationGuid: string,
-    statusDescriptionName: string,
+    applicationGuid: string
+    statusDescriptionName: string
     message: string
 }

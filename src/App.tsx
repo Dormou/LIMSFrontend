@@ -27,7 +27,9 @@ function App() {
   const header = useSelector((state: any) => state.header)
   const viewApp = useSelector((state: any) => state.viewApp)
 
-  console.log(useSelector((state: any) => state))
+  //console.log(useSelector((state: any) => state))
+
+  dispatch(dispatch(setShowMenu(false)))
 
   return (
     <div className={`App ${viewApp.scrollX? '': 'blockScrollX'} ${viewApp.scrollY? '': 'blockScrollY'}`}>

@@ -1,8 +1,9 @@
 
 import { baseQuery } from "../baseQuery";
 import { createApi } from '@reduxjs/toolkit/query/react';
-import { AddApplicationRequest, ApplicationStatusChangeRequest, FetchApplicationsRequest } from "./Requests";
+import { AddApplicationRequest, ApplicationStatusChangeRequest, FetchApplicationsRequest, UpdateApplicationRequest } from "./Requests";
 import { FetchApplicationsResponse, ApplicationResponse, ApplicationStatusResponse } from "./Responses";
+import { Application } from "./Types";
 
 
 export const applicationsApi = createApi({
@@ -10,10 +11,17 @@ export const applicationsApi = createApi({
     baseQuery: baseQuery,
     endpoints: builder => {
         return ({
-            addApplication: builder.query<string, AddApplicationRequest>({
+            addApplication: builder.mutation<Application, AddApplicationRequest>({
                 query: data => ({
-                    url: 'api/application/add',
+                    url: 'api/application',
                     method: 'POST',
+                    body: data
+                })
+            }),
+            updateApplication: builder.mutation<Application, UpdateApplicationRequest>({
+                query: data => ({
+                    url: 'api/Application',
+                    method: 'PUT',
                     body: data
                 })
             }),
@@ -42,9 +50,9 @@ export const {
     useLazyGetApplicationQuery,
     useFetchApplicationsQuery,
     useLazyFetchApplicationsQuery,
-    useAddApplicationQuery,
-    useLazyAddApplicationQuery,
+    useAddApplicationMutation,
     useGetCurrentStatusQuery,
     useLazyGetCurrentStatusQuery,
     useChangeCurrentStatusMutation,
+    useUpdateApplicationMutation,
 } = applicationsApi

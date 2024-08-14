@@ -1,24 +1,22 @@
-export type Application = {
+export interface TestDescription {
   guid: string;
   dateOfCreation: string;
   dateOfLastUpdate: string;
   currentStatus: CurrentStatus;
   applicant: Applicant;
   deviceModel: string;
-  deviceType: DeviceType;
+  TestDescription: TestDescription;
   comment: string;
   tests: TestGroup[];
 }
-
-export type CurrentStatus = {
+export interface CurrentStatus {
   dateOfCreation: string;
   name: string;
   internalLabel: string;
   externalLabel: string;
   message: string;
 }
-
-export type Applicant = {
+export interface Applicant {
   guid: string;
   dateOfCreation: string;
   dateOfLastUpdate: string;
@@ -32,21 +30,18 @@ export type Applicant = {
   phoneNumber: string;
   isVerified: boolean;
 }
-
-export type DeviceType = {
+export interface TestDescription {
   guid: string;
   dateOfCreation: string;
   dateOfLastUpdate: string;
   name: string;
 }
-
-export type TestGroup = {
+export interface TestGroup {
   equipmentName: string;
   equipmentGuid: string;
-  tests: Test[];
+  tests?: Test[];
 }
-
-export type Test = {
+export interface Test {
   guid: string;
   name: string;
   description: string;

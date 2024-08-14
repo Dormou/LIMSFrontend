@@ -13,12 +13,12 @@ $def-blue: #005B9C;
         flex-wrap: wrap;
         margin-inline: 5%;
         overflow-y: overlay;
-        max-height: 58vh;
+        max-height: 60vh;
 
         & > .card {
             padding-inline: 2%;
             width: 26%;
-            height: 24vh;
+            height: 26vh;
             margin: 10px;
             background-color: #e3eef43a;
             border: 0.5px solid rgba(128, 128, 128, 0.603);
