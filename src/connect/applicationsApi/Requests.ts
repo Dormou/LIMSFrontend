@@ -20,7 +20,7 @@ export type AddApplicationRequest = {
 }
 
 export type ApplicationStatusChangeRequest = {
-    applicationGuid: string,
+    projectGuid: string,
     statusDescriptionName: string,
     message: string
 }

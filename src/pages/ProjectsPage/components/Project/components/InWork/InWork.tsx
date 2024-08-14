@@ -83,13 +83,20 @@ export const InWork = (props: propsInWork) => {
         }),
     }))
 
-    const setChangeCards = async (id: string, type: string) => {
+    const setChangeCards = async (id: string, type: string, testResult?: number) => {
+        console.log(testResult)
+        console.log(type)
+
         switch(type){
             case 'InQueue': 
                 _testGroups.current = props.testGroups.map(tg => { 
-                    return {
+                    if(!testResult) return {
                         ...tg,
                         tests: tg.tests?.map(t => t.guid !== id? t: {...t, testStatus: 0})   
+                    } as TestGroup
+                    else return {
+                        ...tg,
+                        tests: tg.tests?.map(t => t.guid !== id? t: {...t, testStatus: 0, testResult: testResult})   
                     } as TestGroup
                 })
 
@@ -99,9 +106,13 @@ export const InWork = (props: propsInWork) => {
 
             case 'InProgress':
                 _testGroups.current = props.testGroups.map(tg => { 
-                    return {
+                    if(!testResult) return {
                         ...tg,
                         tests: tg.tests?.map(t => t.guid !== id? t: {...t, testStatus: 1})   
+                    } as TestGroup
+                    else return {
+                        ...tg,
+                        tests: tg.tests?.map(t => t.guid !== id? t: {...t, testStatus: 1, testResult: testResult})   
                     } as TestGroup
                 })
 
@@ -111,9 +122,13 @@ export const InWork = (props: propsInWork) => {
 
             case 'Done': 
                 _testGroups.current = props.testGroups.map(tg => { 
-                    return {
+                    if(!testResult) return {
                         ...tg,
                         tests: tg.tests?.map(t => t.guid !== id? t: {...t, testStatus: 2})   
+                    } as TestGroup
+                    else return {
+                        ...tg,
+                        tests: tg.tests?.map(t => t.guid !== id? t: {...t, testStatus: 2, testResult: testResult})   
                     } as TestGroup
                 })
 
@@ -126,7 +141,7 @@ export const InWork = (props: propsInWork) => {
     const updateStatus = async () => {
         const res = await changeStatus({    
             projectGuid: props.id,
-            StatusDescriptionName: "Done",
+            statusDescriptionName: "Done",
             message: _comment.current
         })
 

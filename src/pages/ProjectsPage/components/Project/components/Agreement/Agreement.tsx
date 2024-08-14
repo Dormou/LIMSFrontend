@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react"
 
-import { TestGroup } from "../../../../../../connect/projectsApi/Types"
+import { Project, TestGroup } from "../../../../../../connect/projectsApi/Types"
 import { useFetchInternalUsersQuery } from "../../../../../../connect/userApi/userApi"
 import { FetchInternalUsersResponse } from "../../../../../../connect/userApi/Responses"
 
@@ -14,6 +14,7 @@ interface propsAgreement {
     projectId: string
     dutRegistrationData: string
     testGroups: TestGroup[]
+    save: (project: Project) => void
 }
 
 type Users = FetchInternalUsersResponse
@@ -56,25 +57,28 @@ export const Agreement = (props: propsAgreement) => {
         else setCommentIsValid(false)
     }
 
-    useEffect(() => {
-
-    }, [tests, ])
-
     const update = async () => {
         const res = await updateProject({
             guid: props.projectId,
             executorGuid: executorId.current,
             deadline: deadline.current,
             dutRegistrationData: props.dutRegistrationData,
-            testDescriptionsIds: tests.current.filter(t => testsGroupsIdsDroped.find(tgid => t.testsGroupId === tgid) === undefined).map(t => t.testDescriptionId)
+            testDescriptions: tests.current.filter(t => testsGroupsIdsDroped.find(tgid => t.testsGroupId === tgid) === undefined).map(t => t.testDescriptionId)
         }).unwrap()
 
         if(res) {
-            await changeStatus({    
+            const status = await changeStatus({    
                 projectGuid: props.projectId,
-                StatusDescriptionName: "UnderApproval",
+                statusDescriptionName: "UnderApproval",
                 message: comment.current
-            }).unwrap()            
+            })    
+            
+            if(status["error"]) alert("error")
+            else {
+                props.save(res)
+
+                setOpenSendAgreementWindow(false)
+            }
         }
     }
 

@@ -1,24 +1,18 @@
-import { useEffect, useRef, useState } from 'react'
+import { useState } from 'react'
 
-import { Card } from './components/Card/Card'
-
-import { Tester, Application, StatusTest, TestGroup as CardType, CardStatus, StatusProject, Executor, CurrentStatus, Test } from '../../../../connect/projectsApi/Types'
+import { Application, TestGroup as CardType, Executor, CurrentStatus, Test, Project as ProjectType} from '../../../../connect/projectsApi/Types'
 
 import actionsIcon from '../../../../source/images/icons/actions.svg'
 import hideButtonIcon from '../../../../source/images/icons/hide-button.svg'
-import plusIcon from '../../../../source/images/icons/ant-design_plus-outlined.svg'
-import calenarIcon from '../../../../source/images/icons/calendar.svg'
-
-import { useDrop } from 'react-dnd'
-import { ItemTypes } from '../../Types'
-import { getFiles } from './services'
 
 import styles from './Project.module.scss'
 import { InWork } from './components/InWork/InWork'
 import { Agreement } from './components/Agreement/Agreement'
-import { useLazyGetStatusProjectQuery } from '../../../../connect/projectsApi/projectsApi'
 import { AwaitAgreementCustomer } from './components/AwaitAgreementCustomer/AwaitAgreementCustomer'
 import { Done } from './components/Done/Done'
+import { AwaitDevice } from './components/AwaitDevice/AwaitDevice'
+import { useLazyGetCurrentStatusQuery } from '../../../../connect/applicationsApi/applicationsApi'
+import { useChangeCurrentStatusMutation } from '../../../../connect/projectsApi/projectsApi'
 
 interface propsProject {
     id: string
@@ -32,12 +26,17 @@ interface propsProject {
     testGroups: CardType[]
     changeCards: (id: string, cards: CardType[]) => void
     setEditingCard: (data: Test) => void
+    save: (project: ProjectType) => void
+    //onChangeStatus: (status: string, guid: string) => void
 }
 
 
 export const Project = (props: propsProject) => {
     const [hide, setHide] = useState(true)
     const [openMenu, setOpenMenu] = useState(false)
+
+    const [getStatus] = useLazyGetCurrentStatusQuery()
+    const [changeStatusProject] = useChangeCurrentStatusMutation()
 
     const getStyleBorder = (internalLabel: string) => {
         switch(internalLabel) {
@@ -55,6 +54,26 @@ export const Project = (props: propsProject) => {
         }
     }
     
+    const onChangeStatus = async (status: string, comment: string) => {
+        console.log(comment)
+        const res: any = await changeStatusProject({
+            projectGuid: props.id,
+            statusDescriptionName: status,
+            message: comment
+        })
+
+        // if(!res.error) {
+        //     await getStatus(props.application.guid)
+        //         .unwrap()
+        //         .then((r) => props.onChangeStatus(status, props.application.guid))
+
+        //     props.onChangeStatus(status, props.application.guid)
+        // }
+        // else {
+
+        // }
+    }
+
     return (
         <div className={`${styles.main} ${getStyleBorder(props.status.internalLabel)}`}>
             <div className={styles.header}>
@@ -124,9 +143,23 @@ export const Project = (props: propsProject) => {
                                     setEditingCard={props.setEditingCard}
                                 />
                             }
+
+                            {props.status.internalLabel === "Ожидание образца устройства" &&
+                                <AwaitDevice 
+                                    id={props.id}
+                                    typeName={props.typeName}
+                                    modelName={props.modelName}
+                                    status={props.status.internalLabel}
+                                    testGroups={props.testGroups}
+                                    application={props.application}
+                                    onChangeStatus={onChangeStatus}
+                                />
+                            }
+
                             {props.status.internalLabel === "Согласование" && 
                                 <Agreement
                                     projectId={props.id}
+                                    save={props.save}
                                     dutRegistrationData={props.dutRegistrationData}
                                     testGroups={props.testGroups}
                                 />
