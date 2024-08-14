@@ -5,14 +5,23 @@
     & > .label {
         width: 100%;
         height: 100%;
+        background: url('../../../source/images/icons/search.svg') no-repeat scroll 0 center;
+        height: 40px;
+        width: 100%;
+        border-radius: 5px;
+        border-color: gray;
+        border: 0.5px solid;
 
         & > input {
-            height: 40px;
-            width: 100%;
-            border-radius: 5px;
-            border-color: gray;
-            border: 0.5px solid;
-            background: url('../../../source/images/icons/search.svg') no-repeat scroll 0 center;
+            width: 97%;
+            height: 85%;
+            margin-left: 2%;
+            border-color: transparent;
+
+            &:focus {
+                border-color: transparent;
+                outline-width: 0;
+            }
         }
     }
 }

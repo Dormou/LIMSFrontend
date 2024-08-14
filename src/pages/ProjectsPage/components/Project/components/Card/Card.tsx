@@ -22,7 +22,7 @@ interface propsCard {
     type: string
     card: CardView
     deadline: Date
-    setCards: (id: string, type: string) => void
+    setCards: (id: string, type: string, testResult?: number) => void
     setEditingCard: (data: Test) => void
 }
 
@@ -31,8 +31,8 @@ export const Card = (props: propsCard) => {
     const [openCard, setOpenCard] = useState(false)
     
     const _type = useRef(props.type)
-
-    const [updateTest] = useUpdateTestMutation() 
+    const _typeBuf = useRef(props.type)
+    const _testResult = useRef(props.card.test.testResult)
 
     const close = () => setOpenCard(false)
 
@@ -44,21 +44,27 @@ export const Card = (props: propsCard) => {
         end: async (item, monitor) => {
           const dropResult = monitor.getDropResult<DropResCard>()
           if (item && dropResult) {
-            const res = await updateTest({
-                guid: props.card.test.guid, 
-                testStatus: TestStatus[dropResult.column] - 1, 
-                deadline: props.deadline, testResult: 
-                props.card.test.testResult
-            })
+            // const res = await updateTest({
+            //     guid: props.card.test.guid, 
+            //     testStatus: TestStatus[dropResult.column] - 1, 
+            //     deadline: props.deadline, testResult: 
+            //     props.card.test.testResult
+            // })
 
-            if(!res["error"]) {
-                _type.current = dropResult.column
+            // if(!res["error"]) {
+            //     _type.current = dropResult.column
 
-                props.setCards(props.card.test.guid, dropResult.column)
-            }
-            else {
-                alert("Card not moved")
-            }
+            //     //props.setCards(props.card.test.guid, dropResult.column)
+            //     setOpenCard(true)
+            // }
+            // else {
+            //     alert("Card not moved")
+            // }
+
+            _typeBuf.current = dropResult.column
+
+            //props.setCards(props.card.test.guid, dropResult.column)
+            setOpenCard(true)
           }
         },
 
@@ -69,37 +75,47 @@ export const Card = (props: propsCard) => {
 
     }), [props])
 
-    const onMoveCardInFullCard = (column: number, guid: string) => {
+    const onMove = async (column: number, guid: string, testResult?: number) => {
+        let index = 0
         switch(column) {
             case 0: 
                 _type.current = "InQueue"
+                index = 0
                 break
             case 1: 
                 _type.current = "InProgress"
+                index = 1
                 break
             case 2: 
                 _type.current = "Done"
+                index = 2
                 break
         }
 
-        props.setCards(props.card.test.guid, _type.current)
+        _type.current = _typeBuf.current
+
+        if(testResult) _testResult.current = testResult
+        
+        console.log(testResult)
+
+        props.setCards(props.card.test.guid, _type.current, _testResult.current)
     }
 
-    const getTitleResult = (value: Result) => value === Result.accept
+    const getTitleResult = (value: number) => value === 0
         ? "Пройдено"
-        : value === Result.reject
+        : value === 1
             ? "Провалено"
-            : value === Result.none
-                ? ""
-                : "Неизвестно"
+            : value === 2
+                ? "Неизвестно"
+                : "Не установлено"
 
     return (
         <>            
             {openCard &&
                 <div className={styles.modalWindow}>
-                    {_type.current === "InQueue" && <ModalWindow slot={<FullCardInQueue close={close} move={onMoveCardInFullCard} actualColumn={_type.current} card={props.card}/>}/>}
-                    {_type.current === "InProgress" && <ModalWindow slot={<FullCardInProgress/>}/>}
-                    {_type.current === "Done" && <ModalWindow slot={<FullCardInDone/>}/>}
+                    {_type.current === "InQueue" && <ModalWindow slot={<FullCardInQueue close={close} move={onMove} actualColumn={_type.current} card={props.card}/>}/>}
+                    {_type.current === "InProgress" && <ModalWindow slot={<FullCardInProgress close={close} move={onMove} actualColumn={_type.current} card={props.card}/>}/>}
+                    {_type.current === "Done" && <ModalWindow slot={<FullCardInDone close={close} move={onMove} actualColumn={_type.current} card={props.card}/>}/>}
                 </div>
             }
             <div onClick={() => setOpenCard(true)} ref={drag} className={styles.main}>

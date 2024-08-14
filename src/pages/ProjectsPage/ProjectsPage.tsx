@@ -64,10 +64,10 @@ export const ProjectsPage = () => {
     useEffect(() => {
         switch (scene) {
             case Scene.Active: 
-                getProjects({limit: 20, numberSkip: 0})
+                getProjects({limit: 150, numberSkip: 0})
                 break
             case Scene.Applicataions: 
-                applicationsGet({limit: 20, numberSkip: 0})
+                applicationsGet({limit: 150, numberSkip: 0})
         }
     }, [scene])
 
@@ -104,8 +104,17 @@ export const ProjectsPage = () => {
 
     const search = (v: string) => projects
         ? v.length > 0
-            ? setProjects(projects.filter(p => p.application.deviceType.name.includes('2')))
-            : setProjects(projects)
+            ? setProjects(projects.filter(p => 
+                p.application.deviceType.name.includes(v) ||
+                p.application.applicant.company.includes(v) ||
+                p.application.deviceModel.includes(v) ||
+                p.application.applicant.address.includes(v) ||
+                p.application.applicant.email.includes(v) ||
+                p.application.applicant.firstName.includes(v) ||
+                p.application.applicant.lastName.includes(v) ||
+                p.application.applicant.position.includes(v)
+            ))
+            : setProjects(projectsData.data? projectsData.data: [])
         : undefined
     
     const searchArchive = (v: string) => archiveData
@@ -132,16 +141,6 @@ export const ProjectsPage = () => {
 
         setProjectsArchive(projectsArchive.map(p => p.id !== projectArchive.id? p: projectArchive))
     }
-  
-    const addCard = (data: any) => {
-
-    }
-
-    const editCard = (data: TestGroup) => {
-
-    }
-
-    const closeEditngCard = () => setEditingCard({} as Test)
 
     const onChangeStatusApplication = (status: ApplicationStatusResponse, id: string) => {
         if(status.name === "Preparation") setApplications(applications.filter(a => a.guid !== id))
@@ -158,6 +157,16 @@ export const ProjectsPage = () => {
             } as ApplicationType
             : a
         ))
+    }
+
+    const save = (project: ProjectType) => {
+        //setOpenAddApplication(false)
+
+        const lProjects = [...projects]
+
+        lProjects.filter(p => p.guid !== project.guid).unshift(project)
+
+        setProjects(lProjects)
     }
 
     return (
@@ -225,6 +234,7 @@ export const ProjectsPage = () => {
                                             executor={p.executor}
                                             application={p.application}
                                             setEditingCard={setEditingCard}
+                                            save={save}
                                         />
                                     </div>
                                 )}

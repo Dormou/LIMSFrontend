@@ -7,28 +7,32 @@ import nextIcon from  '../../../../../../../../source/images/icons/next.svg'
 import plusIcon from '../../../../../../../../source/images/icons/ant-design_plus-outlined.svg'
 
 import styles from './FullCardInProgress.module.scss'
+import { useRef } from 'react'
 
 interface propsFullCardInProgress {
     actualColumn?: string
     card: CardView
-    move: (column: number, guid: string) => void
+    move: (column: number, guid: string, testResult: number) => void
     close: () => void
 }
 
 export const FullCardInProgress = (props: propsFullCardInProgress) => {
     const [updateTest] = useUpdateTestMutation() 
 
+    const _testResult = useRef(2)
+
     const move = async () => {
+
         const res = await updateTest({
             guid: props.card.test.guid, 
-            testStatus: 1, 
+            testStatus: 2, 
             deadline: props.card.test.deadline, 
-            testResult: props.card.test.testResult
+            testResult: _testResult.current
         })
 
         if(!res["error"]) {
-
-            props.move(1, props.card.test.guid)
+            console.log(_testResult)
+            props.move(2, props.card.test.guid, _testResult.current)
         }
         else {
             alert("Card not moved")
@@ -50,9 +54,9 @@ export const FullCardInProgress = (props: propsFullCardInProgress) => {
                     <div className={styles.value}>{new Date(props.card.test.deadline).toLocaleString('ru-RU', {day: 'numeric', month: 'long'})}</div>
                 </div>
                 <button onClick={move} className={styles.next}>
-                    <div className={styles.title}>В очереди</div>
-                    <img className={styles.icon} src={nextIcon} alt='+'/>
                     <div className={styles.title}>В работе</div>
+                    <img className={styles.icon} src={nextIcon} alt='>'/>
+                    <div className={styles.title}>Готово</div>
                 </button>
             </div>
             <div className={styles.description}>
@@ -65,6 +69,44 @@ export const FullCardInProgress = (props: propsFullCardInProgress) => {
                     <img className={styles.icon} src={uploadIcon} alt='+'/>
                     <div className={styles.title}>Прекрепить фаил</div>
                 </button>
+            </div>
+            <div className={styles.result}>
+            <div className={styles.success}>
+                <div className={styles.round}>
+                    <input 
+                        type={"checkbox"} 
+                        id={"success-input"}
+                        value={0}
+                        onChange={(e) => _testResult.current = Number(e.target.value)}
+                    ></input>
+                    <label htmlFor={"success-input"}></label>
+                </div>
+                <div className={styles.title}>Пройдено</div>
+            </div>
+            <div className={styles.fail}>
+                <div className={styles.round}>
+                    <input 
+                        type={"checkbox"} 
+                        id={"fail-input"}
+                        value={1}
+                        onChange={(e) => _testResult.current = Number(e.target.value)}
+                    ></input>
+                    <label htmlFor={"fail-input"}></label>
+                </div>
+                <div className={styles.title}>Не пройдено</div>
+            </div>
+            <div className={styles.undefined}>
+                <div className={styles.round}>
+                    <input 
+                        type={"checkbox"} 
+                        id={"undefined-input"}
+                        value={2}
+                        onChange={(e) => _testResult.current = Number(e.target.value)}
+                    ></input>
+                    <label htmlFor={"undefined-input"}></label>
+                </div>
+                <div className={styles.title}>Неопределено</div>
+            </div>
             </div>
             <div className={styles.commentConteiner}>
                 <div className={styles.comment}>

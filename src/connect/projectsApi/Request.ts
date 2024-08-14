@@ -24,11 +24,11 @@ export type UpdateProjectRequest = {
     executorGuid: string,
     deadline: Date,
     dutRegistrationData: string,
-    testDescriptionsIds: string[]
+    testDescriptions: string[]
 }
 
 export type ProjectStatusChangeRequest = {
     projectGuid: string,
-    StatusDescriptionName: string,
+    statusDescriptionName: string,
     message: string
 }

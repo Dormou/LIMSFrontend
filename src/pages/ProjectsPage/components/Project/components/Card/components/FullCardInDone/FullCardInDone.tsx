@@ -50,8 +50,8 @@ export const FullCardInDone = (props: propsFullCardInDone) => {
                     <div className={styles.value}>{new Date(props.card.test.deadline).toLocaleString('ru-RU', {day: 'numeric', month: 'long'})}</div>
                 </div>
                 <button onClick={move} className={styles.next}>
-                    <div className={styles.title}>В очереди</div>
-                    <img className={styles.icon} src={nextIcon} alt='+'/>
+                    <div className={styles.title}>Готово</div>
+                    <img className={styles.icon} src={nextIcon} alt='>'/>
                     <div className={styles.title}>В работе</div>
                 </button>
             </div>
