@@ -6,6 +6,7 @@ import empsIcon from '../../../source/images/icons/ant-design_team-outlined.svg'
 import tradeMark from '../../../source/images/icons/ant-design_trademark-circle-outlined.svg'
 
 import styles from './Menu.module.scss'
+import { Link } from "react-router-dom"
 
 interface propsMenu {
     isOpenMenu: boolean
@@ -17,16 +18,22 @@ export const Menu = (props: propsMenu) => {
         <div onMouseEnter={() => props.setIsOpenMenu(true)} className={props.isOpenMenu? styles.menuOpen: styles.menu}>
             <div className={styles.buttons}>
                 <div className={styles.labIcon}>
-                    <img src={labIcon} alt={'labIcon'}/>
-                    {props.isOpenMenu && <h3>Испытания</h3>}
+                    <Link to={'/projects'}>
+                        <img src={labIcon} alt={'labIcon'}/>
+                        {props.isOpenMenu && <h3>Испытания</h3>}
+                    </Link>
                 </div>
                 <div className={styles.bookIcon}>
-                    <img src={bookIcon} alt={'bookIcon'}/>
-                    {props.isOpenMenu && <h3>Справочник</h3>}
+                    <Link to={'/directory'}>
+                        <img src={bookIcon} alt={'bookIcon'}/>
+                        {props.isOpenMenu && <h3>Справочник</h3>}
+                    </Link>
                 </div>
                 <div className={styles.empsIcon}>
-                    <img src={empsIcon} alt={'empsIcon'}/>
-                    {props.isOpenMenu && <h3>Сотрудники</h3>}
+                    <Link to={'/directory'}>
+                        <img src={empsIcon} alt={'empsIcon'}/>
+                        {props.isOpenMenu && <h3>Сотрудники</h3>}
+                    </Link>
                 </div>
             </div>
             {!props.isOpenMenu &&

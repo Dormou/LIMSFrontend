@@ -1,8 +1,8 @@
 
 export type DeviceType = {
   guid: string
-  dateOfCreation: string
-  dateOfLastUpdate: string
+  dateOfCreation: Date
+  dateOfLastUpdate: Date
   name: string
   description: string
 }

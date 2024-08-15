@@ -1,0 +1,136 @@
+$marginFields: 1%;
+$widthFields: calc(100% - $marginFields*2);
+$def-blue: #005B9C;
+
+.main {
+    width: 65vw;
+    margin: $marginFields;
+    transition: 0.5s;
+
+    & > .title {
+        font-weight: 600;
+        text-align: center;
+    }
+
+    & > .fieldDropdown {     
+        width: 98.5%;
+        height: min-content;
+        margin-top: 5%;
+        margin-bottom: 5%;
+        transition: 0.5s;
+
+        & > .title {
+            font-weight: 600;
+        }
+
+        & > .header {
+            width: 100%;
+            height: 100%;
+            min-height: 40px;
+            border: 1px solid gray;
+            display: inline-flex;
+            overflow-x: hidden;
+            transition: 0.5s;
+
+            & > .testsGroup {
+                background-color: $def-blue;
+                color: white;
+                margin: 1%;
+                display: inline-flex;
+
+                & > .name {
+                    font-weight: 600;
+                }
+
+                & > .remove {
+                    transform: rotate(45deg);
+                    filter: invert(1);
+                    width: 32px;
+                }
+            }
+
+            & > .open {
+                margin-left: auto;
+                margin-right: 0;
+                color: white;
+                width: 16px;
+                height: 16px;
+
+                & > .icon {
+                    height: 100%;
+                    width: 100%;
+                    margin-top: 13px;
+                    margin-left: -10px;
+                }
+            }
+        }
+
+        & > .items { 
+            width: 100%;
+            height: 95px;
+            overflow-y: scroll;
+            border: 1px solid black;
+            z-index: 2;
+            transition: 0.5s;
+
+            & > .item {
+                width: 100%;
+                height: 30%;
+                margin-bottom: 0;
+                margin-top: auto;
+                margin-left: 2%;
+                border-bottom: 1px solid black;
+
+                & > .name {
+                    color: gray;
+                }
+            }
+        }
+    }
+
+    & > .field {
+        transition: 0.5s;
+        height: 40px;
+        margin-bottom: 4%;
+
+        & > .title {
+            font-weight: 600;
+        }
+
+        & > .value {
+            height: 100%;
+            width: $widthFields;
+            border: 1px solid black;
+        }
+    }
+
+    & > .buttons {
+        width: 100%;
+        display: inline-flex;
+        height: 50px;
+        justify-content: center;
+        padding-top: 1%;
+        margin-top: 3%;
+        transition: 0.5s;
+
+        & > .cencel {
+            margin-right: 1%;
+            width: 10%;
+            height: 100%;
+            color: $def-blue;
+            border: 1px solid $def-blue;
+            background-color: transparent;
+            border-radius: 5px;
+        }
+
+        & > .accept {
+            color: white;
+            width: 20%;
+            height: 100%;
+            color: $def-blue;
+            border: 1px solid transparent;
+            background-color: $def-blue;
+            border-radius: 5px;
+        }
+    }
+}

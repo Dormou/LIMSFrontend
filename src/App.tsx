@@ -8,7 +8,7 @@ import { ProjectsPage } from './pages/ProjectsPage/ProjectsPage';
 import { Menu } from './pages/components/Menu/Menu';
 import { HTML5Backend } from 'react-dnd-html5-backend'
 import { useEffect, useState } from 'react';
-import { setShowMenu } from './connect/store';
+import { AppStore, RootState, setShowMenu } from './connect/store';
 import { DndProvider } from 'react-dnd';
 import { Directory } from './pages/Directory/Directory';
 
@@ -22,10 +22,10 @@ function App() {
   const dispatch = useDispatch()
   const [isOpenMenu, setIsOpenMenu] = useState(false)
   
-  const propsMenu = useSelector((state: any) => state.menu)
-  const footer = useSelector((state: any) => state.footer)
-  const header = useSelector((state: any) => state.header)
-  const viewApp = useSelector((state: any) => state.viewApp)
+  const propsMenu = useSelector((state: RootState) => state.menu)
+  const footer = useSelector((state: RootState) => state.footer)
+  const header = useSelector((state: RootState) => state.header)
+  const viewApp = useSelector((state: RootState) => state.viewApp)
 
   console.log(useSelector((state: any) => state))
 

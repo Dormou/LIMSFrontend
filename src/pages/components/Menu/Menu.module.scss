@@ -27,7 +27,7 @@ $def-blue: #005B9C;
 
         > * {
             transition: 0.5s;
-            margin-bottom: 3.6vh;
+            margin-bottom: 6vh !important;
         }
     }
 
@@ -44,16 +44,15 @@ $def-blue: #005B9C;
 
     .buttons {
         transition: 0.5s;
-        padding-top: 10vh;
-        margin-left: 7%;
         margin-right: 100px;
 
-
         > * {
-            transition: 0.5s;
-            color: white;
-            display: inline-flex;
-            margin-bottom: 1.6vh;
+            & > * {
+                transition: 0.5s;
+                color: white;
+                display: inline-flex;
+                text-decoration: none;
+            }
         }
     }
 }
