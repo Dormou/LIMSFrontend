@@ -1,11 +1,11 @@
 export type Project = {
-  guid: string;
-  dateOfCreation: string;
-  dateOfLastUpdate: string;
-  executor: Executor;
-  application: Application;
-  deadline: Date;
-  dutRegistrationData: string;
+  guid: string
+  dateOfCreation: string
+  dateOfLastUpdate: string
+  executor: Executor
+  application: Application
+  deadline: Date
+  dutRegistrationData: string
 }
 
 export type InternalUser = {
@@ -21,74 +21,75 @@ phoneNumber: string
 isVerified: boolean
 }
 export type Executor = {
-  guid: string;
-  dateOfCreation: string;
-  dateOfLastUpdate: string;
-  firstName: string;
-  lastName: string;
-  email: string;
-  secondName: string;
-  position: string;
-  phoneNumber: string;
-  isVerified: boolean;
+  guid: string
+  dateOfCreation: string
+  dateOfLastUpdate: string
+  firstName: string
+  lastName: string
+  email: string
+  secondName: string
+  position: string
+  phoneNumber: string
+  isVerified: boolean
 }
 
 export type Application = {
-  guid: string;
-  dateOfCreation: string;
-  dateOfLastUpdate: string;
-  currentStatus: CurrentStatus;
-  applicant: Applicant;
-  deviceModel: string;
-  deviceType: DeviceType;
-  comment: string;
-  tests: TestGroup[];
+  guid: string
+  dateOfCreation: string
+  dateOfLastUpdate: string
+  currentStatus: CurrentStatus
+  applicant: Applicant
+  deviceModel: string
+  deviceType: DeviceType
+  comment: string
+  tests: TestGroup[]
 }
 
 export type CurrentStatus = {
-  dateOfCreation: string;
-  name: string;
-  internalLabel: string;
-  externalLabel: string;
-  message: string;
+  dateOfCreation: string
+  name: string
+  internalLabel: string
+  externalLabel: string
+  message: string
 }
 
 export type Applicant = {
-  guid: string;
-  dateOfCreation: string;
-  dateOfLastUpdate: string;
-  firstName: string;
-  lastName: string;
-  email: string;
-  secondName: string;
-  position: string;
-  company: string;
-  address: string;
-  phoneNumber: string;
-  isVerified: boolean;
+  guid: string
+  dateOfCreation: string
+  dateOfLastUpdate: string
+  firstName: string
+  lastName: string
+  email: string
+  secondName: string
+  position: string
+  company: string
+  address: string
+  phoneNumber: string
+  isVerified: boolean
 }
 
 export type DeviceType = {
-  guid: string;
-  dateOfCreation: string;
-  dateOfLastUpdate: string;
-  name: string;
+  guid: string
+  dateOfCreation: string
+  dateOfLastUpdate: string
+  name: string
+  description: string
 }
 
 export type TestGroup = {
-  equipmentName: string;
-  equipmentGuid: string;
-  tests?: Test[];
+  equipmentName: string
+  equipmentGuid: string
+  tests?: Test[]
 }
 
 export type Test = {
-  guid: string;
+  guid: string
   testDescriptionGuid: string
-  name: string;
-  description: string;
-  testStatus: number;
-  deadline: Date;
-  testResult: number;
+  name: string
+  description: string
+  testStatus: number
+  deadline: Date
+  testResult: number
 }
 
 export type ProjectArchive = {

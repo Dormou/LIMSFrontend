@@ -1,13 +1,15 @@
-import { useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
+
+import { useAddApplicationMutation } from '../../../../../../connect/applicationsApi/applicationsApi'
+import { useFetchDeviceTypesQuery } from '../../../../../../connect/deviceTypeApi/deviceTypeApi'
 import { Application, TestGroup } from '../../../../../../connect/applicationsApi/Types'
 
 import { ModalWindow } from '../../../../../components/ModalWindow/ModalWinow'
 
 import plusIcon from '../../../../../../source/images/icons/ant-design_plus-outlined.svg'
+import dropdownIcon from '../../../../../../source/images/icons/dropdown.svg'
 
 import styles from './AddApplicationForm.module.scss'
-import { useAddApplicationMutation } from '../../../../../../connect/applicationsApi/applicationsApi'
-import { useFetchDeviceTypesQuery } from '../../../../../../connect/deviceTypeApi/deviceTypeApi'
 
 interface propsAddApplicationForm {
     testsGroups: TestGroup[]
@@ -55,7 +57,7 @@ export const AddApplicationForm = (props: propsAddApplicationForm) => {
                 deviceModel: _deviceModel.current,
                 deviceTypeGuid: chosegDeviceTypeId,
                 comment: _comment.current,
-                testGuids: _testsIds.current.map(t => t.testId),
+                testDescriptions: _testsIds.current.map(t => t.testId),
             }).unwrap()
 
             if(res) props.save(res) 
@@ -86,7 +88,9 @@ export const AddApplicationForm = (props: propsAddApplicationForm) => {
                                                 <img onClick={() => varificationDecorator(() => setChosegDeviceTypeId(''))} className={styles.remove} src={plusIcon} alt={"Х"}/>
                                             </div>
                                         )}
-                                        <div onClick={() => setOpenDropdownTypeDevices(!openDropdownTypeDevices)} className={styles.open}>@</div>
+                                        <div onClick={() => setOpenDropdownTypeDevices(!openDropdownTypeDevices)} className={styles.open}>
+                                            <img src={dropdownIcon} className={styles.icon} alt={'+'}/>
+                                        </div>
                                     </div>
                                     {openDropdownTypeDevices && 
                                         <div className={styles.items}>
@@ -132,7 +136,9 @@ export const AddApplicationForm = (props: propsAddApplicationForm) => {
                                             />
                                         </div>
                                     )}
-                                    <div onClick={() => setOpenDropdown(!openDropdown)} className={styles.open}>@</div>
+                                    <div onClick={() => setOpenDropdown(!openDropdown)} className={styles.open}>
+                                        <img src={dropdownIcon} className={styles.icon} alt={'+'}/>
+                                    </div>
                                 </div>
                                 {openDropdown && 
                                     <div className={styles.items}>

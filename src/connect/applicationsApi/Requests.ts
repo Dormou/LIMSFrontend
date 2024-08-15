@@ -15,7 +15,7 @@ export type AddApplicationRequest = {
     deviceModel: string
     deviceTypeGuid: string
     comment: string
-    testGuids: string[]
+    testDescriptions: string[]
 }
 
 export type UpdateApplicationRequest = {

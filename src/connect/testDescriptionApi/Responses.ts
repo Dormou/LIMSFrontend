@@ -19,11 +19,9 @@ export type TestDescriptionResponse = {
 
 export type TestDescriptionStatusResponse = {
     guid: string
-    dateOfCreation: string
-    TestDescriptionGuid: string
-    projectGuid: string
     name: string
-    internalLabel: string
-    externalLabel: string
-    message: string
+    dateOfCreation: string
+    dateOfLastUpdate: string
+    equipmentGuid: string
+    equipmentName: string
 }
