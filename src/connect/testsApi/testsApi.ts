@@ -1,7 +1,7 @@
 
 import { baseQuery } from "../baseQuery";
 import { createApi } from '@reduxjs/toolkit/query/react';
-import { UpdateTestRequest } from "./Requests";
+import { AddTestRequest, UpdateTestRequest } from "./Requests";
 import { TestResponse } from "./Responses";
 
 export const testsApi = createApi({
@@ -15,11 +15,19 @@ export const testsApi = createApi({
                     method: 'PUT',
                     body: data
                 })
-            })
+            }),
+            addTest: builder.mutation<string, AddTestRequest>({
+                query: data => ({
+                    url: 'api/test',
+                    method: 'POST',
+                    body: data
+                })
+            }),
         })
     }
 })
 
 export const {
     useUpdateTestMutation,
+    useAddTestMutation,
 } = testsApi

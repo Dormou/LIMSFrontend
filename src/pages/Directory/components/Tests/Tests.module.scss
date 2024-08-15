@@ -1,0 +1,199 @@
+$def-blue: #005B9C;
+$menu-width: px;
+
+.dropWindow {
+    z-index: 1;
+    position: fixed;
+    width: 45%;
+    height: 20%;
+    left: 28%;
+    top: 35%;
+    background-color: white;
+    border: 1px solid gray;
+
+    & > .title {
+        font-weight: 600;
+        width: 100%;
+        text-align: center;
+        margin-bottom: 2%;
+    }
+
+    & > .description {
+        width: 100%;
+        text-align: center;
+        color: gray;
+        margin-bottom: 3%;
+    }
+
+    & > .subtitle {
+        width: 100%;
+        text-align: left;
+        font-weight: 600;
+        margin-left: 3%;
+    }
+
+    & > .comment {
+        width: 95%;
+        height: 10%;
+        margin-inline: 2.5%;
+    }
+
+    & > .buttons {
+        display: inline-flex;
+        justify-content: center;
+        margin-top: 3%;
+        width: 100%;
+
+        & > .reject {
+            color: $def-blue;
+            background-color: white;
+            border-radius: 5px;
+            border: 1px solid $def-blue;
+            width: 15%;
+            height: 35px;
+            margin-left: 20%;
+            margin-right: 3%;
+            text-align: center;
+            font-size: 18px;
+            font-weight: 400;
+            padding-top: 1%;
+        }
+
+        & > .accept {
+            white-space: nowrap;
+            color: white;
+            width: 45%;
+            height: 35px;
+            border-radius: 5px;
+            background-color: red;
+            margin-left: auto;
+            margin-right: 20%;
+            text-align: center;
+            font-size: 18px;
+            font-weight: 400;
+            padding-top: 1%;
+        }
+    }
+}
+
+.main {
+    width: 90%;
+    margin-top: 1%;
+    margin-inline: 5%;
+    
+
+    & > .titles {
+        width: 100%;
+        height: 70px;
+        padding-top: 2%;
+        border-radius: 5px;
+        background-color: $def-blue;   
+        display: inline-flex;    
+
+        & > .title {
+            text-align: center;
+            color: white;
+            font-weight: 600;
+
+            &:has(.name) {
+                @extend .title;
+                
+                width: 10%;
+            }
+
+            &:has(.descryption) {
+                @extend .title;
+
+                width: 40%;
+            }
+
+            &:has(.equipment) {
+                @extend .title;
+
+                width: 25%;
+            }
+
+            &:has(.date) {
+                @extend .title;
+
+                width: 10%;
+            }
+
+            &:has(.actions) {
+                @extend .title;
+
+                width: 15%;
+            }
+        }
+    }
+
+    & > .items {
+        width: 100%;
+        height: 55vh;
+        overflow-x: hidden;
+        overflow-y: scroll;
+
+        & > .content {
+            margin: auto;
+            width: 101%;
+            height: 100%;
+
+
+            & > .item {
+                display: inline-flex;
+                width: 100%;
+                height: 40px;
+                margin-inline: auto;
+                padding-top: 20px;
+                padding-bottom: 5px;
+
+                &:nth-of-type(2n) {
+                    background-color: #E3EEF4;
+                }
+
+                & > .field {
+                    width: 100%;
+                    text-align: center;
+                    font-weight: 600;
+                }
+    
+                & > .name {
+                    @extend .field;
+    
+                    width: 10%;
+                }
+    
+                & > .descryption {
+                    @extend .field;
+    
+                    width: 40%;
+                }
+    
+                & > .equipment {
+                    @extend .field;
+    
+                    width: 25%;
+                }
+    
+                & > .date {
+                    @extend .field;
+    
+                    width: 10%;
+                }
+    
+                & > .actions {
+                    display: inline-flex;
+                    justify-content: center;
+                    width: 15%;
+
+                    & > .edit {
+                    }
+
+                    & > .drop {
+                        margin-left: 24%;
+                    }
+                }
+            }
+        }
+    }
+}
