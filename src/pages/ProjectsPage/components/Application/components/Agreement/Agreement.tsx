@@ -37,9 +37,6 @@ export const Agreement = (props: propsAgreement) => {
         return result
     }
 
-    const _testGroups = useRef(props.testGroups)
-    const _cards = useRef(createCardViews(props.testGroups))
-
     return (
         <div className={styles.main}>
             <div className={styles.application}>

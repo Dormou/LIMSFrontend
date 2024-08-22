@@ -79,7 +79,6 @@ export const store = configureStore({
         [testDescriptionApi.reducerPath]: testDescriptionApi.reducer,
         [deviceTypeApi.reducerPath]: deviceTypeApi.reducer,
         [equipmentsApi.reducerPath]: equipmentsApi.reducer,
-
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({serializableCheck: false})

@@ -35,7 +35,6 @@ export const Project = (props: propsProject) => {
     const [hide, setHide] = useState(true)
     const [openMenu, setOpenMenu] = useState(false)
 
-    const [getStatus] = useLazyGetCurrentStatusQuery()
     const [changeStatusProject] = useChangeCurrentStatusMutation()
 
     const getStyleBorder = (internalLabel: string) => {
@@ -61,17 +60,6 @@ export const Project = (props: propsProject) => {
             statusDescriptionName: status,
             message: comment
         })
-
-        // if(!res.error) {
-        //     await getStatus(props.application.guid)
-        //         .unwrap()
-        //         .then((r) => props.onChangeStatus(status, props.application.guid))
-
-        //     props.onChangeStatus(status, props.application.guid)
-        // }
-        // else {
-
-        // }
     }
 
     return (

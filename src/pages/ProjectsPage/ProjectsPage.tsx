@@ -24,17 +24,6 @@ enum Scene {
     Archive = 'Архив',
 }
 
-type ProjectView = {
-    guid: string;
-    dateOfCreation: string;
-    dateOfLastUpdate: string;
-    executor: Executor;
-    application: ApplicationProjectType;
-    deadline: Date;
-    dutRegistrationData: string;
-    tests: Test
-}
-
 type ApplicationProjectType = {
     guid: string;
     dateOfCreation: string;
@@ -70,21 +59,6 @@ export const ProjectsPage = () => {
                 applicationsGet({limit: 150, numberSkip: 0})
         }
     }, [scene])
-
-    const applicationsQuries = useSelector((state: any) => state.applications.queries)
-
-    useEffect(() => {
-        //типа запрос на измение карточек
-    }, [applications])
-
-    useEffect(() => {
-        //типа запрос на измение карточек
-        console.log(projects)
-    }, [projects])
-
-    useEffect(() => {
-        //типа запрос на измение карточек
-    }, [projectsArchive])
     
     useEffect(() => setApplications(applicationsData.data? applicationsData.data: []), [applicationsData])
     useEffect(() => setProjects(projectsData.data? projectsData.data: []), [projectsData])
@@ -102,9 +76,9 @@ export const ProjectsPage = () => {
     
     const withoutFilters = () => setProjects(projectsData.data? projectsData.data: [])
 
-    const search = (v: string) => projects
+    const searchProjects = (v: string) => projects
         ? v.length > 0
-            ? setProjects(projects.filter(p => 
+            ? setProjects(projectsData.data? projectsData.data.filter(p => 
                 p.application.deviceType.name.includes(v) ||
                 p.application.applicant.company.includes(v) ||
                 p.application.deviceModel.includes(v) ||
@@ -113,9 +87,24 @@ export const ProjectsPage = () => {
                 p.application.applicant.firstName.includes(v) ||
                 p.application.applicant.lastName.includes(v) ||
                 p.application.applicant.position.includes(v)
-            ))
+            ): [])
             : setProjects(projectsData.data? projectsData.data: [])
-        : undefined
+        : []
+
+    const searchApplication = (v: string) => applications
+    ? v.length > 0
+        ? setApplications(applicationsData.data? applicationsData.data.filter(a => 
+            a.deviceType.name.includes(v) ||
+            a.applicant.company.includes(v) ||
+            a.deviceModel.includes(v) ||
+            a.applicant.address.includes(v) ||
+            a.applicant.email.includes(v) ||
+            a.applicant.firstName.includes(v) ||
+            a.applicant.lastName.includes(v) ||
+            a.applicant.position.includes(v)
+        ):[])
+        : setApplications(applicationsData.data? applicationsData.data: [])
+    : []
     
     const searchArchive = (v: string) => archiveData
         ? v.length > 0
@@ -160,11 +149,11 @@ export const ProjectsPage = () => {
     }
 
     const save = (project: ProjectType) => {
-        //setOpenAddApplication(false)
+        let lProjects = [...projects]
 
-        const lProjects = [...projects]
+        lProjects = lProjects.filter(p => p.guid !== project.guid)
 
-        lProjects.filter(p => p.guid !== project.guid).unshift(project)
+        lProjects.unshift(project)
 
         setProjects(lProjects)
     }
@@ -176,7 +165,9 @@ export const ProjectsPage = () => {
                 <>
                     <div className={styles.SearchAndFilter}>
                         <div className={styles.search}>
-                            <Search callback={scene === Scene.Archive? searchArchive: search}/>
+                            {Scene.Applicataions === scene && <Search callback={searchApplication}/>}
+                            {Scene.Active === scene && <Search callback={searchProjects}/>}
+                            {Scene.Archive === scene && <Search callback={searchArchive}/>}
                         </div>
                         <div className={styles.filters}>
                             <Filter 

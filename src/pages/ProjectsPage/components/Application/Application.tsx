@@ -38,7 +38,7 @@ export const Application = (props: propsApplication) => {
     const onChangeStatus = async (status: string, comment: string) => {
         console.log(comment)
         const res: any = await changeStatus({
-            projectGuid: props.application.guid,
+            applicationGuid: props.application.guid,
             statusDescriptionName: status,
             message: comment
         })

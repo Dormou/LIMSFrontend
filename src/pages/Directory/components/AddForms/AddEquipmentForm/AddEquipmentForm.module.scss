@@ -124,13 +124,17 @@ $def-blue: #005B9C;
         }
 
         & > .accept {
-            color: white;
+            color: white !important;
             width: 20%;
             height: 100%;
             color: $def-blue;
             border: 1px solid transparent;
             background-color: $def-blue;
             border-radius: 5px;
+
+            &:disabled {
+                color: black !important;
+            }
         }
     }
 }

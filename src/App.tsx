@@ -27,6 +27,8 @@ function App() {
   const header = useSelector((state: RootState) => state.header)
   const viewApp = useSelector((state: RootState) => state.viewApp)
 
+  
+
   console.log(useSelector((state: any) => state))
 
   return (

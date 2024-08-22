@@ -1,19 +1,21 @@
 $def-blue: #005B9C;
 
 .main {
+    background-color: white;
 
     & > .scene {
         width: 100%;
 
         & > .menu {
             width: 100%;
-            height: 120px;
+            height: 180px;
             display: inline-flex;
+            background-color: white;
 
             & > .docs {
                 background-color: #E3EEF4;
                 color: #004170;
-                height: 100%;
+                height: 70%;
                 margin: 3%;
                 padding: 2%;
 
@@ -60,7 +62,7 @@ $def-blue: #005B9C;
             & > .devices {
                 background-color: #E3EEF4;
                 color: #004170;
-                height: 100%;
+                height: 70%;
                 margin: 3%;
                 padding: 2%;
 

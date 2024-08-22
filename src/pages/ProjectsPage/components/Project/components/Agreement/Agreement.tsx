@@ -58,22 +58,23 @@ export const Agreement = (props: propsAgreement) => {
     }
 
     const update = async () => {
-        const res = await updateProject({
-            guid: props.projectId,
-            executorGuid: executorId.current,
-            deadline: deadline.current,
-            dutRegistrationData: props.dutRegistrationData,
-            testDescriptions: tests.current.filter(t => testsGroupsIdsDroped.find(tgid => t.testsGroupId === tgid) === undefined).map(t => t.testDescriptionId)
-        }).unwrap()
+        const status = await changeStatus({    
+            projectGuid: props.projectId,
+            statusDescriptionName: "UnderApproval",
+            message: comment.current
+        })    
 
-        if(res) {
-            const status = await changeStatus({    
-                projectGuid: props.projectId,
-                statusDescriptionName: "UnderApproval",
-                message: comment.current
-            })    
-            
-            if(status["error"]) alert("error")
+        if(status["error"]) alert("error")
+        else {
+            const res = await updateProject({
+                guid: props.projectId,
+                executorGuid: executorId.current,
+                deadline: deadline.current,
+                dutRegistrationData: props.dutRegistrationData,
+                testDescriptions: tests.current.filter(t => testsGroupsIdsDroped.find(tgid => t.testsGroupId === tgid) === undefined).map(t => t.testDescriptionId)
+            }).unwrap()
+
+            if(res["error"]) alert("error")
             else {
                 props.save(res)
 
@@ -145,7 +146,7 @@ export const Agreement = (props: propsAgreement) => {
                         <div className={styles.title}>Отвественный исполнитель:</div>
                         {!isLoadingUsers && 
                             <select onChange={(e) => decarator(() => executorId.current = e.target.value)} className={styles.executors} name="executors" id="executor-select">
-                                <option value="">--Please choose an option--</option>
+                                <option value="">Выберите исполнителя</option>
                                 {users.map(ud => 
                                     <option key={ud.guid} value={ud.guid}>
                                         {ud.firstName}&nbsp;{ud.lastName}

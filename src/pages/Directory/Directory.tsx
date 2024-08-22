@@ -59,7 +59,7 @@ export const Directory = () => {
     const [ testDescriptions, setTestDescriptions ] = useState<TestDescription[]>([])
     const [ equipments, setEquipment ] = useState<Equipment[]>([])
     const [ deviceTypes, setDeviceTypes ] = useState<DeviceType[]>([])
-    const [scene, setScene] = useState(Scene.deviceTypes)
+    const [scene, setScene] = useState(Scene.none)
     const [choseForm, setChoseForm] = useState(ChoseForm.none)
     const [isOpenDocs, setIsOpenDocs] = useState(false)
     const [isOpenDevices, setIsOpenDevices] = useState(false)

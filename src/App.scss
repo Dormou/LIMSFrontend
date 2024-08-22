@@ -26,6 +26,7 @@ $scene-width: calc(100vw - $menu-width);
   &:has(.menuOpen) {
     & > .scene {
         width: calc(100vw - $menu-width*4.2);
+        
     }
   }
 
