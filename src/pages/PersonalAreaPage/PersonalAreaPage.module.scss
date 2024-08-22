@@ -40,11 +40,9 @@ body {
             margin-top: 10%;
 
             .passwordButton {
-                position: fixed;
-                //margin-left: 100px;
-                margin-top: 2%;
+                position: absolute;
                 width: 12%;
-                bottom: 7%;
+                bottom: 30px;
                 color: rgb(24, 91, 208);
                 border-color: blue;
                 border-radius: 5px;

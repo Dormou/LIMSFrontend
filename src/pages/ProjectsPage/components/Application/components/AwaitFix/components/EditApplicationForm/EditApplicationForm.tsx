@@ -1,13 +1,16 @@
-import { useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
+
 import { Application, TestGroup } from '../../../../../../../../connect/applicationsApi/Types'
+import { useChangeCurrentStatusMutation, useUpdateApplicationMutation } from '../../../../../../../../connect/applicationsApi/applicationsApi'
+import { useFetchDeviceTypesQuery } from '../../../../../../../../connect/deviceTypeApi/deviceTypeApi'
 
 import { ModalWindow } from '../../../../../../../components/ModalWindow/ModalWinow'
 
 import plusIcon from '../../../../../../../../source/images/icons/ant-design_plus-outlined.svg'
+import dropdownIcon from '../../../../../../../../source/images/icons/dropdown.svg'
 
 import styles from './EditApplicationForm.module.scss'
-import { useAddApplicationMutation, useChangeCurrentStatusMutation, useUpdateApplicationMutation } from '../../../../../../../../connect/applicationsApi/applicationsApi'
-import { useFetchDeviceTypesQuery } from '../../../../../../../../connect/deviceTypeApi/deviceTypeApi'
+
 
 interface propsEditApplicationForm {
     testsGroups: TestGroup[]
@@ -102,7 +105,9 @@ export const EditApplicationForm = (props: propsEditApplicationForm) => {
                                                 <img onClick={() => varificationDecorator(() => setChosegDeviceTypeId(''))} className={styles.remove} src={plusIcon} alt={"Х"}/>
                                             </div>
                                         )}
-                                        <div onClick={() => setOpenDropdownTypeDevices(!openDropdownTypeDevices)} className={styles.open}>@</div>
+                                        <div onClick={() => setOpenDropdownTypeDevices(!openDropdownTypeDevices)} className={styles.open}>
+                                            <img src={dropdownIcon} className={styles.icon} alt={'+'}/>
+                                        </div>                                    
                                     </div>
                                     {openDropdownTypeDevices && 
                                         <div className={styles.items}>
@@ -149,8 +154,10 @@ export const EditApplicationForm = (props: propsEditApplicationForm) => {
                                             />
                                         </div>
                                     )}
-                                    <div onClick={() => setOpenDropdown(!openDropdown)} className={styles.open}>@</div>
-                                </div>
+                                        <div onClick={() => setOpenDropdownTypeDevices(!openDropdownTypeDevices)} className={styles.open}>
+                                            <img src={dropdownIcon} className={styles.icon} alt={'+'}/>
+                                        </div>    
+                                    </div>
                                 {openDropdown && 
                                     <div className={styles.items}>
                                         {props.testsGroups.filter(tg => undefined === choseTestsGroupsIds.find(tgid => tgid === tg.equipmentGuid)).map(tg => 

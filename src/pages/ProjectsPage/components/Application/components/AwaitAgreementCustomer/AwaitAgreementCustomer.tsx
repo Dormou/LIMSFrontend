@@ -59,20 +59,6 @@ export const AwaitAgreementCustomer = (props: propsAwaitAgreementCustomer) => {
                     <div onClick={() => props.onChangeStatus("Waiting", comment.current)} className={styles.accept}>Согласовать</div>
                 </div>
             </div>
-            {/* {isOpenAccept &&
-                <div className={styles.accept}>
-                    <div className={styles.title}>Принятие заявки</div>
-                    <div className={styles.description}>
-                        Заявка будет перемещена во вкладку Активные проекты и переведена в статус Согласование документов.
-                        Заявитель получит уведомление о том, что его заявка принята.
-                    </div>
-                    <input onChange={e => comment.current = e.target.value} className={styles.comment}></input>
-                    <div className={styles.buttons}>
-                        <div onClick={() => setIsOpenAccept(false)} className={styles.reject}>Отменить</div>
-                        <div onClick={() => props.onChangeStatus("InProgress", comment.current)} className={styles.accept}>Отправить</div>
-                    </div>
-                </div>
-            } */}
             {isOpenReject &&
                 <div className={styles.reject}>
                     <div className={styles.title}>Отклонение заявки</div>

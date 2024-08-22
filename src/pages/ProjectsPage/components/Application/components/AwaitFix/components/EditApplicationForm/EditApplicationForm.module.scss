@@ -4,16 +4,18 @@ $def-blue: #005B9C;
 
 .main {
     width: 65vw;
-    height: 80vh;
+    height: 83vh;
     margin: $marginFields;
 
     & > .inline {
         width: calc($widthFields - 0.7%);
         display: inline-flex;
-        margin-bottom: 6%;
+        margin-bottom: 12%;
+        height: 5%;
 
         & > .dropdownDeviceTypeConteiner {     
             width: 50%;
+            height: 100%;
 
             & > .title {
                 font-weight: 600;
@@ -21,43 +23,53 @@ $def-blue: #005B9C;
 
             & > .dropdownDeviceType {
                 width: $widthFields;
+                height: 100%;
 
                 & > .header {
                     width: 100%;
-                    height: auto;
-                    min-height: 30px;
+                    height: 104%;
                     border: 1px solid gray;
                     display: inline-flex;
                     overflow-x: hidden;
-
+                    overflow-y: hidden;
+                    transition: 0.5s;
+        
                     & > .testsGroup {
                         background-color: $def-blue;
                         color: white;
                         margin: 1%;
                         display: inline-flex;
-
-                        & > .mame {
+        
+                        & > .name {
                             font-weight: 600;
                         }
-
+        
                         & > .remove {
                             transform: rotate(45deg);
                             filter: invert(1);
                             width: 32px;
                         }
                     }
-
+        
                     & > .open {
                         margin-left: auto;
                         margin-right: 0;
-                        background-color: $def-blue;
                         color: white;
+                        width: 16px;
+                        height: 16px;
+        
+                        & > .icon {
+                            height: 100%;
+                            width: 100%;
+                            margin-top: 13px;
+                            margin-left: -10px;
+                        }
                     }
                 }
 
                 & > .items { 
                     position: absolute;
-                    width: 98%;
+                    width: 97.8%;
                     height: 95px;
                     overflow-y: scroll;
                     border: 1px solid black;
@@ -80,14 +92,17 @@ $def-blue: #005B9C;
 
         & > .modelName {
             width: 50%;
+            height: 100%;
 
             & > .title {
                 font-weight: 600;
             }
     
             & > .value {
+                border: 1px solid gray;
+                outline-color: transparent;
                 width: 100%;
-                height: 27px;
+                height: 100%;
             }
         }
     }
@@ -104,34 +119,43 @@ $def-blue: #005B9C;
 
             & > .header {
                 width: 100%;
-                height: auto;
-                min-height: 50px;
+                height: 100%;
+                min-height: 40px;
                 border: 1px solid gray;
                 display: inline-flex;
                 overflow-x: hidden;
-
+                transition: 0.5s;
+    
                 & > .testsGroup {
                     background-color: $def-blue;
                     color: white;
                     margin: 1%;
                     display: inline-flex;
-
-                    & > .mame {
+    
+                    & > .name {
                         font-weight: 600;
                     }
-
+    
                     & > .remove {
                         transform: rotate(45deg);
                         filter: invert(1);
                         width: 32px;
                     }
                 }
-
+    
                 & > .open {
                     margin-left: auto;
                     margin-right: 0;
-                    background-color: $def-blue;
                     color: white;
+                    width: 16px;
+                    height: 16px;
+    
+                    & > .icon {
+                        height: 100%;
+                        width: 100%;
+                        margin-top: 13px;
+                        margin-left: -10px;
+                    }
                 }
             }
     
@@ -236,13 +260,17 @@ $def-blue: #005B9C;
         }
 
         & > .accept {
-            color: white;
+            color: white !important;
             width: 20%;
             height: 100%;
             color: $def-blue;
             border: 1px solid transparent;
             background-color: $def-blue;
             border-radius: 5px;
+            
+            &:disabled {
+                color: black !important;
+            }
         }
     }
 }
